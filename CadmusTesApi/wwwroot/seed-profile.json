@@ -1,0 +1,2571 @@
+{
+  "facets": [
+    {
+      "id": "inscription",
+      "label": "inscription",
+      "description": "An inscription.",
+      "colorKey": "E8D4A8",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "ins-fn",
+          "name": "categories",
+          "description": "Inscription categories.",
+          "colorKey": "B0A0D8",
+          "groupKey": "identity",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.historical-date",
+          "name": "date",
+          "description": "Historical date.",
+          "colorKey": "E8A0B8",
+          "groupKey": "identity",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.geo.asserted-locations",
+          "name": "locations",
+          "description": "Locations.",
+          "colorKey": "7DC49C",
+          "groupKey": "identity",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.epigraphy.support",
+          "name": "support",
+          "description": "Material support.",
+          "colorKey": "C8B494",
+          "groupKey": "support",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.epigraphy.support-frr",
+          "name": "fragments",
+          "description": "Material support fragments.",
+          "colorKey": "D4C49C",
+          "groupKey": "support",
+          "sortKey": "07"
+        },
+        {
+          "typeId": "it.vedph.epigraphy.technique",
+          "name": "technique",
+          "description": "Techniques and tools.",
+          "colorKey": "E8B078",
+          "groupKey": "support",
+          "sortKey": "08"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "ins-lng",
+          "name": "languages",
+          "description": "Inscription language(s).",
+          "colorKey": "70B8C0",
+          "groupKey": "content",
+          "sortKey": "09"
+        },
+        {
+          "typeId": "it.vedph.epigraphy.scripts",
+          "name": "scripts",
+          "description": "Description of scripts.",
+          "colorKey": "88B0C8",
+          "groupKey": "content",
+          "sortKey": "10"
+        },
+        {
+          "typeId": "it.vedph.epigraphy.signs",
+          "name": "signs",
+          "description": "Writing signs.",
+          "colorKey": "90C0D4",
+          "groupKey": "content",
+          "sortKey": "11"
+        },
+        {
+          "typeId": "it.vedph.comment",
+          "name": "comment",
+          "description": "Comment.",
+          "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "12"
+        },
+        {
+          "typeId": "it.vedph.token-text",
+          "roleId": "base-text",
+          "name": "text",
+          "description": "Inscription's text.",
+          "colorKey": "68B0A0",
+          "groupKey": "content",
+          "sortKey": "13"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "roleId": "transl",
+          "name": "translation",
+          "description": "Inscription's translation.",
+          "colorKey": "A0ACC8",
+          "groupKey": "content",
+          "sortKey": "14"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.apparatus",
+          "name": "apparatus",
+          "description": "Critical apparatus.",
+          "colorKey": "C4D490",
+          "groupKey": "content",
+          "sortKey": "15"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.comment",
+          "name": "comments",
+          "description": "Comments to text portions.",
+          "colorKey": "90D4C0",
+          "groupKey": "content",
+          "sortKey": "16"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.chronology",
+          "name": "chronology",
+          "description": "Chronological indications in text.",
+          "colorKey": "D09CD8",
+          "groupKey": "content",
+          "sortKey": "17"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.orthography",
+          "name": "orthography",
+          "description": "Standard orthography.",
+          "colorKey": "E0D4A4",
+          "groupKey": "content",
+          "sortKey": "18"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.epigraphy.ligatures",
+          "name": "ligatures",
+          "description": "Ligatures.",
+          "colorKey": "E0C404",
+          "groupKey": "content",
+          "sortKey": "19"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.pin-links",
+          "name": "links",
+          "description": "Links.",
+          "colorKey": "A0C0F8",
+          "groupKey": "content",
+          "sortKey": "20"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "21"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "22"
+        }
+      ]
+    },
+    {
+      "id": "artifact",
+      "label": "artifact",
+      "description": "A human material artifact.",
+      "colorKey": "D4A88C",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "art-type",
+          "name": "types",
+          "description": "Artifact types.",
+          "colorKey": "B0A0D8",
+          "groupKey": "identity",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "art-mat",
+          "name": "materials",
+          "description": "Artifact materials.",
+          "colorKey": "CCAC88",
+          "groupKey": "identity",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "art-ctx",
+          "name": "contexts",
+          "description": "Artifact contexts.",
+          "colorKey": "DCC898",
+          "groupKey": "identity",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.historical-date",
+          "name": "date",
+          "description": "Historical date.",
+          "colorKey": "E8A0B8",
+          "groupKey": "identity",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.geo.asserted-locations",
+          "name": "locations",
+          "description": "Locations.",
+          "colorKey": "7DC49C",
+          "groupKey": "identity",
+          "sortKey": "07"
+        },
+        {
+          "typeId": "it.vedph.comment",
+          "name": "comment",
+          "description": "Comment.",
+          "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "08"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "09"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "10"
+        }
+      ]
+    },
+    {
+      "id": "site",
+      "label": "site",
+      "description": "A civilization site.",
+      "colorKey": "8CC9A3",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "site-type",
+          "name": "types",
+          "description": "Site types.",
+          "colorKey": "B0A0D8",
+          "groupKey": "identity",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "site-feats",
+          "name": "features",
+          "description": "Site features.",
+          "colorKey": "B0A0A8",
+          "groupKey": "identity",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "site-res",
+          "name": "resources",
+          "description": "Site resources.",
+          "colorKey": "DCD4A0",
+          "groupKey": "identity",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.geo.asserted-toponyms",
+          "name": "toponyms",
+          "description": "Site toponym(s).",
+          "isRequired": true,
+          "colorKey": "B4C888",
+          "groupKey": "identity",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.historical-date",
+          "name": "date",
+          "description": "Historical date.",
+          "colorKey": "E8A0B8",
+          "groupKey": "identity",
+          "sortKey": "07"
+        },
+        {
+          "typeId": "it.vedph.geo.asserted-locations",
+          "name": "locations",
+          "description": "Locations.",
+          "colorKey": "7DC49C",
+          "groupKey": "identity",
+          "sortKey": "08"
+        },
+        {
+          "typeId": "it.vedph.comment",
+          "name": "comment",
+          "description": "Comment.",
+          "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "09"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "10"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "11"
+        }
+      ]
+    },
+    {
+      "id": "cult",
+      "label": "cult",
+      "description": "A religious cult.",
+      "colorKey": "C9A0D4",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "cult-type",
+          "name": "types",
+          "description": "Cult types.",
+          "colorKey": "B0A0D8",
+          "groupKey": "identity",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "cult-gods",
+          "name": "gods",
+          "description": "Cult gods.",
+          "colorKey": "E8D498",
+          "groupKey": "identity",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "cult-feats",
+          "name": "features",
+          "description": "Cult features.",
+          "colorKey": "C8A0C0",
+          "groupKey": "identity",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.comment",
+          "name": "comment",
+          "description": "Comment.",
+          "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "07"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "08"
+        }
+      ]
+    },
+    {
+      "id": "iconography",
+      "label": "iconography",
+      "description": "Iconography.",
+      "colorKey": "E8B0A0",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.categories",
+          "roleId": "ico-sub",
+          "name": "subjects",
+          "description": "Iconography subjects.",
+          "colorKey": "E0A0B0",
+          "groupKey": "identity",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.comment",
+          "name": "comment",
+          "description": "Comment.",
+          "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "06"
+        }
+      ]
+    }
+  ],
+  "flags": [
+    {
+      "id": 1,
+      "label": "complete",
+      "description": "Completed.",
+      "colorKey": "7BC88C"
+    },
+    {
+      "id": 2,
+      "label": "revised",
+      "description": "Revised.",
+      "colorKey": "88B8D8"
+    },
+    {
+      "id": 4,
+      "label": "undisclosed",
+      "description": "Undisclosed access.",
+      "colorKey": "E8A090"
+    }
+  ],
+  "index": {
+    "writer": {
+      "id": "item-index-writer.ef-pg"
+    },
+    "reader": {
+      "id": "item-index-reader.ef-pg"
+    }
+  },
+  "graph": {
+    "repository": {
+      "id": "graph-repository.ef-pg"
+    }
+  },
+  "thesauri": [
+    {
+      "id": "model-types@en",
+      "entries": [
+        {
+          "id": "it.vedph.categories",
+          "value": "categories"
+        },
+        {
+          "id": "it.vedph.categories:art-ctx",
+          "value": "artifact contexts"
+        },
+        {
+          "id": "it.vedph.categories:art-mat",
+          "value": "artifact materials"
+        },
+        {
+          "id": "it.vedph.categories:art-type",
+          "value": "artifact types"
+        },
+        {
+          "id": "it.vedph.categories:cult-feats",
+          "value": "cult features"
+        },
+        {
+          "id": "it.vedph.categories:cult-gods",
+          "value": "cult gods"
+        },
+        {
+          "id": "it.vedph.categories:cult-type",
+          "value": "cult types"
+        },
+        {
+          "id": "it.vedph.categories:ico-sub",
+          "value": "icon.subjects"
+        },
+        {
+          "id": "it.vedph.categories:ins-fn",
+          "value": "inscr.functions"
+        },
+        {
+          "id": "it.vedph.categories:ins-lng",
+          "value": "inscr.languages"
+        },
+        {
+          "id": "it.vedph.categories:site-feats",
+          "value": "site features"
+        },
+        {
+          "id": "it.vedph.categories:site-res",
+          "value": "site resources"
+        },
+        {
+          "id": "it.vedph.categories:site-type",
+          "value": "site types"
+        },
+        {
+          "id": "it.vedph.comment",
+          "value": "comment"
+        },
+        {
+          "id": "it.vedph.doc-references",
+          "value": "references"
+        },
+        {
+          "id": "it.vedph.epigraphy.scripts",
+          "value": "scripts"
+        },
+        {
+          "id": "it.vedph.epigraphy.signs",
+          "value": "signs"
+        },
+        {
+          "id": "it.vedph.epigraphy.support",
+          "value": "support"
+        },
+        {
+          "id": "it.vedph.epigraphy.support-frr",
+          "value": "fragments"
+        },
+        {
+          "id": "it.vedph.geo.asserted-locations",
+          "value": "locations"
+        },
+        {
+          "id": "it.vedph.geo.asserted-toponyms",
+          "value": "toponyms"
+        },
+        {
+          "id": "it.vedph.historical-events",
+          "value": "events"
+        },
+        {
+          "id": "it.vedph.index-keywords",
+          "value": "keywords"
+        },
+        {
+          "id": "it.vedph.metadata",
+          "value": "metadata"
+        },
+        {
+          "id": "it.vedph.note",
+          "value": "note"
+        },
+        {
+          "id": "it.vedph.note:transl",
+          "value": "translation"
+        },
+        {
+          "id": "it.vedph.pin-links",
+          "value": "links"
+        },
+        {
+          "id": "it.vedph.token-text",
+          "value": "text"
+        },
+        {
+          "id": "it.vedph.token-text-layer",
+          "value": "layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.apparatus",
+          "value": "apparatus layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.chronology",
+          "value": "chronology layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.comment",
+          "value": "comment layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.epigraphy.ligatures",
+          "value": "ligatures layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.orthography",
+          "value": "orthography layer"
+        },
+        {
+          "id": "it.vedph.token-text-layer:fr.it.vedph.pin-links",
+          "value": "fr.links"
+        },
+        {
+          "id": "fr.it.vedph.apparatus",
+          "value": "fr.apparatus"
+        },
+        {
+          "id": "fr.it.vedph.chronology",
+          "value": "fr.chronology"
+        },
+        {
+          "id": "fr.it.vedph.comment",
+          "value": "fr.comment"
+        },
+        {
+          "id": "fr.it.vedph.epigraphy.ligatures",
+          "value": "ligatures fr."
+        },
+        {
+          "id": "fr.it.vedph.orthography",
+          "value": "fr.orthography"
+        },
+        {
+          "id": "fr.it.vedph.pin-links",
+          "value": "fr.links"
+        }
+      ]
+    },
+    {
+      "id": "categories_art-ctx@en",
+      "entries": [
+        {
+          "id": "funerary",
+          "value": "funerary context"
+        },
+        {
+          "id": "cultic",
+          "value": "cultic context"
+        },
+        {
+          "id": "domestic",
+          "value": "domestic context"
+        },
+        {
+          "id": "public",
+          "value": "public context"
+        },
+        {
+          "id": "settlement",
+          "value": "settlement"
+        },
+        {
+          "id": "production",
+          "value": "production context"
+        },
+        {
+          "id": "storage",
+          "value": "storage context"
+        },
+        {
+          "id": "secondary_deposition",
+          "value": "secondary deposition"
+        },
+        {
+          "id": "surface-find",
+          "value": "surface find"
+        },
+        {
+          "id": "isolated-find",
+          "value": "isolated find"
+        },
+        {
+          "id": "unknown",
+          "value": "unknown context"
+        }
+      ]
+    },
+    {
+      "id": "categories_art-mat@en",
+      "entries": [
+        {
+          "id": "bronze-300011497",
+          "value": "bronze"
+        },
+        {
+          "id": "iron-300011029",
+          "value": "iron"
+        },
+        {
+          "id": "lead-300011020",
+          "value": "lead"
+        },
+
+        {
+          "id": "marble-300011443",
+          "value": "marble"
+        },
+        {
+          "id": "limestone-300011447",
+          "value": "limestone"
+        },
+        {
+          "id": "sandstone-300011448",
+          "value": "sandstone"
+        },
+        {
+          "id": "basalt-300011445",
+          "value": "basalt"
+        },
+        {
+          "id": "granite-300011452",
+          "value": "granite"
+        },
+        {
+          "id": "porphyry-300011456",
+          "value": "porphyry"
+        },
+        {
+          "id": "tuff-300011458",
+          "value": "tuff"
+        },
+
+        {
+          "id": "terracotta-300010669",
+          "value": "terracotta"
+        },
+        {
+          "id": "glass-300010797",
+          "value": "glass"
+        },
+        {
+          "id": "bone-300011861",
+          "value": "bone"
+        },
+        {
+          "id": "wood-300011914",
+          "value": "wood"
+        },
+        {
+          "id": "plaster-300014078",
+          "value": "plaster"
+        }
+      ]
+    },
+    {
+      "id": "categories_art-type@en",
+      "entries": [
+        {
+          "id": "statues-300047090",
+          "value": "statues"
+        },
+        {
+          "id": "statuettes-300047098",
+          "value": "statuettes"
+        },
+        {
+          "id": "figurines-300189808",
+          "value": "figurines"
+        },
+
+        {
+          "id": "reliefs-300047218",
+          "value": "reliefs (sculpture)"
+        },
+        {
+          "id": "architectural-300003531",
+          "value": "architectural elements"
+        },
+        {
+          "id": "lamps-300038983",
+          "value": "lamps"
+        },
+        {
+          "id": "tools-300024841",
+          "value": "tools"
+        },
+        {
+          "id": "weapons-300036745",
+          "value": "weapons"
+        },
+        {
+          "id": "ornaments-300036708",
+          "value": "ornaments"
+        },
+        {
+          "id": "coins-300037222",
+          "value": "coins"
+        },
+        {
+          "id": "seals-300028692",
+          "value": "seals"
+        },
+        {
+          "id": "vessels-300193015",
+          "value": "vessels"
+        },
+        {
+          "id": "vessels.krater",
+          "value": "vessels: kraters"
+        },
+        {
+          "id": "vessels.krater.-",
+          "value": "vessels: kraters (uns reminding general krater)"
+        },
+        {
+          "id": "vessels.krater.column",
+          "value": "vessels: kraters: column krater"
+        },
+        {
+          "id": "vessels.krater.volute",
+          "value": "vessels: kraters: volute krater"
+        },
+        {
+          "id": "vessels.krater.calyx",
+          "value": "vessels: kraters: calyx krater"
+        },
+        {
+          "id": "vessels.krater.bell",
+          "value": "vessels: kraters: bell krater"
+        },
+        {
+          "id": "vessels.krater.skyphos",
+          "value": "vessels: kraters: skyphos krater"
+        },
+        {
+          "id": "vessels.krater.miniature",
+          "value": "vessels: kraters: miniature krater (krateriskos)"
+        }
+      ]
+    },
+    {
+      "id": "categories_cult-feats@en",
+      "entries": [
+        {
+          "id": "animal-sacrifices",
+          "value": "animal sacrifices"
+        },
+        {
+          "id": "food-consumption",
+          "value": "food consumption"
+        },
+        {
+          "id": "beverage-consumption",
+          "value": "beverage consumption"
+        },
+        {
+          "id": "architectural-models",
+          "value": "architectural models"
+        },
+        {
+          "id": "statuettes",
+          "value": "votive statuettes"
+        },
+        {
+          "id": "lamps",
+          "value": "lamps"
+        },
+        {
+          "id": "weapons",
+          "value": "weapons"
+        },
+        {
+          "id": "epigraphical-evidence",
+          "value": "epigraphical evidence"
+        }
+      ]
+    },
+    {
+      "id": "categories_cult-gods@en",
+      "entries": [
+        {
+          "id": "zeus-131",
+          "value": "Zeus (Jupiter)"
+        },
+        {
+          "id": "dionysos-111",
+          "value": "Dionysos"
+        },
+        {
+          "id": "kybele-123",
+          "value": "Kybele"
+        },
+        {
+          "id": "haroeris-602",
+          "value": "Haroeris"
+        },
+        {
+          "id": "herakles-117",
+          "value": "Herakles"
+        },
+        {
+          "id": "poseidon-129",
+          "value": "Poseidon"
+        },
+        {
+          "id": "hestia-120",
+          "value": "Hestia"
+        },
+        {
+          "id": "kronos-121",
+          "value": "Kronos"
+        },
+        {
+          "id": "nereis-1556",
+          "value": "Nereis"
+        },
+        {
+          "id": "demeter-110",
+          "value": "Demeter"
+        },
+        {
+          "id": "apollon-105",
+          "value": "Apollon"
+        },
+        {
+          "id": "aphrodites-104",
+          "value": "Aphrodites"
+        },
+        {
+          "id": "hera-116",
+          "value": "Hera"
+        },
+        {
+          "id": "artemis-107",
+          "value": "Artemis"
+        },
+        {
+          "id": "hermes-118",
+          "value": "Hermes"
+        },
+        {
+          "id": "asklepios-108",
+          "value": "Asklepios"
+        },
+        {
+          "id": "athena-109",
+          "value": "Athena"
+        },
+        {
+          "id": "hygieia-205",
+          "value": "Hygieia"
+        },
+        {
+          "id": "helios-114",
+          "value": "Helios"
+        },
+        {
+          "id": "soter-1752",
+          "value": "Soter"
+        },
+        {
+          "id": "theos-870",
+          "value": "Theos/Thea"
+        },
+        {
+          "id": "diktynna-700",
+          "value": "Diktynna"
+        },
+        {
+          "id": "tyche-651",
+          "value": "Tyche"
+        },
+        {
+          "id": "daimon-1204",
+          "value": "Daimon"
+        },
+        {
+          "id": "ourania-778",
+          "value": "Ourania"
+        },
+        {
+          "id": "ouranios-1809",
+          "value": "Ouranios"
+        },
+        {
+          "id": "ouranos-1609",
+          "value": "Ouranos"
+        },
+        {
+          "id": "gaia-1335",
+          "value": "Gaia"
+        },
+        {
+          "id": "theoichthonioi-1805",
+          "value": "Theoi Chthonioi"
+        },
+        {
+          "id": "hephaistos-115",
+          "value": "Hephaistos"
+        },
+        {
+          "id": "mousa-471",
+          "value": "Mousa"
+        },
+        {
+          "id": "nymphe-186",
+          "value": "Nymphe"
+        },
+        {
+          "id": "nike-1562",
+          "value": "Nike"
+        },
+        {
+          "id": "ares-106",
+          "value": "Ares"
+        },
+        {
+          "id": "eros-112",
+          "value": "Eros"
+        },
+        {
+          "id": "leto-122",
+          "value": "Leto"
+        },
+        {
+          "id": "dioskouroi-168",
+          "value": "Dioskouroi/Tyndarides"
+        },
+        {
+          "id": "daphne-1220",
+          "value": "Daphne"
+        },
+        {
+          "id": "eos-1285",
+          "value": "Eos"
+        }
+      ]
+    },
+    {
+      "id": "categories_cult-type@en",
+      "entries": [
+        {
+          "id": "altar-300052391",
+          "value": "altar"
+        },
+        {
+          "id": "bothros",
+          "value": "bothros"
+        },
+        {
+          "id": "oikos",
+          "value": "oikos"
+        },
+        {
+          "id": "temple-peripteral",
+          "value": "peripteral temple"
+        },
+        {
+          "id": "heroon",
+          "value": "heroon"
+        },
+        {
+          "id": "hypogeal-context",
+          "value": "hypogeal context"
+        },
+        {
+          "id": "building-round",
+          "value": "round building"
+        },
+        {
+          "id": "building-religious",
+          "value": "religious building (uncertain type)"
+        },
+        {
+          "id": "deposit-votive",
+          "value": "votive deposit"
+        },
+        {
+          "id": "ritual-activity",
+          "value": "ritual activity area"
+        }
+      ]
+    },
+    {
+      "id": "categories_ico-sub@en",
+      "entries": [
+        {
+          "id": "horse-46c13141",
+          "value": "horse"
+        },
+        {
+          "id": "zeus-92b1",
+          "value": "Zeus (Jupiter)"
+        },
+        {
+          "id": "hephaestus-92b2",
+          "value": "Hephaestus (Vulcan)"
+        },
+        {
+          "id": "apollo-92b3",
+          "value": "Apollo (Phoebus)"
+        },
+        {
+          "id": "ares-92b4",
+          "value": "Ares (Mars)"
+        },
+        {
+          "id": "hermes-92b5",
+          "value": "Hermes (Mercury)"
+        },
+
+        {
+          "id": "hera-92c1",
+          "value": "Hera (Juno)"
+        },
+        {
+          "id": "athena-92c2",
+          "value": "Athena (Minerva)"
+        },
+        {
+          "id": "artemis-92c3",
+          "value": "Artemis (Diana)"
+        },
+        {
+          "id": "aphrodite-92c4",
+          "value": "Aphrodite (Venus)"
+        },
+        {
+          "id": "hestia-92c5",
+          "value": "Hestia (Vesta)"
+        },
+
+        {
+          "id": "eros-92d1",
+          "value": "Eros (Cupid, Amor)"
+        },
+        {
+          "id": "horae-92d2",
+          "value": "Horae (Seasons)"
+        },
+        {
+          "id": "charites-92d3",
+          "value": "Charites (Graces)"
+        },
+        {
+          "id": "muses-92d4",
+          "value": "Muses"
+        },
+        {
+          "id": "nike-92d5",
+          "value": "Nike"
+        },
+        {
+          "id": "iris-92d6",
+          "value": "Iris"
+        },
+        {
+          "id": "hebe-92d7",
+          "value": "Hebe (Juventas)"
+        },
+        {
+          "id": "ganymede-92d8",
+          "value": "Ganymede"
+        },
+        {
+          "id": "eos-92e1",
+          "value": "Eos (Aurora)"
+        },
+        {
+          "id": "pleiades-92e2",
+          "value": "Pleiades"
+        },
+        {
+          "id": "hyades-92e3",
+          "value": "Hyades"
+        },
+        {
+          "id": "hesperus-92e4",
+          "value": "Hesperus and Phosphorus"
+        },
+        {
+          "id": "winds-92e5",
+          "value": "Winds (gods of the winds)"
+        },
+        {
+          "id": "heaven-92e6",
+          "value": "Lesser deities of Heaven (air/sky phenomena)"
+        },
+        {
+          "id": "poseidon-92h1",
+          "value": "Poseidon (Neptune)"
+        },
+        {
+          "id": "amphitrite-92h2",
+          "value": "Amphitrite"
+        },
+        {
+          "id": "triton-92h3",
+          "value": "Triton"
+        },
+        {
+          "id": "proteus-92h4",
+          "value": "Proteus"
+        },
+        {
+          "id": "glaucus-92h5",
+          "value": "Glaucus"
+        },
+        {
+          "id": "leucothea-92h6",
+          "value": "Leucothea"
+        },
+        {
+          "id": "palaemon-92h7",
+          "value": "Palaemon"
+        },
+        {
+          "id": "dionysius-92l1",
+          "value": "Dionysus (Bacchus, Liber)"
+        },
+        {
+          "id": "cybele-92l2",
+          "value": "Cybele (Rhea Cybele)"
+        },
+        {
+          "id": "nymphs-92l3",
+          "value": "Nymphs"
+        },
+        {
+          "id": "satyrs-92l4",
+          "value": "Satyrs, fauns, Sileni"
+        },
+        {
+          "id": "pan-92l5",
+          "value": "Pan"
+        },
+        {
+          "id": "priapus-92l6",
+          "value": "Priapus"
+        },
+        {
+          "id": "centaurs-92l7",
+          "value": "Centaurs"
+        },
+        {
+          "id": "mountain-92l8",
+          "value": "Mountain gods"
+        },
+        {
+          "id": "demeter-92m1",
+          "value": "Demeter (Ceres)"
+        },
+        {
+          "id": "persephone-92m2",
+          "value": "Persephone (Proserpina, Kore)"
+        },
+        {
+          "id": "fertility-92m3",
+          "value": "Fertility gods (other)"
+        },
+        {
+          "id": "hades-92n1",
+          "value": "Hades (Pluto, Dis Pater, Orcus)"
+        },
+        {
+          "id": "hecate-92n2",
+          "value": "Hecate"
+        },
+        {
+          "id": "erinyes-92n3",
+          "value": "Erinyes (Furies, Eumenides)"
+        },
+        {
+          "id": "keres-92n4",
+          "value": "Keres"
+        },
+        {
+          "id": "hypnos-92n5",
+          "value": "Hypnos and Thanatos"
+        },
+        {
+          "id": "oneiroi-92n6",
+          "value": "Oneiroi (dream gods: Morpheus, Phobetor, Phantasus)"
+        },
+        {
+          "id": "herakles-94l",
+          "value": "Herakles (Hercules)"
+        },
+        {
+          "id": "theseus-94m",
+          "value": "Theseus"
+        },
+        {
+          "id": "meleager-94n",
+          "value": "Meleager"
+        },
+        {
+          "id": "orpheus-94o",
+          "value": "Orpheus"
+        },
+        {
+          "id": "perseus-94p",
+          "value": "Perseus"
+        },
+        {
+          "id": "orion-94q",
+          "value": "Orion"
+        },
+        {
+          "id": "dioscuri-94r",
+          "value": "Dioscuri (Castor and Pollux)"
+        },
+        {
+          "id": "bellerophon-94s",
+          "value": "Bellerophon"
+        },
+        {
+          "id": "oedipus-94t",
+          "value": "Oedipus"
+        },
+        {
+          "id": "heroes-95a",
+          "value": "Greek heroic legends: heroes"
+        },
+        {
+          "id": "heroines-95b",
+          "value": "Greek heroic legends: heroines"
+        },
+
+        {
+          "id": "horseman-46c131",
+          "value": "horseman"
+        },
+        {
+          "id": "kouros-300047570",
+          "value": "kouros"
+        },
+        {
+          "id": "kore-300184818",
+          "value": "kore (statue)"
+        },
+        {
+          "id": "symplegma-300380129",
+          "value": "symplegma (sex act or embrace)"
+        },
+        {
+          "id": "protome-300265033",
+          "value": "protome"
+        }
+      ]
+    },
+    {
+      "id": "categories_ins-fn@en",
+      "entries": [
+        {
+          "id": "christian-383",
+          "value": "christian"
+        },
+        {
+          "id": "decree-384",
+          "value": "decree"
+        },
+        {
+          "id": "doc-357",
+          "value": "document"
+        },
+        {
+          "id": "graffiti-127",
+          "value": "graffiti"
+        },
+        {
+          "id": "honorific-69",
+          "value": "honorific"
+        },
+        {
+          "id": "instrumentum-136",
+          "value": "instrumentum"
+        },
+        {
+          "id": "funerary-92",
+          "value": "funerary"
+        },
+        {
+          "id": "dedication-88",
+          "value": "dedication"
+        },
+        {
+          "id": "building-86",
+          "value": "building"
+        },
+        {
+          "id": "defixio-76",
+          "value": "defixio"
+        },
+        {
+          "id": "milestone-102",
+          "value": "milestone"
+        },
+        {
+          "id": "seat-111",
+          "value": "seat-inscription"
+        },
+        {
+          "id": "religious-79",
+          "value": "religious"
+        },
+        {
+          "id": "building-honorific-86",
+          "value": "building-honorific"
+        },
+        {
+          "id": "library-catalogue",
+          "value": "library-catalogue"
+        },
+        {
+          "id": "list-of-magistrates-32",
+          "value": "list-of-magistrates"
+        },
+        {
+          "id": "calendar-3",
+          "value": "calendar"
+        },
+        {
+          "id": "account",
+          "value": "account"
+        },
+        {
+          "id": "touristic-text",
+          "value": "touristic-text"
+        },
+        {
+          "id": "terminus-96",
+          "value": "terminus"
+        },
+        {
+          "id": "epigram-368",
+          "value": "epigram"
+        },
+        {
+          "id": "votive-83",
+          "value": "votive"
+        },
+        {
+          "id": "list-108",
+          "value": "list"
+        },
+        {
+          "id": "greeting-386",
+          "value": "greeting"
+        },
+        {
+          "id": "signature-115",
+          "value": "signature"
+        },
+        {
+          "id": "advertisement",
+          "value": "advertisement"
+        },
+        {
+          "id": "prayer-85",
+          "value": "prayer"
+        },
+        {
+          "id": "business-record",
+          "value": "business-record"
+        },
+        {
+          "id": "tessera-133",
+          "value": "tessera-hospitalis"
+        },
+        {
+          "id": "unknown-143",
+          "value": "unknown"
+        }
+      ]
+    },
+    {
+      "id": "categories_ins-lng@en",
+      "entries": [
+        {
+          "id": "grc",
+          "value": "Greek"
+        },
+        {
+          "id": "la",
+          "value": "Latin"
+        }
+      ]
+    },
+    {
+      "id": "categories_site-feats@en",
+      "entries": [
+        {
+          "id": "cults",
+          "value": "cult activity"
+        },
+        {
+          "id": "resources",
+          "value": "resource exploitation"
+        },
+        {
+          "id": "storage",
+          "value": "storage activity"
+        },
+        {
+          "id": "production",
+          "value": "production activity"
+        },
+        {
+          "id": "status-marker",
+          "value": "status markers"
+        },
+        {
+          "id": "representations-figurative",
+          "value": "figurative representations"
+        },
+        {
+          "id": "inscriptions",
+          "value": "epigraphic evidence"
+        }
+      ]
+    },
+    {
+      "id": "categories_site-res@en",
+      "entries": [
+        {
+          "id": "clay-source",
+          "value": "clay source"
+        },
+        {
+          "id": "metal-mine",
+          "value": "metal mine"
+        },
+        {
+          "id": "salt-source",
+          "value": "salt source"
+        },
+        {
+          "id": "stone-quarry",
+          "value": "stone quarry"
+        },
+        {
+          "id": "water-spring",
+          "value": "water spring/hydraulic"
+        }
+      ]
+    },
+    {
+      "id": "categories_site-type@en",
+      "entries": [
+        {
+          "id": "necropolis",
+          "value": "necropolis"
+        },
+        {
+          "id": "isolated-tomb",
+          "value": "isolated tomb"
+        },
+        {
+          "id": "sacred-area",
+          "value": "sacred area"
+        },
+        {
+          "id": "settlement",
+          "value": "settlement"
+        },
+        {
+          "id": "production-area",
+          "value": "production area"
+        },
+        {
+          "id": "extraction-area",
+          "value": "extraction area"
+        },
+        {
+          "id": "movable-artifacts",
+          "value": "area of movable artifacts"
+        },
+        {
+          "id": "uncertain",
+          "value": "uncertain function"
+        },
+        {
+          "id": "multiple",
+          "value": "multiple functions"
+        }
+      ]
+    },
+    {
+      "id": "comment-categories@en",
+      "targetId": "categories_ins-fn"
+    },
+    {
+      "id": "comment-keyword-languages@en",
+      "targetId": "languages"
+    },
+    {
+      "id": "epi-ligature-types@en",
+      "entries": [
+        {
+          "id": "joint",
+          "value": "joint"
+        },
+        {
+          "id": "inversion",
+          "value": "inversion"
+        },
+        {
+          "id": "overlap",
+          "value": "overlap"
+        },
+        {
+          "id": "replacement",
+          "value": "replacement"
+        },
+        {
+          "id": "graft",
+          "value": "graft"
+        },
+        {
+          "id": "inclusion",
+          "value": "inclusion"
+        },
+        {
+          "id": "connection",
+          "value": "connection"
+        }
+      ]
+    },
+    {
+      "id": "epi-script-casings@en",
+      "entries": [
+        {
+          "id": "-",
+          "value": "-"
+        },
+        {
+          "id": "upper",
+          "value": "uppercase"
+        },
+        {
+          "id": "lower",
+          "value": "lowercase"
+        },
+        {
+          "id": "lower-upper",
+          "value": "lowercase/uppercase"
+        }
+      ]
+    },
+    {
+      "id": "epi-script-features@en",
+      "entries": [
+        {
+          "id": "abbr",
+          "value": "abbreviations"
+        },
+        {
+          "id": "punct",
+          "value": "punctuation"
+        },
+        {
+          "id": "enclosed",
+          "value": "enclosed letters"
+        },
+        {
+          "id": "ligatures",
+          "value": "ligatures"
+        }
+      ]
+    },
+    {
+      "id": "epi-script-systems@en",
+      "entries": [
+        {
+          "id": "-",
+          "value": "---"
+        },
+        {
+          "id": "latn",
+          "value": "Latin"
+        },
+        {
+          "id": "grek",
+          "value": "Greek"
+        }
+      ]
+    },
+    {
+      "id": "epi-scripts@en",
+      "entries": [
+        {
+          "id": "-",
+          "value": "---"
+        }
+      ]
+    },
+    {
+      "id": "epi-signs-features@en",
+      "entries": [
+        {
+          "id": "a",
+          "value": "alpha"
+        },
+        {
+          "id": "b",
+          "value": "beta"
+        },
+        {
+          "id": "g",
+          "value": "gamma"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-count-types@en",
+      "entries": [
+        {
+          "id": "rows",
+          "value": "rows"
+        },
+        {
+          "id": "cols",
+          "value": "columns"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-features@en",
+      "entries": [
+        {
+          "id": "in-situ",
+          "value": "in situ"
+        },
+        {
+          "id": "indoor",
+          "value": "indoor"
+        },
+        {
+          "id": "damnatio",
+          "value": "damnatio"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-materials@en",
+      "entries": [
+        {
+          "id": "limestone-66",
+          "value": "limestone"
+        },
+        {
+          "id": "volcanic-98",
+          "value": "volcanic"
+        },
+        {
+          "id": "marble-48",
+          "value": "marble"
+        },
+        {
+          "id": "stone-2",
+          "value": "stone"
+        },
+        {
+          "id": "sandstone-502",
+          "value": "sandstone"
+        },
+        {
+          "id": "tuff-30",
+          "value": "tuff"
+        },
+        {
+          "id": "ceramic-643",
+          "value": "ceramic"
+        },
+        {
+          "id": "lead-108",
+          "value": "lead"
+        },
+        {
+          "id": "breccia-73",
+          "value": "breccia"
+        },
+        {
+          "id": "basalt-16",
+          "value": "basalt"
+        },
+        {
+          "id": "plaster-126",
+          "value": "plaster"
+        },
+        {
+          "id": "clay-131",
+          "value": "clay"
+        },
+        {
+          "id": "copper-113",
+          "value": "copper"
+        },
+        {
+          "id": "conglomerate-74",
+          "value": "conglomerate"
+        },
+        {
+          "id": "porphyry-25",
+          "value": "porphyry"
+        },
+        {
+          "id": "ivory-120",
+          "value": "ivory"
+        },
+        {
+          "id": "bronze-109",
+          "value": "bronze"
+        },
+        {
+          "id": "unknown-138",
+          "value": "unknown"
+        },
+        {
+          "id": "-",
+          "value": "---"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-states@en",
+      "entries": [
+        {
+          "id": "intact",
+          "value": "intact"
+        },
+        {
+          "id": "damaged",
+          "value": "damaged"
+        },
+        {
+          "id": "fr",
+          "value": "fragmentary"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-object-types@en",
+      "entries": [
+        {
+          "id": "block-189",
+          "value": "block"
+        },
+        {
+          "id": "statue-base-57",
+          "value": "statue-base"
+        },
+        {
+          "id": "slab-260",
+          "value": "slab"
+        },
+        {
+          "id": "urn-78",
+          "value": "urn"
+        },
+        {
+          "id": "seat-226",
+          "value": "seat"
+        },
+        {
+          "id": "curse-tablet-266",
+          "value": "curse-tablet"
+        },
+        {
+          "id": "milestone-89",
+          "value": "milestone"
+        },
+        {
+          "id": "plaque-1483",
+          "value": "plaque"
+        },
+        {
+          "id": "aedicula-1201",
+          "value": "aedicula"
+        },
+        {
+          "id": "column-100",
+          "value": "column"
+        },
+        {
+          "id": "wall-416",
+          "value": "wall"
+        },
+        {
+          "id": "architrave-119",
+          "value": "architrave"
+        },
+        {
+          "id": "base-53",
+          "value": "base"
+        },
+        {
+          "id": "stele-250",
+          "value": "stele"
+        },
+        {
+          "id": "lekanis",
+          "value": "lekanis"
+        },
+        {
+          "id": "tablet-255",
+          "value": "tablet"
+        },
+        {
+          "id": "plinth-1910",
+          "value": "plinth"
+        },
+        {
+          "id": "mosaic-184",
+          "value": "mosaic"
+        },
+        {
+          "id": "tile-1402",
+          "value": "tile"
+        },
+        {
+          "id": "rock-face-210",
+          "value": "rock-face"
+        },
+        {
+          "id": "altar-or-base-30",
+          "value": "altar-or-base"
+        },
+        {
+          "id": "ash-chest-79",
+          "value": "ash-chest"
+        },
+        {
+          "id": "tabula-ansata-263",
+          "value": "tabula-ansata"
+        },
+        {
+          "id": "brick-1788",
+          "value": "brick"
+        },
+        {
+          "id": "pavement-190",
+          "value": "pavement"
+        },
+        {
+          "id": "altar-29",
+          "value": "altar"
+        },
+        {
+          "id": "lamina-145",
+          "value": "lamina"
+        },
+        {
+          "id": "basin",
+          "value": "basin"
+        },
+        {
+          "id": "sarcophagus-214",
+          "value": "sarcophagus"
+        },
+        {
+          "id": "moulding-1969",
+          "value": "moulding"
+        },
+        {
+          "id": "column-capital-63",
+          "value": "column-capital"
+        },
+        {
+          "id": "tessera-hospitalis-278",
+          "value": "tessera-hospitalis"
+        },
+        {
+          "id": "tympanum-1952",
+          "value": "tympanum"
+        },
+        {
+          "id": "unknown-2",
+          "value": "unknown"
+        },
+        {
+          "id": "-",
+          "value": "---"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-text-area-frame-types@en",
+      "entries": [
+        {
+          "id": "square",
+          "value": "square"
+        },
+        {
+          "id": "rectangle",
+          "value": "rectangle"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-text-area-layouts@en",
+      "entries": [
+        {
+          "id": "full-page",
+          "value": "full page"
+        },
+        {
+          "id": "columns",
+          "value": "columns"
+        },
+        {
+          "id": "sparse",
+          "value": "sparse lines"
+        }
+      ]
+    },
+    {
+      "id": "epi-support-text-area-types@en",
+      "entries": [
+        {
+          "id": "np",
+          "value": "campo"
+        },
+        {
+          "id": "np-open",
+          "value": "campo aperto"
+        },
+        {
+          "id": "np-overflow",
+          "value": "campo di ripiego"
+        },
+        {
+          "id": "np-natural",
+          "value": "campo rupestre"
+        },
+        {
+          "id": "p",
+          "value": "specchio"
+        },
+        {
+          "id": "p-supplement",
+          "value": "specchio di corredo"
+        },
+        {
+          "id": "p-added",
+          "value": "specchio aggiunto"
+        },
+        {
+          "id": "p-natural",
+          "value": "specchio rupestre"
+        }
+      ]
+    },
+    {
+      "id": "epi-technique-groove-types@en",
+      "entries": [
+        {
+          "id": "v-shaped",
+          "value": "V-shaped"
+        },
+        {
+          "id": "u-shaped",
+          "value": "U-shaped"
+        }
+      ]
+    },
+    {
+      "id": "epi-technique-tools@en",
+      "entries": [
+        {
+          "id": "chisel",
+          "value": "chisel"
+        },
+        {
+          "id": "ink",
+          "value": "ink"
+        },
+        {
+          "id": "saw",
+          "value": "saw"
+        }
+      ]
+    },
+    {
+      "id": "epi-technique-types@en",
+      "entries": [
+        {
+          "id": "drawing",
+          "value": "drawing"
+        },
+        {
+          "id": "incision",
+          "value": "incision"
+        },
+        {
+          "id": "engraving",
+          "value": "engraving"
+        }
+      ]
+    },
+    {
+      "id": "epi-writing-techniques@en",
+      "entries": [
+        {
+          "id": "-",
+          "value": "---"
+        },
+        {
+          "id": "charcoal",
+          "value": "charcoal"
+        },
+        {
+          "id": "candlesmoke",
+          "value": "candlesmoke"
+        },
+        {
+          "id": "graffiti",
+          "value": "graffiti"
+        },
+        {
+          "id": "graphite",
+          "value": "graphite"
+        },
+        {
+          "id": "ink",
+          "value": "ink"
+        },
+        {
+          "id": "punch",
+          "value": "punch"
+        },
+        {
+          "id": "paint",
+          "value": "paint"
+        }
+      ]
+    },
+    {
+      "id": "languages@en",
+      "entries": [
+        {
+          "id": "en",
+          "value": "English"
+        },
+        {
+          "id": "de",
+          "value": "German"
+        },
+        {
+          "id": "fr",
+          "value": "French"
+        },
+        {
+          "id": "it",
+          "value": "Italian"
+        },
+        {
+          "id": "es",
+          "value": "Spanish"
+        },
+        {
+          "id": "el",
+          "value": "Mod.Greek"
+        },
+        {
+          "id": "grc",
+          "value": "Greek"
+        },
+        {
+          "id": "la",
+          "value": "Latin"
+        },
+        {
+          "id": "osc",
+          "value": "Oscan"
+        }
+      ]
+    },
+    {
+      "id": "orthography-languages@en",
+      "entries": [
+        {
+          "id": "grc",
+          "value": "Ancient Greek"
+        },
+        {
+          "id": "la",
+          "value": "Latin"
+        }
+      ]
+    },
+    {
+      "id": "orthography-op-tags@en",
+      "entries": [
+        {
+          "id": "v",
+          "value": "vocoids"
+        },
+        {
+          "id": "v.length",
+          "value": "vocoids: length"
+        },
+        {
+          "id": "v.length.shorten",
+          "value": "vocoids: length: shortening"
+        },
+        {
+          "id": "v.length.lengthen",
+          "value": "vocoids: length: lengthening"
+        },
+        {
+          "id": "v.diphth",
+          "value": "vocoids: diphthongization"
+        },
+        {
+          "id": "v.monophth",
+          "value": "vocoids: monophthongization"
+        },
+        {
+          "id": "c",
+          "value": "contoids"
+        },
+        {
+          "id": "c.pls",
+          "value": "contoids: plosives"
+        },
+        {
+          "id": "c.pls.-",
+          "value": "contoids: plosives"
+        },
+        {
+          "id": "c.pls.spir",
+          "value": "contoids: plosives: spirantization"
+        },
+        {
+          "id": "c.liq",
+          "value": "contoids: liquids"
+        },
+        {
+          "id": "c.liq.-",
+          "value": "contoids: liquids"
+        },
+        {
+          "id": "c.liq.mobility",
+          "value": "contoids: liquids: mobility"
+        },
+        {
+          "id": "c.nas",
+          "value": "contoids: nasals"
+        },
+        {
+          "id": "c.frc",
+          "value": "contoids: fricatives"
+        },
+        {
+          "id": "c.apx",
+          "value": "contoids: approximants"
+        },
+        {
+          "id": "c.length",
+          "value": "contoids: length"
+        },
+        {
+          "id": "c.length.shorten",
+          "value": "contoids: length: degemination"
+        },
+        {
+          "id": "c.length.lengthen",
+          "value": "contoids: length: gemination"
+        }
+      ]
+    },
+    {
+      "id": "orthography-tags@en",
+      "entries": [
+        {
+          "id": "archaic",
+          "value": "archaic"
+        },
+        {
+          "id": "vulgar",
+          "value": "vulgar"
+        },
+        {
+          "id": "epichoric",
+          "value": "epichoric"
+        }
+      ]
+    },
+    {
+      "id": "physical-size-units@en",
+      "entries": [
+        {
+          "id": "cm",
+          "value": "cm"
+        },
+        {
+          "id": "mm",
+          "value": "mm"
+        }
+      ]
+    }
+  ],
+  "seed": {
+    "options": {
+      "seed": 1,
+      "users": ["zeus"],
+      "partRoles": [],
+      "fragmentRoles": []
+    },
+    "partSeeders": [
+      {
+        "id": "seed.it.vedph.categories:art-ctx",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["funerary", "cultic", "domestic"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:art-mat",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": [
+            "bronze-300011497",
+            "lead-300011020",
+            "marble-300011443"
+          ]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:art-type",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": [
+            "statues-300047090",
+            "lamps-300038983",
+            "seals-300028692"
+          ]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:cult-feats",
+        "options": {
+          "maxCategoriesPerItem": 2,
+          "categories": [
+            "animal-sacrifices",
+            "food-consumption",
+            "beverage-consumption",
+            "statuettes"
+          ]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:cult-gods",
+        "options": {
+          "maxCategoriesPerItem": 2,
+          "categories": ["zeus-131", "dionysos-111", "kybele-123"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:cult-type",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["altar-300052391", "bothros", "oikos"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:ico-sub",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["horse-46c13141", "zeus-92b1", "hephaestus-92b2"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:ins-fn",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["christian-383", "decree-384", "doc-357"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:ins-lng",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["grc", "la"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:site-feats",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["cults", "resources", "storage"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:site-res",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["clay-source", "metal-mine", "salt-source"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.categories:site-type",
+        "options": {
+          "maxCategoriesPerItem": 1,
+          "categories": ["necropolis", "isolated-tomb", "sacred-area"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.comment",
+        "options": {
+          "languages": ["en", "it"],
+          "categories": ["decree-384", "honorific-69"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.doc-references"
+      },
+      {
+        "id": "seed.it.vedph.epigraphy.signs"
+      },
+      {
+        "id": "seed.it.vedph.epigraphy.support"
+      },
+      {
+        "id": "seed.it.vedph.epigraphy.support-frr"
+      },
+      {
+        "id": "seed.it.vedph.epigraphy.scripts"
+      },
+      {
+        "id": "seed.it.vedph.geo.asserted-locations"
+      },
+      {
+        "id": "seed.it.vedph.geo.asserted-toponyms"
+      },
+      {
+        "id": "seed.it.vedph.index-keywords",
+        "options": {
+          "indexIds": ["persons", "places"],
+          "languages": ["en", "de", "it", "fr", "sp"]
+        }
+      },
+      {
+        "id": "seed.it.vedph.metadata"
+      },
+      {
+        "id": "seed.it.vedph.note"
+      },
+      {
+        "id": "seed.it.vedph.token-text"
+      },
+      {
+        "id": "seed.it.vedph.token-text-layer",
+        "options": {
+          "maxFragmentCount": 3
+        }
+      }
+    ],
+    "fragmentSeeders": [
+      {
+        "id": "seed.fr.it.vedph.apparatus"
+      },
+      {
+        "id": "seed.fr.it.vedph.chronology"
+      },
+      {
+        "id": "seed.fr.it.vedph.comment",
+        "options": {
+          "languages": [ "en", "it" ],
+          "categories": [ "decree-384", "honorific-69" ]
+        }
+      },
+      {
+        "id": "seed.fr.it.vedph.epigraphy.ligatures"
+      },
+      {
+        "id": "seed.fr.it.vedph.orthography"
+      },
+      {
+        "id": "seed.fr.it.vedph.pin-links"
+      }
+    ]
+  }
+}
