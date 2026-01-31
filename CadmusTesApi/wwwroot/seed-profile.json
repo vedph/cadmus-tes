@@ -1672,10 +1672,6 @@
       ]
     },
     {
-      "id": "comment-categories@en",
-      "targetId": "categories_ins-fn"
-    },
-    {
       "id": "comment-keyword-languages@en",
       "targetId": "languages"
     },
@@ -2246,7 +2242,7 @@
         },
         {
           "id": "el",
-          "value": "Mod.Greek"
+          "value": "Modern Greek"
         },
         {
           "id": "grc",
