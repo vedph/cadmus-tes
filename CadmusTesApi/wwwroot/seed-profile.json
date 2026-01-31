@@ -32,9 +32,9 @@
           "sortKey": "03"
         },
         {
-          "typeId": "it.vedph.historical-date",
-          "name": "date",
-          "description": "Historical date.",
+          "typeId": "it.vedph.asserted-historical-dates",
+          "name": "date(s)",
+          "description": "Historical dates.",
           "colorKey": "E8A0B8",
           "groupKey": "identity",
           "sortKey": "04"
@@ -72,13 +72,21 @@
           "sortKey": "08"
         },
         {
+          "typeId": "it.vedph.physical-states",
+          "name": "states",
+          "description": "Physical preservation states.",
+          "colorKey": "F8B070",
+          "groupKey": "support",
+          "sortKey": "09"
+        },
+        {
           "typeId": "it.vedph.categories",
           "roleId": "ins-lng",
           "name": "languages",
           "description": "Inscription language(s).",
           "colorKey": "70B8C0",
           "groupKey": "content",
-          "sortKey": "09"
+          "sortKey": "10"
         },
         {
           "typeId": "it.vedph.epigraphy.scripts",
@@ -86,7 +94,7 @@
           "description": "Description of scripts.",
           "colorKey": "88B0C8",
           "groupKey": "content",
-          "sortKey": "10"
+          "sortKey": "11"
         },
         {
           "typeId": "it.vedph.epigraphy.signs",
@@ -94,7 +102,7 @@
           "description": "Writing signs.",
           "colorKey": "90C0D4",
           "groupKey": "content",
-          "sortKey": "11"
+          "sortKey": "12"
         },
         {
           "typeId": "it.vedph.comment",
@@ -102,7 +110,7 @@
           "description": "Comment.",
           "colorKey": "A8D4A8",
           "groupKey": "content",
-          "sortKey": "12"
+          "sortKey": "13"
         },
         {
           "typeId": "it.vedph.token-text",
@@ -111,7 +119,7 @@
           "description": "Inscription's text.",
           "colorKey": "68B0A0",
           "groupKey": "content",
-          "sortKey": "13"
+          "sortKey": "14"
         },
         {
           "typeId": "it.vedph.note",
@@ -120,7 +128,7 @@
           "description": "Inscription's translation.",
           "colorKey": "A0ACC8",
           "groupKey": "content",
-          "sortKey": "14"
+          "sortKey": "15"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -129,7 +137,7 @@
           "description": "Critical apparatus.",
           "colorKey": "C4D490",
           "groupKey": "content",
-          "sortKey": "15"
+          "sortKey": "16"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -138,7 +146,7 @@
           "description": "Comments to text portions.",
           "colorKey": "90D4C0",
           "groupKey": "content",
-          "sortKey": "16"
+          "sortKey": "17"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -147,7 +155,7 @@
           "description": "Chronological indications in text.",
           "colorKey": "D09CD8",
           "groupKey": "content",
-          "sortKey": "17"
+          "sortKey": "18"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -156,7 +164,7 @@
           "description": "Standard orthography.",
           "colorKey": "E0D4A4",
           "groupKey": "content",
-          "sortKey": "18"
+          "sortKey": "19"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -165,7 +173,7 @@
           "description": "Ligatures.",
           "colorKey": "E0C404",
           "groupKey": "content",
-          "sortKey": "19"
+          "sortKey": "20"
         },
         {
           "typeId": "it.vedph.token-text-layer",
@@ -174,7 +182,7 @@
           "description": "Links.",
           "colorKey": "A0C0F8",
           "groupKey": "content",
-          "sortKey": "20"
+          "sortKey": "21"
         },
         {
           "typeId": "it.vedph.note",
@@ -182,7 +190,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "21"
+          "sortKey": "22"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -190,7 +198,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "22"
+          "sortKey": "23"
         }
       ]
     },
@@ -244,9 +252,9 @@
           "sortKey": "05"
         },
         {
-          "typeId": "it.vedph.historical-date",
-          "name": "date",
-          "description": "Historical date.",
+          "typeId": "it.vedph.asserted-historical-dates",
+          "name": "date(s)",
+          "description": "Historical date(s).",
           "colorKey": "E8A0B8",
           "groupKey": "identity",
           "sortKey": "06"
@@ -344,9 +352,9 @@
           "sortKey": "06"
         },
         {
-          "typeId": "it.vedph.historical-date",
-          "name": "date",
-          "description": "Historical date.",
+          "typeId": "it.vedph.asserted-historical-dates",
+          "name": "date(s)",
+          "description": "Historical date(s).",
           "colorKey": "E8A0B8",
           "groupKey": "identity",
           "sortKey": "07"
@@ -556,6 +564,10 @@
       "id": "model-types@en",
       "entries": [
         {
+          "id": "it.vedph.asserted-historical-dates",
+          "value": "date(s)"
+        },
+        {
           "id": "it.vedph.categories",
           "value": "categories"
         },
@@ -658,6 +670,10 @@
         {
           "id": "it.vedph.note:transl",
           "value": "translation"
+        },
+        {
+          "id": "it.vedph.physical-states",
+          "value": "states"
         },
         {
           "id": "it.vedph.pin-links",
@@ -2381,6 +2397,40 @@
           "value": "mm"
         }
       ]
+    },
+    {
+      "id": "physical-states@en",
+      "entries": [
+        {
+          "id": "q1",
+          "value": "bad"
+        },
+        {
+          "id": "q2",
+          "value": "good"
+        },
+        {
+          "id": "q3",
+          "value": "excellent"
+        }
+      ]
+    },
+    {
+      "id": "physical-state-features@en",
+      "entries": [
+        {
+          "id": "broken",
+          "value": "broken"
+        },
+        {
+          "id": "scratched",
+          "value": "scratched"
+        },
+        {
+          "id": "dirty",
+          "value": "dirty"
+        }
+      ]
     }
   ],
   "seed": {
@@ -2392,10 +2442,13 @@
     },
     "partSeeders": [
       {
+        "id": "seed.it.vedph.asserted-historical-dates"
+      },
+      {
         "id": "seed.it.vedph.categories:art-ctx",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["funerary", "cultic", "domestic"]
+          "categories": [ "funerary", "cultic", "domestic" ]
         }
       },
       {
@@ -2436,63 +2489,63 @@
         "id": "seed.it.vedph.categories:cult-gods",
         "options": {
           "maxCategoriesPerItem": 2,
-          "categories": ["zeus-131", "dionysos-111", "kybele-123"]
+          "categories": [ "zeus-131", "dionysos-111", "kybele-123" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:cult-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["altar-300052391", "bothros", "oikos"]
+          "categories": [ "altar-300052391", "bothros", "oikos" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ico-sub",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["horse-46c13141", "zeus-92b1", "hephaestus-92b2"]
+          "categories": [ "horse-46c13141", "zeus-92b1", "hephaestus-92b2" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-fn",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["christian-383", "decree-384", "doc-357"]
+          "categories": [ "christian-383", "decree-384", "doc-357" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-lng",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["grc", "la"]
+          "categories": [ "grc", "la" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-feats",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["cults", "resources", "storage"]
+          "categories": [ "cults", "resources", "storage" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-res",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["clay-source", "metal-mine", "salt-source"]
+          "categories": [ "clay-source", "metal-mine", "salt-source" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["necropolis", "isolated-tomb", "sacred-area"]
+          "categories": [ "necropolis", "isolated-tomb", "sacred-area" ]
         }
       },
       {
         "id": "seed.it.vedph.comment",
         "options": {
-          "languages": ["en", "it"],
-          "categories": ["decree-384", "honorific-69"]
+          "languages": [ "en", "it" ],
+          "categories": [ "decree-384", "honorific-69" ]
         }
       },
       {
@@ -2519,8 +2572,8 @@
       {
         "id": "seed.it.vedph.index-keywords",
         "options": {
-          "indexIds": ["persons", "places"],
-          "languages": ["en", "de", "it", "fr", "sp"]
+          "indexIds": [ "persons", "places" ],
+          "languages": [ "en", "de", "it", "fr", "sp" ]
         }
       },
       {
@@ -2528,6 +2581,9 @@
       },
       {
         "id": "seed.it.vedph.note"
+      },
+      {
+        "id": "seed.it.vedph.physical-states"
       },
       {
         "id": "seed.it.vedph.token-text"
