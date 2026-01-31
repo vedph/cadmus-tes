@@ -30,7 +30,7 @@ services:
     image: vedph2020/cadmus-tes-api:0.0.1
     container_name: cadmus-tes-api
     ports:
-      - 5172:8080
+      - 5101:8080
     depends_on:
       - cadmus-tes-mongo
       - cadmus-tes-pgsql
