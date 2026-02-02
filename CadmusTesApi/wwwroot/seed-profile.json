@@ -644,6 +644,10 @@
           "value": "fragments"
         },
         {
+          "id": "it.vedph.epigraphy.technique",
+          "value": "technique"
+        },
+        {
           "id": "it.vedph.geo.asserted-locations",
           "value": "locations"
         },
