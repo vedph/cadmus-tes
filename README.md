@@ -142,6 +142,9 @@ List of target thesauri:
 
 ### History
 
+- 2026-03-22:
+  - updated packages.
+  - added `settings` to profile for facet editing.
 - 2026-03-19: updated packages.
 - 2026-03-12: updated packages.
 - 2026-03-10: updated packages.

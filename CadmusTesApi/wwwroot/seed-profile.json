@@ -2806,5 +2806,254 @@
         "id": "seed.fr.it.vedph.pin-links"
       }
     ]
+  },
+  "settings": {
+    "models": {
+      "parts": {
+        "it.vedph.asserted-historical-dates": {
+          "thesauriIds": [
+            "asserted-historical-date-tags",
+            "doc-reference-types",
+            "doc-reference-tags"
+          ]
+        },
+        "it.vedph.bibliography": {
+          "thesauriIds": [
+            "bibliography-types",
+            "bibliography-tags",
+            "bibliography-author-roles",
+            "bibliography-languages"
+          ]
+        },
+        "it.vedph.categories": {
+          "thesauriIds": [ "categories" ]
+        },
+        "it.vedph.chronotopes": {
+          "thesauriIds": [
+            "chronotope-tags",
+            "assertion-tags",
+            "doc-reference-types",
+            "doc-reference-tags"
+          ]
+        },
+        "it.vedph.comment": {
+          "thesauriIds": [
+            "comment-tags",
+            "comment-id-scopes",
+            "asserted-id-features",
+            "comment-id-tags",
+            "assertion-tags",
+            "comment-categories",
+            "comment-keyword-languages",
+            "comment-keyword-indexes",
+            "comment-keyword-tags"
+          ]
+        },
+        "it.vedph.decorated-counts": {
+          "thesauriIds": [ "decorated-count-ids", "decorated-count-tags" ]
+        },
+        "it.vedph.district-location": {
+          "thesauriIds": [
+            "district-name-languages",
+            "district-name-piece-types"
+          ]
+        },
+        "it.vedph.doc-references": {
+          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+        },
+        "it.vedph.external-ids": {
+          "thesauriIds": [
+            "external-id-tags",
+            "external-id-scopes",
+            "assertion-tags",
+            "doc-reference-types",
+            "doc-reference-tags"
+          ]
+        },
+        "it.vedph.flags": {
+          "thesauriIds": [ "flags" ]
+        },
+        "it.vedph.historical-date": {
+          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+        },
+        "it.vedph.historical-events": {
+          "thesauriIds": [
+            "event-types",
+            "event-tags",
+            "chronotope-tags",
+            "assertion-tags",
+            "doc-reference-types",
+            "doc-reference-tags",
+            "event-relations",
+            "pin-link-scopes",
+            "pin-link-tags",
+            "assertion-tags"
+          ]
+        },
+        "it.vedph.index-keywords": {
+          "thesauriIds": [ "languages", "keyword-indexes", "keyword-tags" ]
+        },
+        "it.vedph.keywords": {
+          "thesauriIds": [ "languages" ]
+        },
+        "it.vedph.metadata": {
+          "thesauriIds": [ "metadata-names", "metadata-types" ]
+        },
+        "it.vedph.names": {
+          "thesauriIds": [
+            "name-languages",
+            "name-tags",
+            "name-piece-types",
+            "assertion-tags",
+            "doc-reference-types",
+            "doc-reference-tags"
+          ]
+        },
+        "it.vedph.note": {
+          "thesauriIds": [ "note-tags" ]
+        },
+        "it.vedph.physical-measurements": {
+          "thesauriIds": [
+            "physical-size-set-names",
+            "physical-size-dim-tags",
+            "physical-size-units"
+          ]
+        },
+        "it.vedph.physical-states": {
+          "thesauriIds": [
+            "physical-states",
+            "physical-state-features",
+            "physical-state-reporters"
+          ]
+        },
+        "it.vedph.pin-links": {
+          "thesauriIds": [
+            "pin-link-scopes",
+            "pin-link-tags",
+            "asserted-id-features",
+            "pin-link-assertion-tags",
+            "pin-link-docref-types",
+            "pin-link-docref-tags"
+          ]
+        },
+        "it.vedph.token-text-layer": {
+          "baseText": true
+        },
+        "it.vedph.epigraphy.formula-patterns": {
+          "thesauriIds": [
+            "epi-formula-pattern-languages",
+            "epi-formula-pattern-tags",
+            "epi-formula-token-tags"
+          ]
+        },
+        "it.vedph.epigraphy.scripts": {
+          "thesauriIds": [
+            "epi-script-systems",
+            "epi-scripts",
+            "epi-script-casings",
+            "epi-script-features"
+          ]
+        },
+        "it.vedph.epigraphy.signs": {
+          "thesauriIds": [
+            "epi-signs-features",
+            "epi-signs-measure-names",
+            "physical-size-units",
+            "physical-size-dim-tags"
+          ]
+        },
+        "it.vedph.epigraphy.support-frr": {
+          "thesauriIds": [
+            "physical-size-tags",
+            "physical-size-units",
+            "physical-size-dim-tags"
+          ]
+        },
+        "it.vedph.epigraphy.support": {
+          "thesauriIds": [
+            "epi-support-materials",
+            "epi-support-object-types",
+            "epi-support-features",
+            "physical-size-tags",
+            "physical-size-units",
+            "physical-size-dim-tags",
+            "epi-support-text-area-types",
+            "epi-support-text-area-layouts",
+            "epi-support-text-area-features",
+            "epi-support-text-area-frame-types",
+            "epi-support-count-types",
+            "epi-support-count-tags"
+          ]
+        },
+        "it.vedph.epigraphy.technique": {
+          "thesauriIds": [
+            "epi-technique-groove-types",
+            "epi-technique-types",
+            "epi-technique-tools"
+          ]
+        },
+        "it.vedph.tes.site-resources": {
+          "thesauriIds": [
+            "site-resource-types",
+            "site-resource-tags",
+            "site-resource-features",
+            "asserted-historical-date-tags",
+            "doc-reference-types",
+            "doc-reference-tags",
+            "site-resource-count-ids",
+            "site-resource-count-tags",
+            "geo-location-tags",
+            "assertion-tags"
+          ]
+        }
+      },
+      "fragments": {
+        "fr.it.vedph.chronology": {
+          "thesauriIds": [ "chronology-tags" ]
+        },
+        "fr.it.vedph.comment": {
+          "thesauriIds": [
+            "comment-tags",
+            "comment-id-scopes",
+            "asserted-id-features",
+            "comment-id-tags",
+            "assertion-tags",
+            "comment-categories",
+            "comment-keyword-languages",
+            "comment-keyword-indexes",
+            "comment-keyword-tags"
+          ]
+        },
+        "fr.it.vedph.pin-links": {
+          "thesauriIds": [
+            "pin-link-scopes",
+            "pin-link-tags",
+            "asserted-id-features",
+            "pin-link-assertion-tags",
+            "pin-link-docref-types",
+            "pin-link-docref-tags"
+          ]
+        },
+        "fr.it.vedph.apparatus": {
+          "thesauriIds": [
+            "apparatus-tags",
+            "apparatus-witnesses",
+            "apparatus-authors",
+            "apparatus-author-tags",
+            "author-works"
+          ]
+        },
+        "fr.it.vedph.orthography": {
+          "thesauriIds": [
+            "orthography-languages",
+            "orthography-tags",
+            "orthography-op-tags"
+          ]
+        },
+        "fr.it.vedph.epigraphy.ligatures": {
+          "thesauriIds": [ "epi-ligature-types" ]
+        }
+      }
+    }
   }
 }
