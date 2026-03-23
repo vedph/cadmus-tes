@@ -142,6 +142,7 @@ List of target thesauri:
 
 ### History
 
+- 2026-03-23: added literary sources.
 - 2026-03-22:
   - updated packages.
   - added `settings` to profile for facet editing.
