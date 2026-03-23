@@ -203,6 +203,100 @@
       ]
     },
     {
+      "id": "literary",
+      "label": "literary source",
+      "description": "Literary source.",
+      "colorKey": "E0D0F8",
+      "partDefinitions": [
+        {
+          "typeId": "it.vedph.metadata",
+          "name": "metadata",
+          "description": "Generic metadata.",
+          "colorKey": "9DBCD4",
+          "groupKey": "identity",
+          "sortKey": "01"
+        },
+        {
+          "typeId": "it.vedph.pin-links",
+          "name": "links",
+          "description": "Inner/outer links.",
+          "colorKey": "84B5E8",
+          "groupKey": "identity",
+          "sortKey": "02"
+        },
+        {
+          "typeId": "it.vedph.token-text",
+          "roleId": "base-text",
+          "name": "text",
+          "description": "Text passage.",
+          "colorKey": "68B0A0",
+          "groupKey": "content",
+          "sortKey": "03"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "roleId": "transl",
+          "name": "translation",
+          "description": "Passage's translation.",
+          "colorKey": "A0ACC8",
+          "groupKey": "content",
+          "sortKey": "04"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.apparatus",
+          "name": "apparatus",
+          "description": "Critical apparatus.",
+          "colorKey": "C4D490",
+          "groupKey": "content",
+          "sortKey": "05"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.comment",
+          "name": "comments",
+          "description": "Comments to text portions.",
+          "colorKey": "90D4C0",
+          "groupKey": "content",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.chronology",
+          "name": "chronology",
+          "description": "Chronological indications in text.",
+          "colorKey": "D09CD8",
+          "groupKey": "content",
+          "sortKey": "07"
+        },
+        {
+          "typeId": "it.vedph.token-text-layer",
+          "roleId": "fr.it.vedph.pin-links",
+          "name": "links",
+          "description": "Links.",
+          "colorKey": "A0C0F8",
+          "groupKey": "content",
+          "sortKey": "08"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "name": "note",
+          "description": "Free text note.",
+          "colorKey": "ECC4A0",
+          "groupKey": "editorial",
+          "sortKey": "09"
+        },
+        {
+          "typeId": "it.vedph.doc-references",
+          "name": "references",
+          "description": "Documental references.",
+          "colorKey": "9CC894",
+          "groupKey": "editorial",
+          "sortKey": "10"
+        }
+      ]
+    },
+    {
       "id": "artifact",
       "label": "artifact",
       "description": "A human material artifact.",

@@ -7,7 +7,7 @@ Backend for the Cadmus TES project.
 ```sh
 docker buildx create --use
 
-docker buildx build . --platform linux/amd64,linux/arm64,windows/amd64 -t vedph2020/cadmus-tes-api:0.0.3 -t vedph2020/cadmus-tes-api:latest --push
+docker buildx build . --platform linux/amd64,linux/arm64,windows/amd64 -t vedph2020/cadmus-tes-api:0.0.4 -t vedph2020/cadmus-tes-api:latest --push
 ```
 
 (replace with the current version).
@@ -61,31 +61,31 @@ This part lists the resources present in a site. Each resource can contain tag, 
 
 ## Parts Matrix
 
-| part         | inscription    | artifact                 | site                 | cult                           | iconography |
-| ------------ | -------------- | ------------------------ | -------------------- | ------------------------------ | ----------- |
-| categories   | ins-fn ins-lng | art-type art-mat art-ctx | site-type site-feats | cult-type cult-gods cult-feats | ico-sub     |
-| comment      | X              | X                        | X                    | X                              | X           |
-| dates        | X              | X                        | X                    |                                |             |
-| fragments    | X              |                          |                      |                                |             |
-| links        | X              | X                        | X                    | X                              | X           |
-| locations    | X              | X                        | X                    |                                |             |
-| metadata     | X              | X                        | X                    | X                              | X           |
-| support      | X              |                          |                      |                                |             |
-| techniques   | X              |                          |                      |                                |             |
-| toponyms     |                |                          | X                    |                                |             |
-| note         | X transl       | X                        | X                    | X                              | X           |
-| references   | X              | X                        | X                    | X                              | X           |
-| resources    |                |                          | site-res site-prod   |                                |             |
-| states       | X              |                          |                      |                                |             |
-| scripts      | X              |                          |                      |                                |             |
-| signs        | X              |                          |                      |                                |             |
-| text         | X              |                          |                      |                                |             |
-| apparatus=   | X              |                          |                      |                                |             |
-| comment=     | X              |                          |                      |                                |             |
-| chronology=  | X              |                          |                      |                                |             |
-| orthography= | X              |                          |                      |                                |             |
-| ligatures=   | X              |                          |                      |                                |             |
-| links=       | X              |                          |                      |                                |             |
+| part         | inscription    | lit. source | artifact                 | site                 | cult                           | iconography |
+| ------------ | -------------- | ----------- | ------------------------ | -------------------- | ------------------------------ | ----------- |
+| categories   | ins-fn ins-lng |             | art-type art-mat art-ctx | site-type site-feats | cult-type cult-gods cult-feats | ico-sub     |
+| comment      | X              |             | X                        | X                    | X                              | X           |
+| dates        | X              |             | X                        | X                    |                                |             |
+| fragments    | X              |             |                          |                      |                                |             |
+| links        | X              | X           | X                        | X                    | X                              | X           |
+| locations    | X              |             | X                        | X                    |                                |             |
+| metadata     | X              | X           | X                        | X                    | X                              | X           |
+| support      | X              |             |                          |                      |                                |             |
+| techniques   | X              |             |                          |                      |                                |             |
+| toponyms     |                |             |                          | X                    |                                |             |
+| note         | X transl       | X transl    | X                        | X                    | X                              | X           |
+| references   | X              | X           | X                        | X                    | X                              | X           |
+| resources    |                |             |                          | site-res site-prod   |                                |             |
+| states       | X              |             |                          |                      |                                |             |
+| scripts      | X              |             |                          |                      |                                |             |
+| signs        | X              |             |                          |                      |                                |             |
+| text         | X              | X           |                          |                      |                                |             |
+| apparatus=   | X              | X           |                          |                      |                                |             |
+| comment=     | X              | X           |                          |                      |                                |             |
+| chronology=  | X              | X           |                          |                      |                                |             |
+| orthography= | X              |             |                          |                      |                                |             |
+| ligatures=   | X              |             |                          |                      |                                |             |
+| links=       | X              | X           |                          |                      |                                |             |
 
 ## TES Import
 
