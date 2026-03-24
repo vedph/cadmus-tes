@@ -1803,6 +1803,119 @@
       ]
     },
     {
+      "id": "comment-categories@en",
+      "entries": [
+        {
+          "id": "resources",
+          "value": "resources"
+        },
+        {
+          "id": "production",
+          "value": "production"
+        },
+        {
+          "id": "storage",
+          "value": "storage"
+        },
+        {
+          "id": "trade-exchange",
+          "value": "trade and exchange"
+        },
+        {
+          "id": "craft-production",
+          "value": "craft production"
+        },
+
+        {
+          "id": "communication-routes",
+          "value": "communication routes"
+        },
+        {
+          "id": "transport",
+          "value": "transport"
+        },
+        {
+          "id": "harbour",
+          "value": "harbour"
+        },
+        {
+          "id": "road-route",
+          "value": "road or land route"
+        },
+
+        {
+          "id": "settlement-reference",
+          "value": "settlement reference"
+        },
+        {
+          "id": "settlement-definition",
+          "value": "settlement definition"
+        },
+        {
+          "id": "settlement-foundation",
+          "value": "settlement foundation"
+        },
+        {
+          "id": "settlement-refoundation",
+          "value": "settlement refoundation"
+        },
+
+        {
+          "id": "status-marker",
+          "value": "status marker"
+        },
+        {
+          "id": "institution-office",
+          "value": "institution or office"
+        },
+        {
+          "id": "social-group",
+          "value": "social group"
+        },
+
+        {
+          "id": "epigraphic-reference",
+          "value": "epigraphic reference"
+        },
+        {
+          "id": "epigraphic-practice",
+          "value": "epigraphic practice"
+        },
+
+        {
+          "id": "figurative-representation",
+          "value": "figurative representation"
+        },
+
+        {
+          "id": "toponym",
+          "value": "toponym"
+        },
+        {
+          "id": "region-territory",
+          "value": "region or territory"
+        },
+
+        {
+          "id": "historical-event",
+          "value": "historical event"
+        },
+        {
+          "id": "historical-memory",
+          "value": "historical memory or tradition"
+        },
+
+        {
+          "id": "cult-practice",
+          "value": "cult practice"
+        },
+        {
+          "id": "sanctuary-reference",
+          "value": "sanctuary reference"
+        }
+      ]
+    },
+    {
       "id": "comment-keyword-languages@en",
       "targetId": "languages"
     },
