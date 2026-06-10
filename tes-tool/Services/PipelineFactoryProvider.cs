@@ -7,7 +7,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Proteus.Entries.Config;
 using Proteus.Entries.Pipeline;
-using Proteus.Entries.Regions;
 using Proteus.Extras;
 using Serilog;
 using System;
@@ -36,7 +35,7 @@ internal static class PipelineFactoryProvider
             // text filter
             // services.AddSingleton<ITextFilter, StandardTextFilter>();
 
-            EntryPipelineFactory.ConfigureServices(services,
+            EntryPipelineFactory.ConfigureServices(services, null,
                 // Proteus.Entries
                 typeof(CmdEntrySetBoundaryDetector).Assembly,
                 // Proteus.Extras

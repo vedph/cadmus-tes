@@ -20,11 +20,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Core" Version="10.0.5" />
-		<PackageReference Include="Cadmus.Geo.Parts" Version="6.0.1" />
+		<PackageReference Include="Cadmus.Core" Version="10.0.6" />
+		<PackageReference Include="Cadmus.Geo.Parts" Version="6.0.2" />
 		<PackageReference Include="Cadmus.Mat.Bricks" Version="7.0.1" />
 		<PackageReference Include="Cadmus.Refs.Bricks" Version="8.0.0" />
-		<PackageReference Include="Cadmus.Seed.Geo.Parts" Version="6.0.2" />
+		<PackageReference Include="Cadmus.Seed.Geo.Parts" Version="6.0.3" />
 	</ItemGroup>
 
 </Project>

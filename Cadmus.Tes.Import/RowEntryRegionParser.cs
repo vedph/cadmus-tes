@@ -23,55 +23,37 @@ namespace Cadmus.Tes.Import;
 /// </remarks>
 /// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.tes.row")]
-public sealed class RowEntryRegionParser(ILogger? logger = null) :
-    EntryRegionParser(logger), IEntryRegionParser
+public sealed class RowEntryRegionParser() : EntryRegionParser, IEntryRegionParser
 {
-    /// <summary>
-    /// Determines whether this parser is applicable to the specified
-    /// region. Typically, the applicability is determined via a configurable
-    /// nested object, having parameters like region tag(s) and paths.
-    /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region.</param>
-    /// <returns>
-    ///   <c>true</c> if applicable; otherwise, <c>false</c>.
-    /// </returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public bool IsApplicable(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
-    {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
-
-        return regions[regionIndex].Tag == "row";
-    }
+    public string[] RegionTags => ["row"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="regions" />.
+    /// Parses the entries starting from <paramref name="entryIndex"/>
+    /// in the specified region context.
     /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override int DoParse(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
+    /// <param name="entrySet">The entries set.</param>
+    /// <param name="entryIndex">The index to the entry to start parsing from.
+    /// </param>
+    /// <param name="entryRegions">The regions which include the input entry.</param>
+    /// <param name="entryRegionIndex">The index of the region being processed
+    /// in <paramref name="entryRegions"/>.</param>
+    /// <returns>The index to the next entry to be parsed, which can be
+    /// equal to <paramref name="entryIndex"/> if this parser did not consume
+    /// any entries, or to -1 to force a redirect to the default parser.</returns>
+    protected override int DoParse(EntrySet entrySet, int entryIndex,
+        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
+        ArgumentNullException.ThrowIfNull(entrySet);
+        ArgumentNullException.ThrowIfNull(entryRegions);
 
-        set.Context.Reset();
+        entrySet.Context.Reset();
 
         // find the first row-start command
         DecodedCommandEntry? row = null;
-        EntryRegion region = regions[regionIndex];
+        EntryRegion region = entryRegions[entryRegionIndex];
         for (int i = region.Range.Start.Entry; i <= region.Range.End.Entry; i++)
         {
-            if (set.Entries[i] is DecodedCommandEntry cmd &&
+            if (entrySet.Entries[i] is DecodedCommandEntry cmd &&
                 cmd.Name == "row-start")
             {
                 row = cmd;
@@ -97,10 +79,10 @@ public sealed class RowEntryRegionParser(ILogger? logger = null) :
             CreatorId = "zeus",
             UserId = "zeus",
         };
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
+        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
         ctx.Items.Clear();
         ctx.Items.Add(item);
 
-        return regionIndex + 1;
+        return entryRegionIndex + 1;
     }
 }

@@ -40,7 +40,7 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
         return map;
     }
 
-    public override async Task<int> ExecuteAsync(CommandContext context,
+    protected override async Task<int> ExecuteAsync(CommandContext context,
         ImportCommandSettings settings, CancellationToken cancel)
     {
         ShowSettings(settings);

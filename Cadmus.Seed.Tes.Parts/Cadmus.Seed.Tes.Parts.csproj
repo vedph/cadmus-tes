@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Seed" Version="10.1.4" />
+		<PackageReference Include="Cadmus.Seed" Version="10.1.5" />
 	</ItemGroup>
 
 	<ItemGroup>
