@@ -1,15 +1,11 @@
 using Cadmus.Api.Services;
 using Cadmus.Api.Services.Seeding;
 using Cadmus.Core;
-using Fusi.Api.Auth.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Diagnostics;
 using Cadmus.Core.Config;
 using Cadmus.Seed;
-using Fusi.Api.Auth.Services;
-using System.Text.Json;
 using Serilog.Events;
 using Microsoft.AspNetCore.HttpOverrides;
 using Scalar.AspNetCore;
@@ -52,6 +48,11 @@ public static class Program
         // item browser factory provider
         services.AddSingleton<IItemBrowserFactoryProvider>(_ =>
         new StandardItemBrowserFactoryProvider(
+                config.GetConnectionString("Default")!));
+
+        // metadata builder factory provider
+        services.AddSingleton<IItemMetadataBuilderFactoryProvider>(_ =>
+            new StandardItemMetadataBuilderFactoryProvider(
                 config.GetConnectionString("Default")!));
 
         // index and graph
