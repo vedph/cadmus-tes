@@ -41,6 +41,9 @@
   "entryRegionParsers": [
     {
       "id": "entry-region-parser.tes.row"
+    },
+    {
+      "id": "entry-region-parser.tes.col-id"
     }
   ],
   "entrySetContextPatchers": [
@@ -50,12 +53,7 @@
   ],
   "entrySetExporters": [
     {
-      "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
-      "options": {
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
-        "noEntries": true,
-        "jsonParts": true
-      }
+      "id": "it.vedph.entry-set-exporter.cadmus.mongo"
     }
   ]
 }

@@ -10,12 +10,23 @@
 
 	<ItemGroup>
 		<None Remove="appsettings.json" />
+		<None Remove="Assets\Dump-md.json" />
+		<None Remove="Assets\Import.json" />
 		<None Remove="Assets\Thesauri.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Dump-md.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Dump-xlsx.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Import.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Thesauri.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

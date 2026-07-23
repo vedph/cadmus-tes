@@ -1,0 +1,64 @@
+{
+  "context": {
+    "id": "it.vedph.entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes.xlsx",
+      "hasHeaderRow": true,
+      "columnNameFiltering": true,
+      "eofCheckColumn": 1
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "type": 2,
+      "name": "row-end"
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "col"
+        ],
+        "tagSuffixArgName": "n",
+        "tagSuffixSeparator": "-"
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.tes.row"
+    },
+    {
+      "id": "entry-region-parser.tes.col-id"
+    }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
+    }
+  ],
+  "entrySetExporters": [
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
+      "options": {
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
+        "noEntries": true,
+        "jsonParts": true
+      }
+    }
+  ]
+}
