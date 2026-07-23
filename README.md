@@ -161,56 +161,38 @@ using System.Collections.Generic;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// Tes column __TAG__ entry region parser. This targets TODO.
+/// TES column __TAG__ entry region parser. This targets TODO.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.Tes.col-__TAG__")]
-public sealed class Col__NAME__EntryRegionParser(ILogger? logger = null) :
-    EntryRegionParser(logger), IEntryRegionParser
+[Tag("entry-region-parser.tes.col-__TAG__")]
+public sealed class Col__NAME__EntryRegionParser :
+    EntryRegionParser, IEntryRegionParser
 {
-    private const string COL___TAG__ = "col-__TAG__";
+    /// <summary>
+    /// Gets the tags of the regions that this parser can handle.
+    /// </summary>
+    public string[] RegionTags => [ "col-__TAG__" ];
 
     /// <summary>
-    /// Determines whether this parser is applicable to the specified
-    /// region. Typically, the applicability is determined via a configurable
-    /// nested object, having parameters like region tag(s) and paths.
+    /// Parses the region of entries at <paramref name="entryRegionIndex" />
+    /// in the specified <paramref name="entryRegions" />.
     /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region.</param>
-    /// <returns>
-    ///   <c>true</c> if applicable; otherwise, <c>false</c>.
-    /// </returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    public bool IsApplicable(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
-    {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
-
-        return regions[regionIndex].Tag == COL___TAG__;
-    }
-
-    /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="regions" />.
-    /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region in the set.</param>
+    /// <param name="entrySet">The entries set.</param>
+    /// <param name="entryRegions">The regions.</param>
+    /// <param name="entryRegionIndex">Index of the region in the set.</param>
     /// <returns>
     /// The index to the next region to be parsed.
     /// </returns>
     /// <exception cref="ArgumentNullException">set or regions</exception>
-    public int Parse(EntrySet set, IReadOnlyList<EntryRegion> regions,
-        int regionIndex)
+    protected override int DoParse(EntrySet entrySet, int entryIndex,
+        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
-        ArgumentNullException.ThrowIfNull(set);
-        ArgumentNullException.ThrowIfNull(regions);
+        ArgumentNullException.ThrowIfNull(entrySet);
+        ArgumentNullException.ThrowIfNull(entryRegions);
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)set.Context;
-        EntryRegion region = regions[regionIndex];
+        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
+        EntryRegion region = entryRegions[entryRegionIndex];
 
         if (ctx.CurrentItem == null)
         {
@@ -221,13 +203,13 @@ public sealed class Col__NAME__EntryRegionParser(ILogger? logger = null) :
         }
 
         DecodedTextEntry txt = (DecodedTextEntry)
-            set.Entries[region.Range.Start.Entry + 1];
-        string? value = TesHelper.FilterValue(txt.Value, false);
+            entrySet.Entries[region.Range.Start.Entry + 1];
+        string? value = VpiHelper.FilterValue(txt.Value, false);
 
         // TODO
 
-        return regionIndex + 1;
-    }
+        return entryRegionIndex + 1;
+    }   
 }
 ```
 

@@ -10,13 +10,11 @@ namespace Cadmus.Tes.Import;
 
 internal static partial class ImportHelper
 {
-    // list of values that represent empty values, if any
-    private static readonly HashSet<string> _emptyValues = [];
+    private static readonly HashSet<string> _emptyValues = [
+        "n\\d", "n/d", "N\\D", "N/D"
+    ];
 
-    private static readonly Regex _wsRegex = WsRegex();
-
-    // whitespace regex: one or more whitespace characters
-    [GeneratedRegex(@"\s+", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\s+")]
     private static partial Regex WsRegex();
 
     /// <summary>
@@ -110,6 +108,32 @@ internal static partial class ImportHelper
         if (string.IsNullOrEmpty(value)) return 0;
         value = FilterValue(value, true);
         return int.TryParse(value, out int n) ? n : 0;
+    }
+
+    /// <summary>
+    /// Gets the date value with format DD/MM/YYYY.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>Value or null if empty or invalid.</returns>
+    public static DateOnly? GetDateValue(string? value)
+    {
+        if (string.IsNullOrEmpty(value)) return null;
+
+        value = FilterValue(value, true);
+        if (string.IsNullOrEmpty(value)) return null;
+
+        // parse from formats like D/MM/YYYY, DD/M/YYYY, etc.
+        // and also tolerate \ for /
+        string[] dateParts = value.Replace('\\', '/').Split('/');
+        if (dateParts.Length == 3 &&
+            int.TryParse(dateParts[0], out int day) &&
+            int.TryParse(dateParts[1], out int month) &&
+            int.TryParse(dateParts[2], out int year))
+        {
+            return new DateOnly(year, month, day);
+        }
+
+        return null;
     }
 
     /// <summary>

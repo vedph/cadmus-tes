@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Cadmus.General.Parts" Version="15.0.0" />
 		<PackageReference Include="Cadmus.Import.Proteus" Version="15.0.0" />
 	</ItemGroup>
 
