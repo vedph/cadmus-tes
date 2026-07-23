@@ -71,7 +71,7 @@ public static class Program
             CommandApp app = new();
             app.Configure(config =>
             {
-                config.AddCommand<ImportInscriptionsCommand>("import-inscr")
+                config.AddCommand<ImportCommand>("import")
                       .WithDescription("Import inscriptions from XLSX into MongoDB.");
             });
 

@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace Tes.Cli.Commands;
 
-internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSettings>
+internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
 {
     private static void ShowSettings(ImportCommandSettings settings)
     {
@@ -25,7 +25,7 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
 
     private static string LoadFileContent(string path)
     {
-        using var reader = new StreamReader(path);
+        using StreamReader reader = new(path);
         return reader.ReadToEnd();
     }
 
@@ -41,21 +41,22 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
     }
 
     protected override async Task<int> ExecuteAsync(CommandContext context,
-        ImportCommandSettings settings, CancellationToken cancel)
+        ImportCommandSettings settings, CancellationToken cancellationToken)
     {
         ShowSettings(settings);
 
-        int count = 0;
-        await AnsiConsole.Status().StartAsync("Running pipeline...", async ctx =>
+        try
         {
-            ctx.Spinner(Spinner.Known.Ascii);
+            ThesaurusEntryMap map = LoadThesaurusMap();
 
             // load pipeline config
-            ctx.Status("Building pipeline...");
+            AnsiConsole.WriteLine("Building pipeline...");
             string config = LoadFileContent(settings.PipelinePath!);
 
             // build pipeline (either from stock components or from plugin)
-            IEntryPipelineFactory factory = PipelineFactoryProvider.GetFactory(config);
+            IEntryPipelineFactory factory = PipelineFactoryProvider
+                .GetFactory(config);
+
             EntryPipeline pipeline;
             try
             {
@@ -68,13 +69,13 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
             }
 
             // get entry reader
-            ctx.Status("Getting entries set reader...");
+            AnsiConsole.WriteLine("Getting entries set reader...");
             EntrySetReader setReader = factory.GetEntrySetReader();
 
             // open exporters outputs
             if (pipeline.Exporters.Count > 0)
             {
-                ctx.Status("Opening exporters...");
+                AnsiConsole.WriteLine("Opening exporters...");
                 foreach (IEntrySetExporter exporter in pipeline.Exporters)
                 {
                     await exporter.OpenAsync();
@@ -82,8 +83,8 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
             }
 
             // process sets
-            ThesaurusEntryMap map = LoadThesaurusMap();
-            ctx.Status("Reading entry sets...");
+            AnsiConsole.WriteLine("Reading entry sets: ");
+            int count = 0;
             pipeline.Start();
             try
             {
@@ -94,39 +95,36 @@ internal sealed class ImportInscriptionsCommand : AsyncCommand<ImportCommandSett
                     c.ThesaurusEntryMap = map;
 
                     count++;
-                    if (count % 10 == 0)
-                    {
-                        ctx.Status($"Reading entry sets... {count}");
-                    }
-                    factory.Logger?.LogInformation("--- Reading set #{Number}",
-                        setReader.Set.Context.Number);
+                    AnsiConsole.Write('.');
+                    factory.Logger?.LogInformation("Reading set #{Number}",
+                        c.Number);
                     await pipeline.ExecuteAsync(setReader.Set);
                 }
-            }
-            catch (Exception ex)
-            {
-                AnsiConsole.WriteException(ex);
-                throw;
             }
             finally
             {
                 AnsiConsole.WriteLine();
                 pipeline.End();
             }
+            AnsiConsole.MarkupLine($"\n[green]Sets read: {count}[/]");
 
             // close exporters output
             if (pipeline.Exporters.Count > 0)
             {
-                ctx.Status("Closing exporters...");
+                AnsiConsole.WriteLine("Closing exporters...");
                 foreach (IEntrySetExporter exporter in pipeline.Exporters)
                 {
                     await exporter.CloseAsync();
                 }
             }
-        });
-        AnsiConsole.WriteLine($"\nSets read: {count}");
 
-        return 0;
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            AnsiConsole.MarkupLine($"[red]Error: {ex.Message}[/]");
+            return 1;
+        }
     }
 }
 
