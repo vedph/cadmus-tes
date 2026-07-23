@@ -83,6 +83,6 @@ public sealed class RowEntryRegionParser() : EntryRegionParser, IEntryRegionPars
         ctx.Items.Clear();
         ctx.Items.Add(item);
 
-        return entryRegionIndex + 1;
+        return entryIndex + 1;
     }
 }

@@ -72,6 +72,6 @@ public sealed class ColIdEntryRegionParser :
             });
         }
 
-        return entryRegionIndex + 1;
+        return entryIndex + 1;
     }
 }
