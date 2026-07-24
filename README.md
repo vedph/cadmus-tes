@@ -145,11 +145,9 @@ List of target thesauri:
 Template for region parser:
 
 - `__TAG__`: the region tag.
-- `__NAME__` the class name.
 
 ```cs
 using Cadmus.Import.Proteus;
-using Cadmus.Refs.Bricks;
 using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -161,21 +159,21 @@ using System.Collections.Generic;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column __TAG__ entry region parser. This targets TODO.
+/// TES column categories entry region parser. This targets TODO.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-__TAG__")]
-public sealed class Col__NAME__EntryRegionParser :
+public sealed class Col__TAG__EntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => [ "col-__TAG__" ];
+    public string[] RegionTags => ["col-__TAG__"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="entryRegionIndex" />
+    /// Parses the region of entries at <paramref name="regionIndex" />
     /// in the specified <paramref name="entryRegions" />.
     /// </summary>
     /// <param name="entrySet">The entries set.</param>
@@ -202,13 +200,13 @@ public sealed class Col__NAME__EntryRegionParser :
                 "__TAG__ column without any item at region " + region);
         }
 
-        DecodedTextEntry txt = (DecodedTextEntry)
-            entrySet.Entries[region.Range.Start.Entry + 1];
-        string? value = VpiHelper.FilterValue(txt.Value, false);
+        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
+            entryIndex + 1)!;
+        string? value = ImportHelper.FilterValue(txt.Value, false);
 
         // TODO
 
-        return entryRegionIndex + 1;
+        return entryIndex + 3;
     }   
 }
 ```
