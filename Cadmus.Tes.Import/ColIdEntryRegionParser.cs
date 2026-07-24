@@ -57,8 +57,8 @@ public sealed class ColIdEntryRegionParser :
                 "ID column without any item at region " + region);
         }
 
-        DecodedTextEntry txt = (DecodedTextEntry)
-            entrySet.Entries[region.Range.Start.Entry + 1];
+        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
+            entryIndex + 1)!;
         string? value = ImportHelper.FilterValue(txt.Value, false);
 
         if (!string.IsNullOrEmpty(value))
@@ -72,6 +72,6 @@ public sealed class ColIdEntryRegionParser :
             });
         }
 
-        return entryIndex + 1;
+        return entryIndex + 3;
     }
 }

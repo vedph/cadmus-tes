@@ -23,28 +23,46 @@ namespace Cadmus.Tes.Import;
 /// </remarks>
 /// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.tes.row")]
-public sealed class RowEntryRegionParser() : EntryRegionParser, IEntryRegionParser
+public sealed class RowEntryRegionParser :
+    EntryRegionParser, IEntryRegionParser
 {
-    public string[] RegionTags => ["row"];
+    private bool _first = false;
 
     /// <summary>
-    /// Parses the entries starting from <paramref name="entryIndex"/>
-    /// in the specified region context.
+    /// Gets the tags of the regions that this parser can handle.
+    /// </summary>
+    public string[] RegionTags => ["row"];
+
+    public override void RegionChanged(string tag, int index, bool entered,
+        IEntrySetContext context)
+    {
+        base.RegionChanged(tag, index, entered, context);
+
+        if (tag == "row" && entered)
+        {
+            _first = true;
+        }
+    }
+
+    /// <summary>
+    /// Parses the region of entries at <paramref name="entryRegionIndex" />
+    /// in the specified <paramref name="entryRegions" />.
     /// </summary>
     /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryIndex">The index to the entry to start parsing from.
-    /// </param>
-    /// <param name="entryRegions">The regions which include the input entry.</param>
-    /// <param name="entryRegionIndex">The index of the region being processed
-    /// in <paramref name="entryRegions"/>.</param>
-    /// <returns>The index to the next entry to be parsed, which can be
-    /// equal to <paramref name="entryIndex"/> if this parser did not consume
-    /// any entries, or to -1 to force a redirect to the default parser.</returns>
+    /// <param name="entryRegions">The regions.</param>
+    /// <param name="entryRegionIndex">Index of the region in the set.</param>
+    /// <returns>
+    /// The index to the next region to be parsed.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">set or regions</exception>
     protected override int DoParse(EntrySet entrySet, int entryIndex,
         IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
         ArgumentNullException.ThrowIfNull(entrySet);
         ArgumentNullException.ThrowIfNull(entryRegions);
+
+        // create the target item only for the first row
+        if (!_first) return entryIndex;
 
         entrySet.Context.Reset();
 
@@ -75,14 +93,15 @@ public sealed class RowEntryRegionParser() : EntryRegionParser, IEntryRegionPars
         // add item for the row
         Item item = new()
         {
-            FacetId = "inscription",
+            FacetId = "woodblock",
             CreatorId = "zeus",
-            UserId = "zeus",
+            UserId = "zeus"
         };
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
         ctx.Items.Clear();
         ctx.Items.Add(item);
 
+        _first = false;
         return entryIndex + 1;
     }
 }
