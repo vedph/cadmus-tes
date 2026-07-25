@@ -91,41 +91,41 @@ This part lists the resources present in a site. Each resource can contain tag, 
 
 The CLI app `tes-tool` in this solution is used to import inscriptions from an Excel file via the Proteus framework. Source Excel files have the following columns (▶️ is the mapping into the above model for inscription items; \* marks a column which is always filled with a value):
 
-(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `links`: add an external metadata link.
+(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `links` (`PinLinksPart`): add an external metadata link.
 
 (2) **B** (`Date notBefore`)\*: a numeric value representing a year for the from-date, negative if BC. This is imported together with C.
 
-(3) **C** (`Date notAfter`)\*: a numeric value representing a year for the to-date, negative if BC. ▶️ `dates` as a range B-C.
+(3) **C** (`Date notAfter`)\*: a numeric value representing a year for the to-date, negative if BC. ▶️ `dates` (`AssertedHistoricalDatesPart`) as a range B-C.
 
 (4) **D** (`Site of origin (ancient name)`)\*: the ancient name of the site of origin (e.g. `Syracusae`). This is imported together with E and F.
 
 (5) **E** (`Site of origin (modern name)`)\*: the modern name of the site of origin (e.g. `Siracusa`). This is imported together with E and F.
 
-(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `links`: add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
+(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `links` (`PinLinksPart`): add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
 
 (7) **F** (`Origin latitude`)\*: latitude. This is imported together with G.
 
-(8) **G** (`Origin longitude`)\*: longitude ▶️ `locations` together with F. F-G are the first location which refers to origin.
+(8) **G** (`Origin longitude`)\*: longitude ▶️ `locations` (`AssertedLocationsPart`) together with F. F-G are the first location which refers to origin.
 
 (9) **H** (`Provenance latitude`): latitude. This is imported together with I.
 
-(10) **I** (`Provenance longitude`): longitude ▶️ `locations` together with H. H-I are the second location which refers to provenance.
+(10) **I** (`Provenance longitude`): longitude ▶️ `locations` (`AssertedLocationsPart`) together with H. H-I are the second location which refers to provenance.
 
-(11) **J** (`Material`)\*: ▶️ `support`.`material` mapped to thesaurus 📚 `epi-support-materials`.
+(11) **J** (`Material`)\*: ▶️ `support`.`material` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-materials`.
 
-(12) **K** (`Object type`): when not specified the value is `N/A`. ▶️ `support`.`objectType` mapped to thesaurus 📚 `epi-support-object-types`.
+(12) **K** (`Object type`): when not specified the value is `N/A`. ▶️ `support`.`objectType` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-object-types`.
 
-(13) **L** (`Type`): when not specified the value is `N/A`. ▶️ `categories:ins-fn` mapped to thesaurus 📚 `categories_ins-fn`.
+(13) **L** (`Type`): when not specified the value is `N/A`. ▶️ `categories:ins-fn` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-fn`.
 
-(14) **M** (`Execution type 1`): e.g. `chiselled` ▶️ `technique`.`techniques` mapped to thesaurus 📚 `epi-technique-types`.
+(14) **M** (`Execution type 1`): e.g. `chiselled` ▶️ `technique`.`techniques` (`EpiTechniquePart`) mapped to thesaurus 📚 `epi-technique-types`.
 
 (15) **N** (`Execution type 2`): as for M.
 
-(16) **O** (`Language`)\*: ▶️ `categories:ins-lng` mapped to thesaurus 📚 `categories_ins-lng`.
+(16) **O** (`Language`)\*: ▶️ `categories:ins-lng` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-lng`.
 
-(17) **P** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `metadata`.`preservation-place`.
+(17) **P** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `metadata`.`preservation-place` (`MetadataPart`).
 
-(18) **Q** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr`.
+(18) **Q** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr` (`MetadataPart`).
 
 (19) **R** (`Edition (interpretive)`): text (Leiden) ▶️ text splitting lines at ??.
 

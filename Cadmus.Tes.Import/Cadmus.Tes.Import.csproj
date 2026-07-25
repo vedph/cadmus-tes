@@ -7,7 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Cadmus.Epigraphy.Parts" Version="9.0.4" />
 		<PackageReference Include="Cadmus.General.Parts" Version="15.0.1" />
+		<PackageReference Include="Cadmus.Geo.Parts" Version="6.0.3" />
 		<PackageReference Include="Cadmus.Import.Proteus" Version="15.0.1" />
 	</ItemGroup>
 
