@@ -1,4 +1,5 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -9,19 +10,19 @@ using System.Collections.Generic;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column date A entry region parser. This just caches the A term for
+/// TES column date B entry region parser. This just caches the B term for
 /// later use (when dealing with B).
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-date-a")]
-public sealed class ColDateAEntryRegionParser :
+[Tag("entry-region-parser.tes.col-date-b")]
+public sealed class ColDateBEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-date_notbefore"];
+    public string[] RegionTags => ["col-date_notafter"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -55,11 +56,13 @@ public sealed class ColDateAEntryRegionParser :
             entryIndex + 1)!;
         string? value = ImportHelper.FilterValue(txt.Value, false);
 
-        if (!string.IsNullOrEmpty(value))
+        // add date if there is any term (A or B)
+        string? a = ctx.GetData<string>("col-date-a");
+        if (a != null || !string.IsNullOrEmpty(value))
         {
-            ctx.Data["col-date-a"] = value;
-            Logger?.LogInformation("col-date-a column value {Value} cached",
-                value);
+            AssertedHistoricalDatesPart part =
+                ctx.EnsurePartForCurrentItem<AssertedHistoricalDatesPart>();
+            // TODO
         }
 
         return entryIndex + 3;
