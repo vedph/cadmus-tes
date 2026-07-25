@@ -44,6 +44,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-id"
+    },
+    {
+      "id": "entry-region-parser.tes.col-date-a"
     }
   ],
   "entrySetContextPatchers": [
