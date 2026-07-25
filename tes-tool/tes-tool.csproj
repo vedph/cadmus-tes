@@ -34,8 +34,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Import.Proteus" Version="15.0.0" />
-		<PackageReference Include="Cadmus.Seed" Version="15.0.0" />
+		<PackageReference Include="Cadmus.Import.Proteus" Version="15.0.1" />
+		<PackageReference Include="Cadmus.Seed" Version="15.0.1" />
 		<PackageReference Include="Fusi.Cli.Logging" Version="1.0.1" />
 		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.10" />

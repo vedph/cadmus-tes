@@ -1,5 +1,6 @@
 ﻿using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -60,9 +61,27 @@ public sealed class ColDateBEntryRegionParser :
         string? a = ctx.GetData<string>("col-date-a");
         if (a != null || !string.IsNullOrEmpty(value))
         {
+            string text;
+            // if A = B then this is a single date
+            if (a == value)
+            {
+                text = a!;
+            }
+            else
+            {
+                // if there is B only it's --> B
+                if (string.IsNullOrEmpty(a)) text = $"-- {value}";
+                // if there is A only it's A -->
+                else if (string.IsNullOrEmpty(value)) text = $"{a} -- ";
+                // if there are both A and B it's A --> B
+                else text = $"{a} -- {value}";
+            }
+
+            AssertedHistoricalDate date = AssertedHistoricalDate.Parse(text)!;
+
             AssertedHistoricalDatesPart part =
                 ctx.EnsurePartForCurrentItem<AssertedHistoricalDatesPart>();
-            // TODO
+            part.Dates.Add(date);
         }
 
         return entryIndex + 3;
