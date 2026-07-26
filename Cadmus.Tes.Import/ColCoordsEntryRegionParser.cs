@@ -91,6 +91,7 @@ public sealed class ColCoordsEntryRegionParser :
                             Tag = "origin",
                             Value = new GeoLocation
                             {
+                                Label = ctx.GetData<string>("place-origin-a") ?? "",
                                 Latitude = lat.Value,
                                 Longitude = double.Parse(value),
                             }

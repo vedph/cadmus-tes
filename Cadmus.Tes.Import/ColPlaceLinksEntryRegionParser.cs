@@ -19,8 +19,8 @@ namespace Cadmus.Tes.Import;
 public sealed class ColPlaceLinksEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
-    private const string ORIGIN_ANCIENT_TAG = "col-site_of_origin_(ancient name)";
-    private const string ORIGIN_MODERN_TAG = "col-site_of_origin_(modern name)";
+    private const string ORIGIN_ANCIENT_TAG = "col-site_of_origin_(ancient_name)";
+    private const string ORIGIN_MODERN_TAG = "col-site_of_origin_(modern_name)";
     private const string ORIGIN_PLEIADES = "col-pleiades_id";
 
     /// <summary>
@@ -66,20 +66,23 @@ public sealed class ColPlaceLinksEntryRegionParser :
         {
             // if ancient name, store it for later use
             if (region.Tag == ORIGIN_ANCIENT_TAG)
-                ctx.Data["place-origin"] = value;
+                ctx.Data["place-origin-a"] = value;
 
             // add link
             PinLinksPart part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
             part.Links.Add(new AssertedCompositeId
             {
                 Tag = "origin",
-                Scope = region.Tag == ORIGIN_PLEIADES ? "pleiades" : null,
+                Scope = region.Tag == ORIGIN_PLEIADES
+                    ? "pleiades"
+                    : region.Tag == ORIGIN_ANCIENT_TAG?
+                        "toponym-ancient" : "toponym-modern",
                 Target = new PinTarget
                 {
                     Gid = value,
                     // for Pleiades ID use the ancient name as label, if any
                     Label = region.Tag == ORIGIN_PLEIADES
-                            ? ctx.GetData<string>("place-origin") ?? value
+                            ? ctx.GetData<string>("place-origin-a") ?? value
                             : value
                 }
             });

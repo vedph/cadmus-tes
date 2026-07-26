@@ -93,7 +93,7 @@ public sealed class RowEntryRegionParser :
         // add item for the row
         Item item = new()
         {
-            FacetId = "woodblock",
+            FacetId = "inscription",
             CreatorId = "zeus",
             UserId = "zeus"
         };
