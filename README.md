@@ -99,35 +99,35 @@ The CLI app `tes-tool` in this solution is used to import inscriptions from an E
 
 (4) **D** (`Site of origin (ancient name)`)\*: the ancient name of the site of origin (e.g. `Syracusae`). This is imported together with E and F.
 
-(5) **E** (`Site of origin (modern name)`)\*: the modern name of the site of origin (e.g. `Siracusa`). This is imported together with E and F.
+(5) **E** (`Site of origin (modern name)`)\*: the modern name of the site of origin (e.g. `Siracusa`). This is imported together with D and F.
 
 (6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `links` (`PinLinksPart`): add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
 
-(7) **F** (`Origin latitude`)\*: latitude. This is imported together with G.
+(7) **G** (`Origin latitude`)\*: latitude. This is imported together with H.
 
-(8) **G** (`Origin longitude`)\*: longitude ▶️ `locations` (`AssertedLocationsPart`) together with F. F-G are the first location which refers to origin.
+(8) **H** (`Origin longitude`)\*: longitude ▶️ `locations` (`AssertedLocationsPart`) together with G. G-H are the first location which refers to origin.
 
-(9) **H** (`Provenance latitude`): latitude. This is imported together with I.
+(9) **I** (`Provenance latitude`): latitude. This is imported together with J.
 
-(10) **I** (`Provenance longitude`): longitude ▶️ `locations` (`AssertedLocationsPart`) together with H. H-I are the second location which refers to provenance.
+(10) **J** (`Provenance longitude`): longitude ▶️ `locations` (`AssertedLocationsPart`) together with I. I-J are the second location which refers to provenance.
 
-(11) **J** (`Material`)\*: ▶️ `support`.`material` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-materials`.
+(11) **K** (`Material`)\*: ▶️ `support`.`material` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-materials`.
 
-(12) **K** (`Object type`): when not specified the value is `N/A`. ▶️ `support`.`objectType` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-object-types`.
+(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `support`.`objectType` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-object-types`.
 
-(13) **L** (`Type`): when not specified the value is `N/A`. ▶️ `categories:ins-fn` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-fn`.
+(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `categories:ins-fn` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-fn`.
 
-(14) **M** (`Execution type 1`): e.g. `chiselled` ▶️ `technique`.`techniques` (`EpiTechniquePart`) mapped to thesaurus 📚 `epi-technique-types`.
+(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `technique`.`techniques` (`EpiTechniquePart`) mapped to thesaurus 📚 `epi-technique-types`.
 
-(15) **N** (`Execution type 2`): as for M.
+(15) **O** (`Execution type 2`): as for N.
 
-(16) **O** (`Language`)\*: ▶️ `categories:ins-lng` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-lng`.
+(16) **P** (`Language`)\*: ▶️ `categories:ins-lng` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-lng`.
 
-(17) **P** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `metadata`.`preservation-place` (`MetadataPart`).
+(17) **Q** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `metadata`.`preservation-place` (`MetadataPart`).
 
-(18) **Q** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr` (`MetadataPart`).
+(18) **R** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr` (`MetadataPart`).
 
-(19) **R** (`Edition (interpretive)`): text (Leiden) ▶️ text splitting lines at ??.
+(19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ text splitting lines at ??.
 
 List of target thesauri:
 
