@@ -64,6 +64,9 @@
       "id": "entry-region-parser.tes.col-lng"
     },
     {
+      "id": "entry-region-parser.tes.col-repository"
+    },
+    {
       "id": "entry-region-parser.tes.col-place-links"
     }
   ],
