@@ -55,6 +55,9 @@
       "id": "entry-region-parser.tes.col-support"
     },
     {
+      "id": "entry-region-parser.tes.col-type"
+    },
+    {
       "id": "entry-region-parser.tes.col-place-links"
     }
   ],
