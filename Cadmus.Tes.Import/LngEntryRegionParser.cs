@@ -10,19 +10,19 @@ using System.Collections.Generic;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column inscription type entry region parser. This targets
-/// CategoriesPart:ins-fn.
+/// TES column inscription language entry region parser. This targets
+/// CategoriesPart:ins-lng.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-type")]
-public sealed class ColTypeEntryRegionParser :
+[Tag("entry-region-parser.tes.col-lng")]
+public sealed class ColLngEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-type"];
+    public string[] RegionTags => ["col-language"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -46,10 +46,10 @@ public sealed class ColTypeEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("Type column without any item at region {Region}",
+            Logger?.LogError("Language column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
-                "Type column without any item at region " + region);
+                "Language column without any item at region " + region);
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
@@ -59,11 +59,11 @@ public sealed class ColTypeEntryRegionParser :
         HashSet<string> ids = [];
         foreach (string label in ImportHelper.GetValueList(value, false, ['|']))
         {
-            string id = ImportHelper.GetThesaurusId(ctx, region, "categories_ins-fn",
+            string id = ImportHelper.GetThesaurusId(ctx, region, "categories_ins-lng",
                 label, Logger);
             if (id == null)
             {
-                Logger?.LogError("Unknown category label for {Tag}: \"{Label}\" " +
+                Logger?.LogError("Unknown language label for {Tag}: \"{Label}\" " +
                     "at region {Region}", region.Tag, label, region);
                 continue;
             }
@@ -73,7 +73,7 @@ public sealed class ColTypeEntryRegionParser :
         if (ids.Count > 0)
         {
             CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>(
-                "ins-fn");
+                "ins-lng");
             foreach (string id in ids) part.Categories.Add(id);
         }
 
