@@ -49,6 +49,9 @@
       "id": "entry-region-parser.tes.col-date"
     },
     {
+      "id": "entry-region-parser.tes.col-coords"
+    },
+    {
       "id": "entry-region-parser.tes.col-place-links"
     }
   ],
