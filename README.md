@@ -127,7 +127,7 @@ The CLI app `tes-tool` in this solution is used to import inscriptions from an E
 
 (18) **R** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr` (`MetadataPart`).
 
-(19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ text splitting lines at ??.
+(19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ multiline text.
 
 List of target thesauri:
 

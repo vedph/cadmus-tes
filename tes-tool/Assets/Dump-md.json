@@ -68,6 +68,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-place-links"
+    },
+    {
+      "id": "entry-region-parser.tes.col-text"
     }
   ],
   "entrySetContextPatchers": [
