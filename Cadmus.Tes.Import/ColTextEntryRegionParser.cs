@@ -53,14 +53,13 @@ public sealed class ColTextEntryRegionParser :
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
+        string? value = txt.Value;
 
         if (!string.IsNullOrWhiteSpace(value))
         {
             TokenTextPart part = ctx.EnsurePartForCurrentItem<TokenTextPart>();
             short n = 1;
-            foreach (string line in value.Trim().Split(['\r', '\n'],
-                StringSplitOptions.RemoveEmptyEntries))
+            foreach (string line in value.Trim().Split(['\r', '\n']))
             {
                 part.Lines.Add(new TextLine
                 {

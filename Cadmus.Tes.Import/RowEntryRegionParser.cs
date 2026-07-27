@@ -11,7 +11,7 @@ using System.Globalization;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// VeLA row entry region parser. This resets the context and adds a new item
+/// TES row entry region parser. This resets the context and adds a new item
 /// to it.
 /// <para>Tag: <c>entry-region-parser.tes.row</c>.</para>
 /// </summary>

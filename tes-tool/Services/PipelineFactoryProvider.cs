@@ -21,7 +21,7 @@ internal static class PipelineFactoryProvider
     {
         string logFilePath = Path.Combine(
               Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "",
-              "vela-log.txt");
+              "tes-log.txt");
 
         return Host.CreateDefaultBuilder().ConfigureServices((_, services) =>
         {
