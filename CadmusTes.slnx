@@ -1,8 +1,12 @@
 <Solution>
   <Folder Name="/Solution Items/">
+    <File Path="buildnpub.ps1" />
     <File Path="CHANGELOG.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
     <File Path="docker-compose.yml" />
     <File Path="Dockerfile" />
+    <File Path="nuget.config" />
     <File Path="README.md" />
   </Folder>
   <Project Path="Cadmus.Seed.Tes.Parts.Test/Cadmus.Seed.Tes.Parts.Test.csproj" Id="27a03eba-7474-41cf-8cb9-4f35825aeec3" />

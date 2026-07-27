@@ -14,17 +14,32 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 		<PackageTags>Cadmus;parts</PackageTags>
-		<Version>0.0.1</Version>
-		<FileVersion>0.0.1</FileVersion>
-		<AssemblyVersion>0.0.1</AssemblyVersion>
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<!-- SourceLink-related -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Core" Version="15.0.1" />
-		<PackageReference Include="Cadmus.Geo.Parts" Version="6.0.3" />
-		<PackageReference Include="Cadmus.Mat.Bricks" Version="15.0.1" />
-		<PackageReference Include="Cadmus.Refs.Bricks" Version="15.0.1" />
-		<PackageReference Include="Cadmus.Seed.Geo.Parts" Version="6.0.4" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
+		<PackageReference Include="Cadmus.Core" />
+		<PackageReference Include="Cadmus.Geo.Parts" />
+		<PackageReference Include="Cadmus.Mat.Bricks" />
+		<PackageReference Include="Cadmus.Refs.Bricks" />
+		<PackageReference Include="Cadmus.Seed.Geo.Parts" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Include="Cadmus.Core" />
+		<PackageReference Include="Cadmus.Geo.Parts" />
+		<PackageReference Include="Cadmus.Mat.Bricks" />
+		<PackageReference Include="Cadmus.Refs.Bricks" />
+		<PackageReference Include="Cadmus.Seed.Geo.Parts" />
 	</ItemGroup>
 
 </Project>

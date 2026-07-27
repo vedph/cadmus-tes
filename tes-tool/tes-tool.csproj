@@ -6,9 +6,13 @@
 		<RootNamespace>Tes.Cli</RootNamespace>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>0.0.1</Version>
-		<FileVersion>0.0.1</FileVersion>
-		<AssemblyVersion>0.0.1</AssemblyVersion>
+		<Authors>Daniele Fusi</Authors>
+		<Company>Fusi</Company>
+		<Product>Cadmus</Product>
+		<Description>CLI tool for the Cadmus TES Project.</Description>
+		<Copyright>by Daniele Fusi 2026</Copyright>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,24 +41,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Cadmus.Import.Proteus" Version="15.0.1" />
-		<PackageReference Include="Cadmus.Seed" Version="15.0.1" />
-		<PackageReference Include="Fusi.Cli.Logging" Version="1.0.1" />
-		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.10" />
-		<PackageReference Include="Proteus.Entries" Version="13.0.4" />
-		<PackageReference Include="Proteus.Extras" Version="13.0.4" />
-		<PackageReference Include="Serilog" Version="4.4.0" />
-		<PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
-		<PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
-		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-		<PackageReference Include="Spectre.Console" Version="0.57.2" />
-		<PackageReference Include="Spectre.Console.Cli" Version="0.55.0" />
+		<PackageReference Include="Cadmus.Import.Proteus" />
+		<PackageReference Include="Cadmus.Seed" />
+		<PackageReference Include="Fusi.Cli.Logging" />
+		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+		<PackageReference Include="Proteus.Entries" />
+		<PackageReference Include="Proteus.Extras" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.Extensions.Hosting" />
+		<PackageReference Include="Serilog.Extensions.Logging" />
+		<PackageReference Include="Serilog.Sinks.File" />
+		<PackageReference Include="Spectre.Console" />
+		<PackageReference Include="Spectre.Console.Cli" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 		<ProjectReference Include="..\Cadmus.Tes.Import\Cadmus.Tes.Import.csproj" />
 		<ProjectReference Include="..\Cadmus.Tes.Parts\Cadmus.Tes.Parts.csproj" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(Configuration)'=='Release'">
+		<PackageReference Include="Cadmus.Tes.Import" />
+		<PackageReference Include="Cadmus.Tes.Parts" />
 	</ItemGroup>
 
 </Project>
