@@ -29,7 +29,7 @@
 		<PackageVersion Include="Cadmus.Seed.General.Parts" Version="15.0.1" />
 		<PackageVersion Include="Cadmus.Seed.Geo.Parts" Version="6.0.4" />
 		<PackageVersion Include="Cadmus.Seed.Philology.Parts" Version="15.0.1" />
-		<PackageVersion Include="coverlet.collector" Version="10.0.1"/>
+		<PackageVersion Include="coverlet.collector" Version="10.0.1" />
 		<PackageVersion Include="Fusi.Antiquity" Version="6.0.0" />
 		<PackageVersion Include="Fusi.Cli.Logging" Version="1.0.1" />
 		<PackageVersion Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="5.0.0" />
@@ -38,7 +38,7 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.10" />
 		<PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.10" />
 		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
-		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
+		<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.301" />
 		<PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageVersion Include="Polly" Version="8.7.0" />
 		<PackageVersion Include="Proteus.Entries" Version="13.0.4" />
@@ -56,6 +56,6 @@
 		<PackageVersion Include="Spectre.Console" Version="0.57.2" />
 		<PackageVersion Include="Spectre.Console.Cli" Version="0.55.0" />
 		<PackageVersion Include="xunit" Version="2.9.3" />
-		<PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5"/>
+		<PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
 	</ItemGroup>
 </Project>

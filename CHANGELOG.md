@@ -1,5 +1,10 @@
 # History
 
+- 2026-07-27: updated packages.
+
+## 0.0.5
+
+- 2026-07-27: unified versions.
 - 2026-07-25:
   - updated packages.
   - added parsers.
