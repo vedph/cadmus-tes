@@ -64,9 +64,11 @@ public sealed class ColPlaceLinksEntryRegionParser :
 
         if (!string.IsNullOrEmpty(value))
         {
-            // if ancient name, store it for later use
+            // if ancient/modern names, store them for later use
             if (region.Tag == ORIGIN_ANCIENT_TAG)
                 ctx.Data["place-origin-a"] = value;
+            else if (region.Tag == ORIGIN_MODERN_TAG)
+                ctx.Data["place-origin-m"] = value;
 
             // add link
             PinLinksPart part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
@@ -77,12 +79,16 @@ public sealed class ColPlaceLinksEntryRegionParser :
                     ? "pleiades"
                     : region.Tag == ORIGIN_ANCIENT_TAG?
                         "toponym-ancient" : "toponym-modern",
+                
                 Target = new PinTarget
                 {
                     Gid = value,
-                    // for Pleiades ID use the ancient name as label, if any
+                    // for Pleiades ID use the ancient/modern name as label,
+                    // if any
                     Label = region.Tag == ORIGIN_PLEIADES
-                            ? ctx.GetData<string>("place-origin-a") ?? value
+                            ? ctx.GetData<string>("place-origin-a")
+                            ?? ctx.GetData<string>("place-origin-m")
+                            ?? value
                             : value
                 }
             });

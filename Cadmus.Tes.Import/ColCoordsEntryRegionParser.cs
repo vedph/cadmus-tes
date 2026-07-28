@@ -122,6 +122,7 @@ public sealed class ColCoordsEntryRegionParser :
                             Tag = "provenance",
                             Value = new GeoLocation
                             {
+                                Label = "provenance",
                                 Latitude = lat.Value,
                                 Longitude = double.Parse(value),
                             }
