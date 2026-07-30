@@ -1,5 +1,6 @@
 # History
 
+- 2026-07-30: updated thesauri.
 - 2026-07-27: updated packages.
 
 ## 0.0.5

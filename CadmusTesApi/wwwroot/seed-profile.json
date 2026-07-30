@@ -916,7 +916,6 @@
           "id": "lead-300011020",
           "value": "lead"
         },
-
         {
           "id": "marble-300011443",
           "value": "marble"
@@ -1569,123 +1568,195 @@
       "id": "categories_ins-fn@en",
       "entries": [
         {
-          "id": "christian-383",
-          "value": "christian"
+          "id": "function:abecedarium",
+          "value": "abecedarium"
         },
         {
-          "id": "decree-384",
-          "value": "decree"
-        },
-        {
-          "id": "doc-357",
-          "value": "document"
-        },
-        {
-          "id": "graffiti-127",
-          "value": "graffiti"
-        },
-        {
-          "id": "honorific-69",
-          "value": "honorific"
-        },
-        {
-          "id": "instrumentum-136",
-          "value": "instrumentum"
-        },
-        {
-          "id": "funerary-92",
-          "value": "funerary"
-        },
-        {
-          "id": "dedication-88",
-          "value": "dedication"
-        },
-        {
-          "id": "building-86",
-          "value": "building"
-        },
-        {
-          "id": "defixio-76",
-          "value": "defixio"
-        },
-        {
-          "id": "milestone-102",
-          "value": "milestone"
-        },
-        {
-          "id": "seat-111",
-          "value": "seat-inscription"
-        },
-        {
-          "id": "religious-79",
-          "value": "religious"
-        },
-        {
-          "id": "building-honorific-86",
-          "value": "building-honorific"
-        },
-        {
-          "id": "library-catalogue",
-          "value": "library-catalogue"
-        },
-        {
-          "id": "list-of-magistrates-32",
-          "value": "list-of-magistrates"
-        },
-        {
-          "id": "calendar-3",
-          "value": "calendar"
-        },
-        {
-          "id": "account",
+          "id": "function:account",
           "value": "account"
         },
         {
-          "id": "touristic-text",
-          "value": "touristic-text"
-        },
-        {
-          "id": "terminus-96",
-          "value": "terminus"
-        },
-        {
-          "id": "epigram-368",
-          "value": "epigram"
-        },
-        {
-          "id": "votive-83",
-          "value": "votive"
-        },
-        {
-          "id": "list-108",
-          "value": "list"
-        },
-        {
-          "id": "greeting-386",
-          "value": "greeting"
-        },
-        {
-          "id": "signature-115",
-          "value": "signature"
-        },
-        {
-          "id": "advertisement",
+          "id": "function:advertisement",
           "value": "advertisement"
         },
         {
-          "id": "prayer-85",
-          "value": "prayer"
+          "id": "function:attribution",
+          "value": "attribution"
         },
         {
-          "id": "business-record",
-          "value": "business-record"
+          "id": "function:attribution:ownership",
+          "value": "ownership"
         },
         {
-          "id": "tessera-133",
-          "value": "tessera-hospitalis"
+          "id": "function:attribution:production",
+          "value": "production"
         },
         {
-          "id": "unknown-143",
+          "id": "function:attribution:production:artist",
+          "value": "artist's signature"
+        },
+        {
+          "id": "function:building",
+          "value": "building"
+        },
+        {
+          "id": "function:cadastral",
+          "value": "cadastral"
+        },
+        {
+          "id": "function:calendar",
+          "value": "calendar"
+        },
+        {
+          "id": "function:certification",
+          "value": "public document"
+        },
+        {
+          "id": "function:civic-allotment",
+          "value": "civic allotment"
+        },
+        {
+          "id": "function:contents",
+          "value": "description of contents"
+        },
+        {
+          "id": "function:decree",
+          "value": "decree"
+        },
+        {
+          "id": "function:dedication",
+          "value": "dedication"
+        },
+        {
+          "id": "function:dedication:votive",
+          "value": "votive"
+        },
+        {
+          "id": "function:defixio",
+          "value": "defixio"
+        },
+        {
+          "id": "function:description",
+          "value": "description of object or contents for commercial or other reasons"
+        },
+        {
+          "id": "function:expressive",
+          "value": "expressive"
+        },
+        {
+          "id": "function:expressive:exhortation",
+          "value": "exhortation"
+        },
+        {
+          "id": "function:expressive:explicit",
+          "value": "explicit"
+        },
+        {
+          "id": "function:expressive:greeting",
+          "value": "greeting"
+        },
+        {
+          "id": "function:funerary",
+          "value": "funerary"
+        },
+        {
+          "id": "function:honorific",
+          "value": "honorific"
+        },
+        {
+          "id": "function:hymn",
+          "value": "hymn"
+        },
+        {
+          "id": "function:inventory",
+          "value": "inventory"
+        },
+        {
+          "id": "function:invocation",
+          "value": "invocation"
+        },
+        {
+          "id": "function:label",
+          "value": "label"
+        },
+        {
+          "id": "function:legal",
+          "value": "legal text"
+        },
+        {
+          "id": "function:legal:contract",
+          "value": "contract"
+        },
+        {
+          "id": "function:legal:testament",
+          "value": "testament"
+        },
+        {
+          "id": "function:letter",
+          "value": "letter"
+        },
+        {
+          "id": "function:lex_sacra",
+          "value": "lex sacra"
+        },
+        {
+          "id": "function:list",
+          "value": "list"
+        },
+        {
+          "id": "function:list:magistrates",
+          "value": "list of magistrates"
+        },
+        {
+          "id": "function:list:priests",
+          "value": "list of priests"
+        },
+        {
+          "id": "function:magical",
+          "value": "magical text"
+        },
+        {
+          "id": "function:mason",
+          "value": "quarry mark"
+        },
+        {
+          "id": "function:measure",
+          "value": "measure"
+        },
+        {
+          "id": "function:measure:weight",
+          "value": "weight"
+        },
+        {
+          "id": "function:milestone",
+          "value": "milestone"
+        },
+        {
+          "id": "function:oracle",
+          "value": "oracle"
+        },
+        {
+          "id": "function:seat",
+          "value": "seat inscription"
+        },
+        {
+          "id": "function:souvenir",
+          "value": "souvenir inscription"
+        },
+        {
+          "id": "function:terminus",
+          "value": "terminus"
+        },
+        {
+          "id": "function:tessera-hospitalis",
+          "value": "tessera hospitalis"
+        },
+        {
+          "id": "function:unassigned",
+          "value": "unassigned"
+        },
+        {
+          "id": "function:unknown",
           "value": "unknown"
         }
       ]
@@ -2071,80 +2142,132 @@
       "id": "epi-support-materials@en",
       "entries": [
         {
-          "id": "limestone-66",
-          "value": "limestone"
-        },
-        {
-          "id": "volcanic-98",
-          "value": "volcanic"
-        },
-        {
-          "id": "marble-48",
-          "value": "marble"
-        },
-        {
-          "id": "stone-2",
+          "id": "material:stone",
           "value": "stone"
         },
         {
-          "id": "sandstone-502",
-          "value": "sandstone"
+          "id": "material:stone:local",
+          "value": "local stone"
         },
         {
-          "id": "tuff-30",
-          "value": "tuff"
+          "id": "material:stone:marble",
+          "value": "marble"
         },
         {
-          "id": "ceramic-643",
-          "value": "ceramic"
+          "id": "material:stone:limestone",
+          "value": "limestone"
         },
         {
-          "id": "lead-108",
-          "value": "lead"
+          "id": "material:stone:limestone_marl",
+          "value": "limestone marl"
         },
         {
-          "id": "breccia-73",
-          "value": "breccia"
+          "id": "material:stone:limestone_tufa",
+          "value": "tufa limestone"
         },
         {
-          "id": "basalt-16",
+          "id": "material:stone:alabaster",
+          "value": "alabaster"
+        },
+        {
+          "id": "material:stone:basalt",
           "value": "basalt"
         },
         {
-          "id": "plaster-126",
-          "value": "plaster"
+          "id": "material:stone:breccia",
+          "value": "breccia"
         },
         {
-          "id": "clay-131",
-          "value": "clay"
-        },
-        {
-          "id": "copper-113",
-          "value": "copper"
-        },
-        {
-          "id": "conglomerate-74",
+          "id": "material:stone:conglomerate",
           "value": "conglomerate"
         },
         {
-          "id": "porphyry-25",
+          "id": "material:stone:granite",
+          "value": "granite"
+        },
+        {
+          "id": "material:stone:porphyry",
           "value": "porphyry"
         },
         {
-          "id": "ivory-120",
-          "value": "ivory"
+          "id": "material:stone:quarzarenite",
+          "value": "quarzarenite"
         },
         {
-          "id": "bronze-109",
+          "id": "material:stone:sandstone",
+          "value": "sandstone"
+        },
+        {
+          "id": "material:stone:slate",
+          "value": "slate"
+        },
+        {
+          "id": "material:stone:tuff",
+          "value": "tuff"
+        },
+        {
+          "id": "material:stone:volcanic",
+          "value": "volcanic"
+        },
+        {
+          "id": "material:metal",
+          "value": "metal"
+        },
+        {
+          "id": "material:metal:bronze",
           "value": "bronze"
         },
         {
-          "id": "unknown-138",
-          "value": "unknown"
+          "id": "material:metal:brass",
+          "value": "brass"
         },
         {
-          "id": "-",
-          "value": "---"
+          "id": "material:metal:lead",
+          "value": "lead"
+        },
+        {
+          "id": "material:metal:copper",
+          "value": "copper"
+        },
+        {
+          "id": "material:metal:gold",
+          "value": "gold"
+        },
+        {
+          "id": "material:metal:silver",
+          "value": "silver"
+        },
+        {
+          "id": "material:clay",
+          "value": "clay"
+        },
+        {
+          "id": "material:clay:fired",
+          "value": "clay, fired"
+        },
+        {
+          "id": "material:clay:unfired",
+          "value": "clay, unfired"
+        },
+        {
+          "id": "material:ivory",
+          "value": "ivory"
+        },
+        {
+          "id": "material:glass",
+          "value": "glass"
+        },
+        {
+          "id": "material:plaster",
+          "value": "plaster"
+        },
+        {
+          "id": "material:mortar",
+          "value": "mortar"
+        },
+        {
+          "id": "material:unknown",
+          "value": "unknown"
         }
       ]
     },
@@ -2169,144 +2292,436 @@
       "id": "epi-support-object-types@en",
       "entries": [
         {
-          "id": "block-189",
-          "value": "block"
+          "id": "object:ostrakon",
+          "value": "ostrakon"
         },
         {
-          "id": "statue-base-57",
-          "value": "statue-base"
-        },
-        {
-          "id": "slab-260",
-          "value": "slab"
-        },
-        {
-          "id": "urn-78",
-          "value": "urn"
-        },
-        {
-          "id": "seat-226",
-          "value": "seat"
-        },
-        {
-          "id": "curse-tablet-266",
-          "value": "curse-tablet"
-        },
-        {
-          "id": "milestone-89",
-          "value": "milestone"
-        },
-        {
-          "id": "plaque-1483",
-          "value": "plaque"
-        },
-        {
-          "id": "aedicula-1201",
-          "value": "aedicula"
-        },
-        {
-          "id": "column-100",
-          "value": "column"
-        },
-        {
-          "id": "wall-416",
-          "value": "wall"
-        },
-        {
-          "id": "architrave-119",
-          "value": "architrave"
-        },
-        {
-          "id": "base-53",
-          "value": "base"
-        },
-        {
-          "id": "stele-250",
+          "id": "object:stele",
           "value": "stele"
         },
         {
-          "id": "lekanis",
+          "id": "object:aedicula",
+          "value": "aedicula"
+        },
+        {
+          "id": "object:arch_element:arch",
+          "value": "arch"
+        },
+        {
+          "id": "object:belt",
+          "value": "belt"
+        },
+        {
+          "id": "object:bust",
+          "value": "bust"
+        },
+        {
+          "id": "object:plaque",
+          "value": "plaque"
+        },
+        {
+          "id": "object:shield",
+          "value": "shield"
+        },
+        {
+          "id": "object:stamp",
+          "value": "stamp"
+        },
+        {
+          "id": "object:vessel",
+          "value": "vessel"
+        },
+        {
+          "id": "object:vessel:alabastron",
+          "value": "alabastron"
+        },
+        {
+          "id": "object:vessel:amphora",
+          "value": "amphora"
+        },
+        {
+          "id": "object:vessel:aryballos",
+          "value": "aryballos"
+        },
+        {
+          "id": "object:vessel:askos",
+          "value": "askos"
+        },
+        {
+          "id": "object:vessel:bowl",
+          "value": "bowl"
+        },
+        {
+          "id": "object:vessel:cup",
+          "value": "cup"
+        },
+        {
+          "id": "object:vessel:dinos",
+          "value": "dinos"
+        },
+        {
+          "id": "object:vessel:exaleiptron",
+          "value": "exaleiptron"
+        },
+        {
+          "id": "object:vessel:hydria",
+          "value": "hydria"
+        },
+        {
+          "id": "object:vessel:incense-burner",
+          "value": "incense burner"
+        },
+        {
+          "id": "object:vessel:kalathos",
+          "value": "kalathos"
+        },
+        {
+          "id": "object:vessel:kantharos",
+          "value": "kantharos"
+        },
+        {
+          "id": "object:vessel:kernos",
+          "value": "kernos"
+        },
+        {
+          "id": "object:vessel:kothon",
+          "value": "kothon"
+        },
+        {
+          "id": "object:vessel:kotyle",
+          "value": "kotyle"
+        },
+        {
+          "id": "object:vessel:krater",
+          "value": "krater"
+        },
+        {
+          "id": "object:vessel:kyathos",
+          "value": "kyathos"
+        },
+        {
+          "id": "object:vessel:kylix",
+          "value": "kylix"
+        },
+        {
+          "id": "object:vessel:lakaina",
+          "value": "lakaina"
+        },
+        {
+          "id": "object:vessel:lebes",
+          "value": "lebes"
+        },
+        {
+          "id": "object:vessel:lekanis",
           "value": "lekanis"
         },
         {
-          "id": "tablet-255",
-          "value": "tablet"
+          "id": "object:vessel:lekythos",
+          "value": "lekythos"
         },
         {
-          "id": "plinth-1910",
-          "value": "plinth"
+          "id": "object:vessel:louterion",
+          "value": "louterion"
         },
         {
-          "id": "mosaic-184",
+          "id": "object:vessel:loutrophoros",
+          "value": "loutrophoros"
+        },
+        {
+          "id": "object:vessel:mug",
+          "value": "mug"
+        },
+        {
+          "id": "object:vessel:oinochoe",
+          "value": "oinochoe"
+        },
+        {
+          "id": "object:vessel:olpe",
+          "value": "olpe"
+        },
+        {
+          "id": "object:vessel:patera",
+          "value": "patera"
+        },
+        {
+          "id": "object:vessel:pelike",
+          "value": "pelike"
+        },
+        {
+          "id": "object:vessel:phiale",
+          "value": "phiale"
+        },
+        {
+          "id": "object:vessel:pitcher",
+          "value": "pitcher"
+        },
+        {
+          "id": "object:vessel:pithos",
+          "value": "pithos"
+        },
+        {
+          "id": "object:vessel:plate",
+          "value": "plate"
+        },
+        {
+          "id": "object:vessel:pyxis",
+          "value": "pyxis"
+        },
+        {
+          "id": "object:vessel:rhyton",
+          "value": "rhyton"
+        },
+        {
+          "id": "object:vessel:situla",
+          "value": "situla"
+        },
+        {
+          "id": "object:vessel:skyphos",
+          "value": "skyphos"
+        },
+        {
+          "id": "object:vessel:stand",
+          "value": "stand"
+        },
+        {
+          "id": "object:vessel:stamnos",
+          "value": "stamnos"
+        },
+        {
+          "id": "object:vessel:strainer",
+          "value": "strainer"
+        },
+        {
+          "id": "object:vessel:unguentarium",
+          "value": "unguentarium"
+        },
+        {
+          "id": "object:base",
+          "value": "base"
+        },
+        {
+          "id": "object:mosaic",
           "value": "mosaic"
         },
         {
-          "id": "tile-1402",
-          "value": "tile"
-        },
-        {
-          "id": "rock-face-210",
-          "value": "rock-face"
-        },
-        {
-          "id": "altar-or-base-30",
-          "value": "altar-or-base"
-        },
-        {
-          "id": "ash-chest-79",
-          "value": "ash-chest"
-        },
-        {
-          "id": "tabula-ansata-263",
-          "value": "tabula-ansata"
-        },
-        {
-          "id": "brick-1788",
-          "value": "brick"
-        },
-        {
-          "id": "pavement-190",
-          "value": "pavement"
-        },
-        {
-          "id": "altar-29",
+          "id": "object:altar",
           "value": "altar"
         },
         {
-          "id": "lamina-145",
-          "value": "lamina"
+          "id": "object:greave",
+          "value": "greave"
         },
         {
-          "id": "basin",
-          "value": "basin"
+          "id": "object:antefix",
+          "value": "antefix"
         },
         {
-          "id": "sarcophagus-214",
+          "id": "object:sarcophagus",
           "value": "sarcophagus"
         },
         {
-          "id": "moulding-1969",
-          "value": "moulding"
+          "id": "object:ash_chest",
+          "value": "ash chest"
         },
         {
-          "id": "column-capital-63",
-          "value": "column-capital"
+          "id": "object:seat",
+          "value": "seat"
         },
         {
-          "id": "tessera-hospitalis-278",
-          "value": "tessera-hospitalis"
+          "id": "object:candelabrum",
+          "value": "candelabrum"
         },
         {
-          "id": "tympanum-1952",
+          "id": "object:oil_lamp",
+          "value": "oil lamp"
+        },
+        {
+          "id": "object:cistern",
+          "value": "cistern"
+        },
+        {
+          "id": "object:arch_element",
+          "value": "architectural element"
+        },
+        {
+          "id": "object:arch_element:architrave",
+          "value": "architrave"
+        },
+        {
+          "id": "object:arch_element:capital",
+          "value": "column capital"
+        },
+        {
+          "id": "object:arch_element:crepidoma",
+          "value": "crepidoma"
+        },
+        {
+          "id": "object:arch_element:exedra",
+          "value": "exedra"
+        },
+        {
+          "id": "object:arch_element:wall",
+          "value": "wall"
+        },
+        {
+          "id": "object:arch_element:relief",
+          "value": "relief"
+        },
+        {
+          "id": "object:arch_element:sima",
+          "value": "sima"
+        },
+        {
+          "id": "object:arch_element:tympanum",
           "value": "tympanum"
         },
         {
-          "id": "unknown-2",
+          "id": "object:arch_element:moulding",
+          "value": "moulding"
+        },
+        {
+          "id": "object:arch_element:balustrade",
+          "value": "balustrade"
+        },
+        {
+          "id": "object:arch_element:plinth",
+          "value": "plinth"
+        },
+        {
+          "id": "object:cupa",
+          "value": "cupa"
+        },
+        {
+          "id": "object:column",
+          "value": "column"
+        },
+        {
+          "id": "object:urn",
+          "value": "urn"
+        },
+        {
+          "id": "object:cover",
+          "value": "cover"
+        },
+        {
+          "id": "object:coin",
+          "value": "coin"
+        },
+        {
+          "id": "object:rostrum",
+          "value": "rostrum"
+        },
+        {
+          "id": "object:statue",
+          "value": "statue"
+        },
+        {
+          "id": "object:tile",
+          "value": "tile"
+        },
+        {
+          "id": "object:sling_bullet",
+          "value": "sling bullet"
+        },
+        {
+          "id": "object:pavement",
+          "value": "pavement"
+        },
+        {
+          "id": "object:pipe",
+          "value": "pipe"
+        },
+        {
+          "id": "object:lamina",
+          "value": "lamina"
+        },
+        {
+          "id": "object:block",
+          "value": "block"
+        },
+        {
+          "id": "object:statue_base",
+          "value": "statue base"
+        },
+        {
+          "id": "object:altar_base",
+          "value": "altar base"
+        },
+        {
+          "id": "object:milestone",
+          "value": "milestone"
+        },
+        {
+          "id": "object:rock-face",
+          "value": "rock face"
+        },
+        {
+          "id": "object:pebble",
+          "value": "pebble"
+        },
+        {
+          "id": "object:funerary_monument",
+          "value": "funerary monument"
+        },
+        {
+          "id": "object:funerary_monument:tomb",
+          "value": "tomb"
+        },
+        {
+          "id": "object:funerary_monument:tomb_cover",
+          "value": "tomb cover"
+        },
+        {
+          "id": "object:funerary_monument:altar",
+          "value": "funerary altar"
+        },
+        {
+          "id": "object:funerary_monument:hypogeum",
+          "value": "hypogeum"
+        },
+        {
+          "id": "object:funerary_monument:rock-cut_tomb",
+          "value": "rock-cut tomb"
+        },
+        {
+          "id": "object:table",
+          "value": "table"
+        },
+        {
+          "id": "object:weight",
+          "value": "weight"
+        },
+        {
+          "id": "object:loom_weight",
+          "value": "loom weight"
+        },
+        {
+          "id": "object:handle",
+          "value": "handle"
+        },
+        {
+          "id": "object:tessera",
+          "value": "tessera"
+        },
+        {
+          "id": "object:basin",
+          "value": "basin"
+        },
+        {
+          "id": "object:caduceus",
+          "value": "caduceus"
+        },
+        {
+          "id": "object:unknown",
           "value": "unknown"
         },
         {
-          "id": "-",
-          "value": "---"
+          "id": "object:brick",
+          "value": "brick"
+        },
+        {
+          "id": "signaculum",
+          "value": "signaculum"
         }
       ]
     },
@@ -2411,16 +2826,76 @@
       "id": "epi-technique-types@en",
       "entries": [
         {
-          "id": "drawing",
-          "value": "drawing"
+          "id": "execution:chiselled",
+          "value": "chiselled"
         },
         {
-          "id": "incision",
-          "value": "incision"
+          "id": "execution:engraved",
+          "value": "engraved"
         },
         {
-          "id": "engraving",
-          "value": "engraving"
+          "id": "execution:relief",
+          "value": "in relief"
+        },
+        {
+          "id": "execution:hollow",
+          "value": "hollow"
+        },
+        {
+          "id": "execution:moulded",
+          "value": "moulded"
+        },
+        {
+          "id": "execution:painted",
+          "value": "painted"
+        },
+        {
+          "id": "execution:rubrication",
+          "value": "rubrication"
+        },
+        {
+          "id": "execution:rubrication:red",
+          "value": "rubrication, red colour"
+        },
+        {
+          "id": "execution:rubrication:blue",
+          "value": "rubrication, blue colour"
+        },
+        {
+          "id": "execution:rubrication:gold",
+          "value": "rubrication, gold colour"
+        },
+        {
+          "id": "execution:rubrication:black",
+          "value": "rubrication, black colour"
+        },
+        {
+          "id": "execution:scratched",
+          "value": "scratched"
+        },
+        {
+          "id": "execution:inlaid",
+          "value": "inlaid"
+        },
+        {
+          "id": "execution:punched",
+          "value": "punched"
+        },
+        {
+          "id": "execution:mosaic",
+          "value": "mosaic"
+        },
+        {
+          "id": "execution:incised",
+          "value": "stilo"
+        },
+        {
+          "id": "execution:alveolatae",
+          "value": "litterae alveolatae"
+        },
+        {
+          "id": "execution:stamped",
+          "value": "stamped"
         }
       ]
     },
@@ -2816,7 +3291,7 @@
   "seed": {
     "options": {
       "seed": 1,
-      "users": [ "zeus" ],
+      "users": ["zeus"],
       "partRoles": [],
       "fragmentRoles": []
     },
@@ -2828,7 +3303,7 @@
         "id": "seed.it.vedph.categories:art-ctx",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "funerary", "cultic", "domestic" ]
+          "categories": ["funerary", "cultic", "domestic"]
         }
       },
       {
@@ -2869,63 +3344,63 @@
         "id": "seed.it.vedph.categories:cult-gods",
         "options": {
           "maxCategoriesPerItem": 2,
-          "categories": [ "zeus-131", "dionysos-111", "kybele-123" ]
+          "categories": ["zeus-131", "dionysos-111", "kybele-123"]
         }
       },
       {
         "id": "seed.it.vedph.categories:cult-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "altar-300052391", "bothros", "oikos" ]
+          "categories": ["altar-300052391", "bothros", "oikos"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ico-sub",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "horse-46c13141", "zeus-92b1", "hephaestus-92b2" ]
+          "categories": ["horse-46c13141", "zeus-92b1", "hephaestus-92b2"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-fn",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "christian-383", "decree-384", "doc-357" ]
+          "categories": ["christian-383", "decree-384", "doc-357"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-lng",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "grc", "la" ]
+          "categories": ["grc", "la"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-feats",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "cults", "resources", "storage" ]
+          "categories": ["cults", "resources", "storage"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-res",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "clay-source", "metal-mine", "salt-source" ]
+          "categories": ["clay-source", "metal-mine", "salt-source"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "necropolis", "isolated-tomb", "sacred-area" ]
+          "categories": ["necropolis", "isolated-tomb", "sacred-area"]
         }
       },
       {
         "id": "seed.it.vedph.comment",
         "options": {
-          "languages": [ "en", "it" ],
-          "categories": [ "decree-384", "honorific-69" ]
+          "languages": ["en", "it"],
+          "categories": ["decree-384", "honorific-69"]
         }
       },
       {
@@ -2952,8 +3427,8 @@
       {
         "id": "seed.it.vedph.index-keywords",
         "options": {
-          "indexIds": [ "persons", "places" ],
-          "languages": [ "en", "de", "it", "fr", "sp" ]
+          "indexIds": ["persons", "places"],
+          "languages": ["en", "de", "it", "fr", "sp"]
         }
       },
       {
@@ -2968,15 +3443,15 @@
       {
         "id": "seed.it.vedph.tes.site-resources:site-prod",
         "options": {
-          "resourceTypes": [ "ceramic-production", "metalworking" ],
-          "resourceFeatures": [ "kilns", "furnaces" ]
+          "resourceTypes": ["ceramic-production", "metalworking"],
+          "resourceFeatures": ["kilns", "furnaces"]
         }
       },
       {
         "id": "seed.it.vedph.tes.site-resources:site-res",
         "options": {
-          "resourceTypes": [ "quarry", "mine", "salt", "water" ],
-          "resourceFeatures": [ "extraction-install", "slag" ]
+          "resourceTypes": ["quarry", "mine", "salt", "water"],
+          "resourceFeatures": ["extraction-install", "slag"]
         }
       },
       {
@@ -2999,8 +3474,8 @@
       {
         "id": "seed.fr.it.vedph.comment",
         "options": {
-          "languages": [ "en", "it" ],
-          "categories": [ "decree-384", "honorific-69" ]
+          "languages": ["en", "it"],
+          "categories": ["decree-384", "honorific-69"]
         }
       },
       {
@@ -3033,7 +3508,7 @@
           ]
         },
         "it.vedph.categories": {
-          "thesauriIds": [ "categories" ]
+          "thesauriIds": ["categories"]
         },
         "it.vedph.chronotopes": {
           "thesauriIds": [
@@ -3057,7 +3532,7 @@
           ]
         },
         "it.vedph.decorated-counts": {
-          "thesauriIds": [ "decorated-count-ids", "decorated-count-tags" ]
+          "thesauriIds": ["decorated-count-ids", "decorated-count-tags"]
         },
         "it.vedph.district-location": {
           "thesauriIds": [
@@ -3066,7 +3541,7 @@
           ]
         },
         "it.vedph.doc-references": {
-          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
         },
         "it.vedph.external-ids": {
           "thesauriIds": [
@@ -3078,10 +3553,10 @@
           ]
         },
         "it.vedph.flags": {
-          "thesauriIds": [ "flags" ]
+          "thesauriIds": ["flags"]
         },
         "it.vedph.historical-date": {
-          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
         },
         "it.vedph.historical-events": {
           "thesauriIds": [
@@ -3098,13 +3573,13 @@
           ]
         },
         "it.vedph.index-keywords": {
-          "thesauriIds": [ "languages", "keyword-indexes", "keyword-tags" ]
+          "thesauriIds": ["languages", "keyword-indexes", "keyword-tags"]
         },
         "it.vedph.keywords": {
-          "thesauriIds": [ "languages" ]
+          "thesauriIds": ["languages"]
         },
         "it.vedph.metadata": {
-          "thesauriIds": [ "metadata-names", "metadata-types" ]
+          "thesauriIds": ["metadata-names", "metadata-types"]
         },
         "it.vedph.names": {
           "thesauriIds": [
@@ -3117,7 +3592,7 @@
           ]
         },
         "it.vedph.note": {
-          "thesauriIds": [ "note-tags" ]
+          "thesauriIds": ["note-tags"]
         },
         "it.vedph.physical-measurements": {
           "thesauriIds": [
@@ -3216,7 +3691,7 @@
       },
       "fragments": {
         "fr.it.vedph.chronology": {
-          "thesauriIds": [ "chronology-tags" ]
+          "thesauriIds": ["chronology-tags"]
         },
         "fr.it.vedph.comment": {
           "thesauriIds": [
@@ -3258,7 +3733,7 @@
           ]
         },
         "fr.it.vedph.epigraphy.ligatures": {
-          "thesauriIds": [ "epi-ligature-types" ]
+          "thesauriIds": ["epi-ligature-types"]
         }
       }
     }
