@@ -11,7 +11,7 @@ namespace Cadmus.Tes.Import;
 internal static partial class ImportHelper
 {
     private static readonly HashSet<string> _emptyValues = [
-        "n\\d", "n/d", "N\\D", "N/D"
+        "unknown"
     ];
 
     [GeneratedRegex(@"\s+")]
