@@ -63,7 +63,7 @@ public sealed class ColSupportEntryRegionParser :
             {
                 case "col-material":
                     string id = ImportHelper.GetThesaurusId(ctx, region,
-                        "epi-support-materials", value, Logger);
+                        "epi-support-materials@en", value, Logger);
                     if (id == null)
                     {
                         Logger?.LogError("Unknown category label for {Tag}: \"{Label}\" " +
@@ -75,7 +75,7 @@ public sealed class ColSupportEntryRegionParser :
 
                 case "col-object_type":
                     string objectTypeId = ImportHelper.GetThesaurusId(ctx, region,
-                        "epi-support-object-types", value, Logger);
+                        "epi-support-object-types@en", value, Logger);
                     if (objectTypeId == null)
                     {
                         Logger?.LogError("Unknown category label for {Tag}: \"{Label}\" " +

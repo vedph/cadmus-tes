@@ -58,7 +58,7 @@ public sealed class ColTechniqueEntryRegionParser :
         if (!string.IsNullOrEmpty(value))
         {
             string id = ImportHelper.GetThesaurusId(ctx, region,
-                "epi-technique-types", value, Logger);
+                "epi-technique-types@en", value, Logger);
             if (id == null)
             {
                 Logger?.LogError("Unknown execution type label for {Tag}: " +
