@@ -91,7 +91,7 @@ This part lists the resources present in a site. Each resource can contain tag, 
 
 The CLI app `tes-tool` in this solution is used to import inscriptions from an Excel file via the Proteus framework. Source Excel files have the following columns (▶️ is the mapping into the above model for inscription items; \* marks a column which is always filled with a value):
 
-(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata. TODO: also link??
+(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title. TODO: also link??
 
 (2) **B** (`Date notBefore`)\*: a numeric value representing a year for the from-date, negative if BC. This is imported together with C.
 

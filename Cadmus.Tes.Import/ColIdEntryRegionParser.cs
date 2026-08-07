@@ -70,6 +70,9 @@ public sealed class ColIdEntryRegionParser :
                 Name = "eid",
                 Value = value
             });
+
+            // override item's title
+            ctx.CurrentItem.Title = value;
         }
 
         return entryIndex + 3;

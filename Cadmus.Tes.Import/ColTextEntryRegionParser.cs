@@ -57,7 +57,8 @@ public sealed class ColTextEntryRegionParser :
 
         if (!string.IsNullOrWhiteSpace(value))
         {
-            TokenTextPart part = ctx.EnsurePartForCurrentItem<TokenTextPart>();
+            TokenTextPart part = ctx.EnsurePartForCurrentItem<TokenTextPart>(
+                "base-text");
             short n = 1;
             foreach (string line in value.Trim().Split(['\r', '\n']))
             {

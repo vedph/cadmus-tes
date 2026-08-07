@@ -10,9 +10,7 @@ namespace Cadmus.Tes.Import;
 
 internal static partial class ImportHelper
 {
-    private static readonly HashSet<string> _emptyValues = [
-        "unknown"
-    ];
+    private static readonly HashSet<string> _emptyValues = [];
 
     [GeneratedRegex(@"\s+")]
     private static partial Regex WsRegex();
