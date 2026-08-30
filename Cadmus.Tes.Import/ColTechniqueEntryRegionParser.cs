@@ -6,6 +6,7 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
@@ -34,7 +35,7 @@ public sealed class ColTechniqueEntryRegionParser :
     /// The index to the next region to be parsed.
     /// </returns>
     /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override int DoParse(EntrySet entrySet, int entryIndex,
+    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
         IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
         ArgumentNullException.ThrowIfNull(entrySet);
@@ -72,6 +73,6 @@ public sealed class ColTechniqueEntryRegionParser :
             }
         }
 
-        return entryIndex + 3;
+        return Task.FromResult(entryIndex + 3);
     }
 }

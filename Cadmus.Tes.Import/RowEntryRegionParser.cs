@@ -7,6 +7,7 @@ using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
@@ -33,10 +34,10 @@ public sealed class RowEntryRegionParser :
     /// </summary>
     public string[] RegionTags => ["row"];
 
-    public override void RegionChanged(string tag, int index, bool entered,
-        IEntrySetContext context)
+    public override async Task RegionChangedAsync(string tag, int index,
+        bool entered, IEntrySetContext context)
     {
-        base.RegionChanged(tag, index, entered, context);
+        await base.RegionChangedAsync(tag, index, entered, context);
 
         if (tag == "row" && entered)
         {
@@ -55,14 +56,14 @@ public sealed class RowEntryRegionParser :
     /// The index to the next region to be parsed.
     /// </returns>
     /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override int DoParse(EntrySet entrySet, int entryIndex,
+    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
         IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
         ArgumentNullException.ThrowIfNull(entrySet);
         ArgumentNullException.ThrowIfNull(entryRegions);
 
         // create the target item only for the first row
-        if (!_first) return entryIndex;
+        if (!_first) return Task.FromResult(entryIndex);
 
         entrySet.Context.Reset();
 
@@ -102,6 +103,6 @@ public sealed class RowEntryRegionParser :
         ctx.Items.Add(item);
 
         _first = false;
-        return entryIndex + 1;
+        return Task.FromResult(entryIndex + 1);
     }
 }
