@@ -85,10 +85,10 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
             // process sets
             AnsiConsole.WriteLine("Reading entry sets: ");
             int count = 0;
-            pipeline.Start();
+            await pipeline.StartAsync();
             try
             {
-                while (setReader.Read())
+                while (await setReader.ReadAsync())
                 {
                     CadmusEntrySetContext c =
                         (CadmusEntrySetContext)setReader.Set.Context;
@@ -104,7 +104,7 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
             finally
             {
                 AnsiConsole.WriteLine();
-                pipeline.End();
+                await pipeline.EndAsync();
             }
             AnsiConsole.MarkupLine($"\n[green]Sets read: {count}[/]");
 
