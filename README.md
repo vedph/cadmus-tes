@@ -183,7 +183,7 @@ public sealed class Col__TAG__EntryRegionParser :
     /// The index to the next region to be parsed.
     /// </returns>
     /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override int DoParse(EntrySet entrySet, int entryIndex,
+    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
         IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
     {
         ArgumentNullException.ThrowIfNull(entrySet);
@@ -206,7 +206,7 @@ public sealed class Col__TAG__EntryRegionParser :
 
         // TODO
 
-        return entryIndex + 3;
+        return Task.FromResult(entryIndex + 3);
     }   
 }
 ```
