@@ -1,5 +1,8 @@
 # History
 
+- 2026-09-22:
+  - updated packages.
+  - migrated to MTP test platform (<https://learn.microsoft.com/en-us/dotnet/core/testing/migrating-vstest-microsoft-testing-platform>).
 - 2026-08-30: updated packages.
 - 2026-08-07: fixes to import.
 - 2026-08-03: fixes to thesauri import (missing `@en`).
