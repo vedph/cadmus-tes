@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Cadmus.Api.Config.Services;
 using Cadmus.Api.Config;
-using CadmusTesApi.Services;
+using Cadmus.Tes.Services;
 
 namespace CadmusTesApi;
 
@@ -39,11 +39,11 @@ public static class Program
         config.GetConnectionString("Default")!,
             config.GetValue<string>("DatabaseNames:Data"));
         services.AddSingleton<IRepositoryProvider>(
-            _ => new AppRepositoryProvider { ConnectionString = dataCS });
+            _ => new TesRepositoryProvider { ConnectionString = dataCS });
 
         // part seeder factory provider
         services.AddSingleton<IPartSeederFactoryProvider,
-            AppPartSeederFactoryProvider>();
+            TesPartSeederFactoryProvider>();
 
         // item browser factory provider
         services.AddSingleton<IItemBrowserFactoryProvider>(_ =>

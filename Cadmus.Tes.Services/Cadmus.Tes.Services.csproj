@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Cadmus.Mongo" />
+		<PackageReference Include="Cadmus.Seed.Codicology.Parts" />
+		<PackageReference Include="Cadmus.Seed.Epigraphy.Parts" />
+		<PackageReference Include="Cadmus.Seed.General.Parts" />
+		<PackageReference Include="Cadmus.Seed.Geo.Parts" />
+		<PackageReference Include="Cadmus.Seed.Philology.Parts" />
+		<PackageReference Include="Fusi.Antiquity" />
+		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Cadmus.Seed.Tes.Parts\Cadmus.Seed.Tes.Parts.csproj" />
+	</ItemGroup>
+</Project>

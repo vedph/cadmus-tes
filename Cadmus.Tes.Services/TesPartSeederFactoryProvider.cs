@@ -10,14 +10,14 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Reflection;
 
-namespace CadmusTesApi.Services;
+namespace Cadmus.Tes.Services;
 
 /// <summary>
 /// Application's part seeders factory provider. Usually, this is implemented
 /// in your project's Services library. Here we have no specific project, so we
 /// just provide an API app service here.
 /// </summary>
-public sealed class AppPartSeederFactoryProvider : IPartSeederFactoryProvider
+public sealed class TesPartSeederFactoryProvider : IPartSeederFactoryProvider
 {
     private static IHost GetHost(string config)
     {

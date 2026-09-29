@@ -42,6 +42,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Cadmus.Import.Proteus" />
+		<PackageReference Include="Cadmus.Index" />
+		<PackageReference Include="Cadmus.Index.Ef.PgSql" />
 		<PackageReference Include="Cadmus.Seed" />
 		<PackageReference Include="Fusi.Cli.Logging" />
 		<PackageReference Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" />
@@ -63,6 +65,9 @@
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<PackageReference Include="Cadmus.Tes.Import" />
 		<PackageReference Include="Cadmus.Tes.Parts" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Cadmus.Tes.Services\Cadmus.Tes.Services.csproj" />
 	</ItemGroup>
 
 </Project>

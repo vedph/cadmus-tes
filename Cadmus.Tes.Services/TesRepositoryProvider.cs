@@ -10,14 +10,14 @@ using Cadmus.Tes.Parts;
 using System;
 using System.Reflection;
 
-namespace CadmusTesApi.Services;
+namespace Cadmus.Tes.Services;
 
 /// <summary>
 /// Application's repository provider. Usually, this is implemented in your
 /// project's Services library. Here we have no specific project, so we
 /// just provide an API app service here.
 /// </summary>
-public sealed class AppRepositoryProvider : IRepositoryProvider
+public sealed class TesRepositoryProvider : IRepositoryProvider
 {
     private readonly IPartTypeProvider _partTypeProvider;
 
@@ -27,10 +27,10 @@ public sealed class AppRepositoryProvider : IRepositoryProvider
     public string ConnectionString { get; set; } = "";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AppRepositoryProvider"/> class.
+    /// Initializes a new instance of the <see cref="TesRepositoryProvider"/> class.
     /// </summary>
     /// <exception cref="ArgumentNullException">configuration</exception>
-    public AppRepositoryProvider()
+    public TesRepositoryProvider()
     {
         TagAttributeToTypeMap _map = new();
         _map.Add(

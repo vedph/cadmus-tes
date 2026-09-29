@@ -140,6 +140,21 @@ List of target thesauri:
 - [epigraphic technique part](https://github.com/vedph/cadmus-epigraphy/blob/master/docs/epi-technique.md):
   - `epi-technique-types`
 
+To import:
+
+1. fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
+2. run the import command (change the path to your import file):
+
+```sh
+./tes-tool import c:/users/dfusi/desktop/tes/import.json
+```
+
+3. index the imported database:
+
+```sh
+./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
+```
+
 ### Code Template
 
 Template for region parser:

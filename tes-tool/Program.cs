@@ -73,6 +73,8 @@ public static class Program
             {
                 config.AddCommand<ImportCommand>("import")
                       .WithDescription("Import inscriptions from XLSX into MongoDB.");
+                config.AddCommand<IndexDatabaseCommand>("index")
+                    .WithDescription("Index a Cadmus TES database");
             });
 
             int result = await app.RunAsync(args);

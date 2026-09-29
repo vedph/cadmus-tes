@@ -15,6 +15,7 @@
   <Project Path="Cadmus.Tes.Import/Cadmus.Tes.Import.csproj" Id="075f4e21-070e-44c2-8034-630fcaaa9c11" />
   <Project Path="Cadmus.Tes.Parts.Test/Cadmus.Tes.Parts.Test.csproj" Id="d4fe83c9-e70b-4b15-aaa2-d668ab59b129" />
   <Project Path="Cadmus.Tes.Parts/Cadmus.Tes.Parts.csproj" Id="4eb7a7df-e041-49fe-9d78-f6e76c632238" />
+  <Project Path="Cadmus.Tes.Services/Cadmus.Tes.Services.csproj" Id="fdacfaad-99c0-4df0-a832-5371bf967673" />
   <Project Path="CadmusTesApi/CadmusTesApi.csproj" />
   <Project Path="tes-tool/tes-tool.csproj" Id="601270ed-82b0-4c1c-a723-4ffcf302762b" />
 </Solution>
