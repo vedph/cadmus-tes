@@ -1,5 +1,6 @@
 # History
 
+- 2026-10-03: updated packages.
 - 2026-09-29:
   - updated packages.
   - added `Cadmus.Tes.Services` and index command to CLI tool.
