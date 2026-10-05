@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column categories entry region parser. This targets TODO.
+/// TES column categories entry region parser.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
