@@ -89,9 +89,26 @@ This part lists the resources present in a site. Each resource can contain tag, 
 
 ## TES Import
 
-The CLI app `tes-tool` in this solution is used to import inscriptions from an Excel file via the Proteus framework. Source Excel files have the following columns (▶️ is the mapping into the above model for inscription items; \* marks a column which is always filled with a value):
+The CLI app `tes-tool` in this solution is used to import entities from an Excel file via the Proteus framework. Source Excel files have the following columns (▶️ is the mapping into the above model for inscription items; \* marks a column which is always filled with a value) for each entity type.
 
-(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title. TODO: also link??
+To import:
+
+1. fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
+2. run the import command (change the path to your import file):
+
+```sh
+./tes-tool import c:/users/dfusi/desktop/tes/import.json
+```
+
+3. index the imported database:
+
+```sh
+./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
+```
+
+### Inscription
+
+(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
 
 (2) **B** (`Date notBefore`)\*: a numeric value representing a year for the from-date, negative if BC. This is imported together with C.
 
@@ -140,20 +157,23 @@ List of target thesauri:
 - [epigraphic technique part](https://github.com/vedph/cadmus-epigraphy/blob/master/docs/epi-technique.md):
   - `epi-technique-types`
 
-To import:
+### Site
 
-1. fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
-2. run the import command (change the path to your import file):
+(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
 
-```sh
-./tes-tool import c:/users/dfusi/desktop/tes/import.json
-```
+TODO
 
-3. index the imported database:
+### Cult
 
-```sh
-./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
-```
+TODO
+
+### Artifact
+
+TODO
+
+### Iconography
+
+TODO
 
 ### Code Template
 
