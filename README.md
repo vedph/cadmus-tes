@@ -163,7 +163,7 @@ List of target thesauri:
 
 (2) **B** (`site_id`)\*: the site ID (e.g. `CASTI_01`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
 
-(3) **C** (`site_name`)\*: the title (e.g. `Castiglione di Ragusa`).
+(3) **C** (`site_name`)\*: the title (e.g. `Castiglione di Ragusa`) ▶️ `item`.`title` and an entry in `toponyms` (`AssertedToponymsPart`). Currently we can use a single name part with a generic designation (`name`) if we do not want to introduce further structure.
 
 (4) **D** (`archaeological_site_type`): ▶️ `categories` (`CategoriesPart:site-type`); entry value mapped to thesaurus 📚 `categories_site-type`.
 
