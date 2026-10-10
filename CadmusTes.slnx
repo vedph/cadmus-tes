@@ -12,6 +12,7 @@
   </Folder>
   <Project Path="Cadmus.Seed.Tes.Parts.Test/Cadmus.Seed.Tes.Parts.Test.csproj" Id="27a03eba-7474-41cf-8cb9-4f35825aeec3" />
   <Project Path="Cadmus.Seed.Tes.Parts/Cadmus.Seed.Tes.Parts.csproj" Id="ef175e6b-0e1b-403a-94d2-92b1c14cffe6" />
+  <Project Path="Cadmus.Tes.Import.Test/Cadmus.Tes.Import.Test.csproj" Id="e2ae92b9-9ff3-4211-aaeb-de01096cdf12" />
   <Project Path="Cadmus.Tes.Import/Cadmus.Tes.Import.csproj" Id="075f4e21-070e-44c2-8034-630fcaaa9c11" />
   <Project Path="Cadmus.Tes.Parts.Test/Cadmus.Tes.Parts.Test.csproj" Id="d4fe83c9-e70b-4b15-aaa2-d668ab59b129" />
   <Project Path="Cadmus.Tes.Parts/Cadmus.Tes.Parts.csproj" Id="4eb7a7df-e041-49fe-9d78-f6e76c632238" />

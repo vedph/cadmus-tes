@@ -189,49 +189,7 @@ List of target thesauri:
 
 (17) **Q** (`inscriptions`) as `K` mapped to `inscriptions`.
 
-(18) **R** (`period_1`).
-
-(19) **S** (`period_2`).
-
-(20) **T** (`period_3`).
-
-(21) **U** (`period_4`).
-
-(22) **V** (`period_5`).
-
-(23) **W** (`period_6`).
-
-(24) **X** (`period_7`).
-
-(25) **Y** (`period_8`).
-
-(26) **Z** (`period_9`).
-
-(27) **AA** (`period_10`).
-
-(28) **AB** (`period_11`).
-
-(29) **AC** (`period_12`).
-
-(30) **AD** (`period_13`).
-
-(31) **AE** (`period_14`).
-
-(32) **AF** (`period_15`).
-
-(33) **AG** (`period_16`).
-
-(34) **AH** (`period_17`).
-
-(35) **AI** (`period_18`).
-
-(36) **AJ** (`period_19`).
-
-(37) **AK** (`period_20`).
-
-(38) **AL** (`period_21`).
-
-(39) **AM** (`period_22`).
+(18-39) **R-AM** (`period_1` to `period_22`): these represent 25-years bins each, starting with -1000: so from -1000+25*(n-1) to -1000+25*n-1. Each bin covered has YES. There can be a single sequence of consecutive bins but also multiple non-consecutive sequences. For each sequence, compute the resulting range as that starting with the bin with the minimum value and ending with the bin with the maximum value.
 
 (40) **AN** (`source_ids`).
 

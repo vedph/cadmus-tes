@@ -1,5 +1,8 @@
 # History
 
+- 2026-10-10:
+  - added `DateBinsConverter`.
+  - migrated tests to MTP platform.
 - 2026-10-09: updated packages.
 - 2026-10-03: updated packages.
 - 2026-09-29:

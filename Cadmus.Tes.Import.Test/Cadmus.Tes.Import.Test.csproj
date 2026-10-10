@@ -11,19 +11,14 @@
 
 	<ItemGroup>
 		<PackageReference Include="coverlet.collector">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="xunit.v3" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)'=='Debug'">
-	  <ProjectReference Include="..\Cadmus.Seed.Tes.Parts\Cadmus.Seed.Tes.Parts.csproj" />
-	  <ProjectReference Include="..\Cadmus.Tes.Parts\Cadmus.Tes.Parts.csproj" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)'=='Release'">
-		<PackageReference Include="Cadmus.Seed.Tes.Parts" />
-		<PackageReference Include="Cadmus.Tes.Parts" />
+	<ItemGroup>
+		<ProjectReference Include="..\Cadmus.Tes.Import\Cadmus.Tes.Import.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
