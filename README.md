@@ -159,13 +159,13 @@ List of target thesauri:
 
 ### Site
 
-(1) **A** (`id`)\*: the site ID (e.g. `CASTI_01`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
+(1) **A** (`id`): ignored.
 
-(2) **B** (`site_id`)
+(2) **B** (`site_id`)\*: the site ID (e.g. `CASTI_01`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
 
-(3) **C** (`site_name`): the title (e.g. `Castiglione di Ragusa`).
+(3) **C** (`site_name`)\*: the title (e.g. `Castiglione di Ragusa`).
 
-(4) **D** (`archaeological_site_type`).
+(4) **D** (`archaeological_site_type`): ▶️ `categories` (`CategoriesPart:site-type`); entry value mapped to thesaurus 📚 `categories_site-type`.
 
 (5) **E** (`data_accuracy`).
 
