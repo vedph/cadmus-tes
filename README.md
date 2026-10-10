@@ -249,41 +249,41 @@ List of target thesauri:
 
 ### Cult
 
-(1) **A** (``).
+(1) **A** (`id`).
 
-(2) **B** (``).
+(2) **B** (`site_id`).
 
-(3) **C** (``).
+(3) **C** (`site_name`).
 
-(4) **D** (``).
+(4) **D** (`data_accuracy`).
 
-(5) **E** (``).
+(5) **E** (`cult_element_type`).
 
-(6) **F** (``).
+(6) **F** (`cult_element_type_certainty`).
 
-(7) **G** (``).
+(7) **G** (`cult_element_id`).
 
-(8) **H** (``).
+(8) **H** (`ycoord`).
 
-(9) **I** (``).
+(9) **I** (`xcoord`).
 
-(10) **J** (``).
+(10) **J** (`coord_certainty`).
 
-(11) **K** (``).
+(11) **K** (`related_cult_element_id`).
 
-(12) **L** (``).
+(12) **L** (`relation_type`).
 
-(13) **M>** (``).
+(13) **M>** (`relation_certainty`).
 
-(14) **N** (``).
+(14) **N** (`divinity`).
 
-(15) **O** (``).
+(15) **O** (`divinity_certainty`).
 
-(16) **P** (``).
+(16) **P** (`animal_sacrifices`).
 
-(17) **Q** (``).
+(17) **Q** (`food_consumption`).
 
-(18) **R** (``).
+(18) **R** (`beverage_consumption`).
 
 (19) **S** (``).
 
