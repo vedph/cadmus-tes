@@ -169,29 +169,25 @@ List of target thesauri:
 
 (5) **E** (`data_accuracy`).
 
-(6) **F** (`ycoord`).
+(6-8) **F** (`ycoord`) + **G** (`xcoord`) + **H** (`coord_certainty`): ▶️ add entry to `GeoAssertedLocations.locations`: `latitude`, `longitude`, `assertion.rank`.
 
-(7) **G** (`xcoord`).
+(9) **I** (`pleiades_ref`) ▶️ add link with scope=`pleiades` (`PinLinksPart`); the value here is just the name??.
 
-(8) **H** (`coord_certainty`).
+(10) **J** (`geonames_ref`) ▶️ as `I` for `geonames`; the value here is an URL.
 
-(9) **I** (`pleiades_ref`).
+(11) **K** (`cults`) ▶️ binary feature (`CategoriesPart:site-feats`): if `YES` map to thesaurus 📚 `categories_site-feats`.`cults`.
 
-(10) **J** (`geonames_ref`).
+(12) **L** (`resources`): as `K` mapped to `resources`.
 
-(11) **K** (`cults`).
+(13) **M>** (`storage`) as `K` mapped to `storage`.
 
-(12) **L** (`resources`).
+(14) **N** (`production`) as `K` mapped to `production`.
 
-(13) **M>** (`storage`).
+(15) **O** (`status_marker`) as `K` mapped to `status-marker`.
 
-(14) **N** (`production`).
+(16) **P** (`figurative_representations`) as `K` mapped to `representations-figurative`.
 
-(15) **O** (`status_marker`).
-
-(16) **P** (`figurative_representations`).
-
-(17) **Q** (`inscriptions`).
+(17) **Q** (`inscriptions`) as `K` mapped to `inscriptions`.
 
 (18) **R** (`period_1`).
 
