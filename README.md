@@ -177,17 +177,17 @@ List of target thesauri:
 
 (11) **K** (`cults`) ▶️ binary feature (`CategoriesPart:site-feats`): if `YES` map to thesaurus 📚 `categories_site-feats`.`cults`.
 
-(12) **L** (`resources`): as `K` mapped to `resources`.
+(12) **L** (`resources`): ▶️ as `K` mapped to `resources`.
 
-(13) **M>** (`storage`) as `K` mapped to `storage`.
+(13) **M>** (`storage`) ▶️ as `K` mapped to `storage`.
 
-(14) **N** (`production`) as `K` mapped to `production`.
+(14) **N** (`production`) ▶️ as `K` mapped to `production`.
 
-(15) **O** (`status_marker`) as `K` mapped to `status-marker`.
+(15) **O** (`status_marker`) ▶️ as `K` mapped to `status-marker`.
 
-(16) **P** (`figurative_representations`) as `K` mapped to `representations-figurative`.
+(16) **P** (`figurative_representations`) ▶️ as `K` mapped to `representations-figurative`.
 
-(17) **Q** (`inscriptions`) as `K` mapped to `inscriptions`.
+(17) **Q** (`inscriptions`) ▶️ as `K` mapped to `inscriptions`.
 
 (18-39) **R-AM** (`period_1` to `period_22`): these represent 25-years bins each, starting with -1000: so from -1000+25*(n-1) to -1000+25*n-1. Each bin covered has YES. There can be a single sequence of consecutive bins but also multiple non-consecutive sequences. For each sequence, compute the resulting range as that starting with the bin with the minimum value and ending with the bin with the maximum value. ▶️ `HistoricalDatesPart`, one date per computed range.
 
