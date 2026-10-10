@@ -108,41 +108,41 @@ To import:
 
 ### Inscription
 
-(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
+(1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `MetadataPart.metadata`: add metadata and set as item's title.
 
 (2) **B** (`Date notBefore`)\*: a numeric value representing a year for the from-date, negative if BC. This is imported together with C.
 
-(3) **C** (`Date notAfter`)\*: a numeric value representing a year for the to-date, negative if BC. ▶️ `dates` (`AssertedHistoricalDatesPart`) as a range B-C.
+(3) **C** (`Date notAfter`)\*: a numeric value representing a year for the to-date, negative if BC. ▶️ `AssertedHistoricalDatesPart.dates` as a range B-C.
 
 (4) **D** (`Site of origin (ancient name)`)\*: the ancient name of the site of origin (e.g. `Syracusae`). This is imported together with E and F.
 
 (5) **E** (`Site of origin (modern name)`)\*: the modern name of the site of origin (e.g. `Siracusa`). This is imported together with D and F.
 
-(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `links` (`PinLinksPart`): add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
+(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `PinLinksPart.links`: add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
 
 (7) **G** (`Origin latitude`)\*: latitude. This is imported together with H.
 
-(8) **H** (`Origin longitude`)\*: longitude ▶️ `locations` (`AssertedLocationsPart`) together with G. G-H are the first location which refers to origin.
+(8) **H** (`Origin longitude`)\*: longitude ▶️ ``AssertedLocationsPart.locations` together with G. G-H are the first location which refers to origin.
 
 (9) **I** (`Provenance latitude`): latitude. This is imported together with J.
 
-(10) **J** (`Provenance longitude`): longitude ▶️ `locations` (`AssertedLocationsPart`) together with I. I-J are the second location which refers to provenance.
+(10) **J** (`Provenance longitude`): longitude ▶️ `AssertedLocationsPart.locations` together with I. I-J are the second location which refers to provenance.
 
-(11) **K** (`Material`)\*: ▶️ `support`.`material` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-materials`.
+(11) **K** (`Material`)\*: ▶️ `EpiSupportPart.material` mapped to thesaurus 📚 `epi-support-materials`.
 
-(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `support`.`objectType` (`EpiSupportPart`) mapped to thesaurus 📚 `epi-support-object-types`.
+(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `EpiSupportPart.support.objectType` mapped to thesaurus 📚 `epi-support-object-types`.
 
-(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `categories:ins-fn` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-fn`.
+(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `CategoriesPart.categories:ins-fn` mapped to thesaurus 📚 `categories_ins-fn`.
 
-(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `technique`.`techniques` (`EpiTechniquePart`) mapped to thesaurus 📚 `epi-technique-types`.
+(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `EpiTechniquePart.techniques` mapped to thesaurus 📚 `epi-technique-types`.
 
 (15) **O** (`Execution type 2`): as for N.
 
-(16) **P** (`Language`)\*: ▶️ `categories:ins-lng` (`CategoriesPart`) mapped to thesaurus 📚 `categories_ins-lng`.
+(16) **P** (`Language`)\*: ▶️ `CategoriesPart.categories:ins-lng` mapped to thesaurus 📚 `categories_ins-lng`.
 
-(17) **Q** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `metadata`.`preservation-place` (`MetadataPart`).
+(17) **Q** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `MetadataPart.metadata.preservation-place`.
 
-(18) **R** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `metadata`.`inventory-nr` (`MetadataPart`).
+(18) **R** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `MetadataPart.metadata.inventory-nr`.
 
 (19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ multiline text.
 
@@ -159,7 +159,7 @@ List of target thesauri:
 
 ### Site
 
-(1) **A** (`id`): ignored.
+(1) **A** (`id`) ❌
 
 (2) **B** (`site_id`)\*: the site ID (e.g. `CASTI_01`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
 
@@ -167,7 +167,7 @@ List of target thesauri:
 
 (4) **D** (`archaeological_site_type`): ▶️ `categories` (`CategoriesPart:site-type`); entry value mapped to thesaurus 📚 `categories_site-type`.
 
-(5) **E** (`data_accuracy`).
+(5) **E** (`data_accuracy`) ❌
 
 (6-8) **F** (`ycoord`) + **G** (`xcoord`) + **H** (`coord_certainty`): ▶️ add entry to `GeoAssertedLocations.locations`: `latitude`, `longitude`, `assertion.rank`.
 
@@ -189,17 +189,17 @@ List of target thesauri:
 
 (17) **Q** (`inscriptions`) as `K` mapped to `inscriptions`.
 
-(18-39) **R-AM** (`period_1` to `period_22`): these represent 25-years bins each, starting with -1000: so from -1000+25*(n-1) to -1000+25*n-1. Each bin covered has YES. There can be a single sequence of consecutive bins but also multiple non-consecutive sequences. For each sequence, compute the resulting range as that starting with the bin with the minimum value and ending with the bin with the maximum value.
+(18-39) **R-AM** (`period_1` to `period_22`): these represent 25-years bins each, starting with -1000: so from -1000+25*(n-1) to -1000+25*n-1. Each bin covered has YES. There can be a single sequence of consecutive bins but also multiple non-consecutive sequences. For each sequence, compute the resulting range as that starting with the bin with the minimum value and ending with the bin with the maximum value. ▶️ `HistoricalDatesPart`, one date per computed range.
 
-(40) **AN** (`source_ids`).
+(40) **AN** (`source_ids`) ❌
 
-(41) **AO** (`source_locator`).
+(41) **AO** (`source_locator`) ❌
 
-(42) **AP** (`evidence_note`).
+(42) **AP** (`evidence_note`) ❌
 
-(43) **AQ** (`certainty_note`).
+(43) **AQ** (`certainty_note`) ❌
 
-(44) **AR** (`review_status`).
+(44) **AR** (`review_status`) ❌
 
 ### Cult
 
