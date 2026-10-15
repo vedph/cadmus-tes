@@ -94,19 +94,19 @@ The CLI app `tes-tool` in this solution is used to import entities from an Excel
 To import:
 
 1. fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
-2. run the import command (change the path to your import file):
+2. run the import commands, once per item type (change the path to your import file), e.g. for inscriptions:
 
 ```sh
-./tes-tool import c:/users/dfusi/desktop/tes/import.json
+./tes-tool import-i c:/users/dfusi/desktop/tes/import-i.json
 ```
 
-3. index the imported database:
+3. finally, index the imported database:
 
 ```sh
 ./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
 ```
 
-> An empty cell means information not supplied. Only explicit `YES` adds a binary category; `NO` and blank add no category. Do not turn an empty cell into an assertion of absence.
+> In what follows, \* marks a required column. If not specified, the cell can be null/empty and is just skipped. If a cell belonging to a required column has no value, an error is logged and no data stored for that cell.
 
 ### Inscription
 
@@ -148,24 +148,13 @@ To import:
 
 (19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ multiline text.
 
-List of target thesauri:
-
-- [categories part](https://github.com/vedph/cadmus-general/blob/master/docs/categories.md):
-  - `categories_ins-fn`
-  - `categories_ins-lng`
-- [epigraphic support part](https://github.com/vedph/cadmus-epigraphy/blob/master/docs/epi-support.md):
-  - `epi-support-materials`
-  - `epi-support-object-types`
-- [epigraphic technique part](https://github.com/vedph/cadmus-epigraphy/blob/master/docs/epi-technique.md):
-  - `epi-technique-types`
-
 ### Site
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="eid"`, `value=site_id`.
+(2) **B** (`site_id`)\*: ▶️ `MetadataPart.metadata`: `type="string"`, `name="eid"`, `value=site_id`.
 
-(3) **C** (`site_name`): ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language.
+(3) **C** (`site_name`)\*: ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language.
 
 (4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
 
@@ -175,27 +164,29 @@ List of target thesauri:
 
 (7) **G** (`xcoord`): ▶️ See the coordinate group at F.
 
-(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F; independent of `data_accuracy`.
+(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F.
 
-(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="pleiades"`, only when an actual Pleiades ID or place URL is supplied. A label such as “Castiglione di Ragusa: a Pleiades place resource” is not an ID: preserve it as `MetadataPart.metadata` (`name="pleiades_label"`) and report that the link needs an identifier.
+(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: when it contains digits only, it's a Pleiades ID, which goes into `PinLinksPart` as an external link with `Scope`=`pleiades`, `Target.Gid`=value; else preserve a generic label in a metadatum entry in `MetadataPart.metadata` (`name="pleiades_label"`) and log a warning (missing Pleiades identifier).
 
-(10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="geonames"`; accept the supplied GeoNames ID or extract it from a valid supplied URL, e.g. https://www.geonames.org/2525450/caltagirone.html → `2525450`.
+(10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external link with `Scope`=`geonames`, `Target.Gid`=value.
 
-(11) **K** (`cults`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `cults`; 📚 `categories_site-feats@en`.
+Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
 
-(12) **L** (`resources`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `resources`; 📚 `categories_site-feats@en`.
+(11) **K** (`cults`): ▶️ `CategoriesPart.categories:site-feats`: YES → `cults`.
 
-(13) **M** (`storage`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `storage`; 📚 `categories_site-feats@en`.
+(12) **L** (`resources`): ▶️ `CategoriesPart.categories:site-feats`: YES → `resources`.
 
-(14) **N** (`production`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `production`; 📚 `categories_site-feats@en`.
+(13) **M** (`storage`): ▶️ `CategoriesPart.categories:site-feats`: YES → `storage`.
 
-(15) **O** (`status_marker`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `status-marker`; 📚 `categories_site-feats@en`.
+(14) **N** (`production`): ▶️ `CategoriesPart.categories:site-feats`: YES → `production`.
 
-(16) **P** (`figurative_representations`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `representations-figurative`; 📚 `categories_site-feats@en`.
+(15) **O** (`status_marker`): ▶️ `CategoriesPart.categories:site-feats`: YES → `status-marker`.
 
-(17) **Q** (`inscriptions`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `inscriptions`; 📚 `categories_site-feats@en`.
+(16) **P** (`figurative_representations`): ▶️ `CategoriesPart.categories:site-feats`: YES → `representations-figurative`.
 
-(18-39) **R-AM** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate date range per consecutive YES run, using the common period-boundary rule.
+(17) **Q** (`inscriptions`): ▶️ `CategoriesPart.categories:site-feats`: YES → `inscriptions`; 📚 `categories_site-feats@en`.
+
+(18-39) **R-AM** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate date range per consecutive YES run, using the common period-boundary rule. These columns correspond each to a binned years range starting from -1000 with size=25. Use `DateBinsConverter` to convert the array of cells with YES into one or more ranges; then create a `HistoricalDate` for each range having its A and B points set to the range boundaries, both with approximate=true, and add it to `AssertedHistoricalDatesPart`.
 
 (40) **AN** (`source_ids`): ❌
 
