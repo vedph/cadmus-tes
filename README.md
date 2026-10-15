@@ -106,6 +106,8 @@ To import:
 ./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
 ```
 
+> An empty cell means information not supplied. Only explicit `YES` adds a binary category; `NO` and blank add no category. Do not turn an empty cell into an assertion of absence.
+
 ### Inscription
 
 (1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `MetadataPart.metadata`: add metadata and set as item's title.
@@ -159,247 +161,345 @@ List of target thesauri:
 
 ### Site
 
-(1) **A** (`id`) ❌
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
 
-(2) **B** (`site_id`)\*: the site ID (e.g. `CASTI_01`) ▶️ `metadata` (`MetadataPart`): add metadata and set as item's title.
+(2) **B** (`site_id`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="eid"`, `value=site_id`. It is the EID; the title is supplied by `site_name`.
 
-(3) **C** (`site_name`)\*: the title (e.g. `Castiglione di Ragusa`) ▶️ `item`.`title` and an entry in `toponyms` (`AssertedToponymsPart`). Currently we can use a single name part with a generic designation (`name`) if we do not want to introduce further structure.
+(3) **C** (`site_name`): ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language is inferred.
 
-(4) **D** (`archaeological_site_type`): ▶️ `categories` (`CategoriesPart:site-type`); entry value mapped to thesaurus 📚 `categories_site-type`.
+(4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart.categories:site-type`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
 
-(5) **E** (`data_accuracy`) ❌
+(5) **E** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
 
-(6-8) **F** (`ycoord`) + **G** (`xcoord`) + **H** (`coord_certainty`): ▶️ add entry to `GeoAssertedLocations.locations`: `latitude`, `longitude`, `assertion.rank`.
+(6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank`. Label the location with `site_name`.
 
-(9) **I** (`pleiades_ref`) ▶️ add link with scope=`pleiades` (`PinLinksPart`); the value here is just the name??.
+(7) **G** (`xcoord`): ▶️ See the coordinate group at F.
 
-(10) **J** (`geonames_ref`) ▶️ as `I` for `geonames`; the value here is an URL.
+(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F; independent of `data_accuracy`.
 
-(11) **K** (`cults`) ▶️ binary feature (`CategoriesPart:site-feats`): if `YES` map to thesaurus 📚 `categories_site-feats`.`cults`.
+(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="pleiades"`, only when an actual Pleiades ID or place URL is supplied. A label such as “Castiglione di Ragusa: a Pleiades place resource” is not an ID: preserve it as `MetadataPart.metadata` (`name="pleiades_label"`) and report that the link needs an identifier; do not search or invent an ID during import.
 
-(12) **L** (`resources`): ▶️ as `K` mapped to `resources`.
+(10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="geonames"`; accept the supplied GeoNames ID or extract it from a valid supplied URL, e.g. https://www.geonames.org/2525450/caltagirone.html → `2525450`.
 
-(13) **M>** (`storage`) ▶️ as `K` mapped to `storage`.
+(11) **K** (`cults`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `cults`; 📚 `categories_site-feats@en`.
 
-(14) **N** (`production`) ▶️ as `K` mapped to `production`.
+(12) **L** (`resources`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `resources`; 📚 `categories_site-feats@en`.
 
-(15) **O** (`status_marker`) ▶️ as `K` mapped to `status-marker`.
+(13) **M** (`storage`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `storage`; 📚 `categories_site-feats@en`.
 
-(16) **P** (`figurative_representations`) ▶️ as `K` mapped to `representations-figurative`.
+(14) **N** (`production`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `production`; 📚 `categories_site-feats@en`.
 
-(17) **Q** (`inscriptions`) ▶️ as `K` mapped to `inscriptions`.
+(15) **O** (`status_marker`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `status-marker`; 📚 `categories_site-feats@en`.
 
-(18-39) **R-AM** (`period_1` to `period_22`): these represent 25-years bins each, starting with -1000: so from -1000+25*(n-1) to -1000+25*n-1. Each bin covered has YES. There can be a single sequence of consecutive bins but also multiple non-consecutive sequences. For each sequence, compute the resulting range as that starting with the bin with the minimum value and ending with the bin with the maximum value. ▶️ `HistoricalDatesPart`, one date per computed range.
+(16) **P** (`figurative_representations`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `representations-figurative`; 📚 `categories_site-feats@en`.
 
-(40) **AN** (`source_ids`) ❌
+(17) **Q** (`inscriptions`): ▶️ `CategoriesPart.categories:site-feats`: explicit YES → `inscriptions`; 📚 `categories_site-feats@en`.
 
-(41) **AO** (`source_locator`) ❌
+(18-39) **R-AM** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate date range per consecutive YES run, using the common period-boundary rule.
 
-(42) **AP** (`evidence_note`) ❌
+(40) **AN** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
 
-(43) **AQ** (`certainty_note`) ❌
+(41) **AO** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
 
-(44) **AR** (`review_status`) ❌
+(42) **AP** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(43) **AQ** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(44) **AR** (`review_status`): ❌ Item content; used by the import gate above.
+
+(45) **AS** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+
+#### Site Resources
+
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+
+(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to its `SiteResourcesPart.resources` with role `site-res`; no new item is created.
+
+(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+
+(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:resources:<resource_feature_ID>`; apply the common context-code / legacy rules.
+
+(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: clay → `clay`; quarry → `quarry`; mine → `mine`; salt source → `salt`; water source → `water`.
+
+(6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`, labelled resource_type_certainty; it is not location certainty.
+
+(7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`: retain the supplied subsidiary identifier.
+
+(8) **H** (`ycoord`): ▶️ With `xcoord` and `coord_certainty`, `resources[].location.value.latitude/longitude` and `resources[].location.assertion.rank`; `value.label=resource_feature_ID`. No location is created for the sample with missing coordinates.
+
+(9) **I** (`xcoord`): ▶️ See H.
+
+(10) **J** (`coord_certainty`): ▶️ See H; if coordinates are absent retain this label in `resources[].note` only.
+
+(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: archaeological assemblage → `archaeological-asm`; match other explicit values to existing entries.
+
+(12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`, labelled exploitation_evidence_certainty.
+
+(13) **M** (`connection_to_site`): ▶️ `resources[].note`, labelled connection_to_site; preserve analytical match and proximity without translating it into a more specific spatial or economic assertion.
+
+(14) **N** (`production_scale`): ▶️ `resources[].note`, labelled production_scale. The resource features thesaurus has no production-scale branch.
+
+(15) **O** (`productionscale_certainty`): ▶️ `resources[].note`, labelled productionscale_certainty.
+
+(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: one approximate interval. For multiple disjoint runs use the singular-date exception above; never bridge the gaps.
+
+(38) **AL** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+
+(39) **AM** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+
+(40) **AN** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(41) **AO** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(42) **AP** (`review_status`): ❌ Item content; used by the import gate above.
+
+(43) **AQ** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+
+#### Site Production
+
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+
+(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to `SiteResourcesPart.resources` with role `site-prod`; no new item is created.
+
+(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+
+(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:production:<production_feature_ID>`; apply the common context-code / legacy rules.
+
+(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type`; 📚 `site-resource-types_site-prod@en`: ceramic production → `ceramic-production`; match the other activities to existing entries.
+
+(6) **F** (`activitytype_certainty`): ▶️ `resources[].note`, labelled activitytype_certainty.
+
+(7) **G** (`production_feature_ID`): ▶️ `resources[].eid`: retain the supplied subsidiary identifier.
+
+(8) **H** (`ycoord`): ▶️ With `xcoord` and `coord_certainty`, `resources[].location.value.latitude/longitude` and `resources[].location.assertion.rank`; `value.label=production_feature_ID`. No location is created for the sample with missing coordinates.
+
+(9) **I** (`xcoord`): ▶️ See H.
+
+(10) **J** (`coord_certainty`): ▶️ See H; if coordinates are absent retain this label in `resources[].note` only.
+
+(11) **K** (`material_focus`): ▶️ `resources[].note`, labelled material_focus; preserve the stated material without assigning an artifact-material category to the site.
+
+(12) **L** (`evidence_type`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on ;: kilns → `kilns`, wasters → `wasters`; unknown values stay in `resources[].note` and are reported.
+
+(13) **M** (`production_scale`): ▶️ `resources[].features[]`, same production features thesaurus: household scale → `household-scale`, workshop scale → `workshop-scale`, uncertain → `uncertain`. Do not infer a scale from kiln presence alone.
+
+(14) **N** (`productionscale_certainty`): ▶️ `resources[].note`, labelled productionscale_certainty.
+
+(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: an approximate range for the documented activity represented by this row, not a precise date for every installation. Apply the singular-date exception for disjoint runs.
+
+(37) **AK** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+
+(38) **AL** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+
+(39) **AM** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(40) **AN** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(41) **AO** (`review_status`): ❌ Item content; used by the import gate above.
+
+(42) **AP** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+
+#### Site Markers
+
+Source sheet: `Funerary-social markers`.
+
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+
+(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No funerary/status item or inferred hierarchy is created.
+
+(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+
+(4) **D** (`area_name`): ▶️ Heading of this `CommentPart.text` record block, preserving the supplied area name.
+
+(5) **E** (`data_accuracy`): ▶️ Parent `MetadataPart.metadata`, scoped as `data_accuracy:funerary:<area_name>`; common context-code / legacy rules.
+
+(6) **F** (`ycoord`): ▶️ Together with xcoord and coord_certainty, a labelled location in this record block. Do not overwrite the parent Site location.
+
+(7) **G** (`xcoord`): ▶️ See F.
+
+(8) **H** (`coord_certainty`): ▶️ See F.
+
+(9) **I** (`differentiated_tomb_types`): ▶️ Labelled `differentiated_tomb_types` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(10) **J** (`distinctive_funerary_habit`): ▶️ Labelled `distinctive_funerary_habit` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(11) **K** (`distinctive_funerary_assemblage`): ▶️ Labelled `distinctive_funerary_assemblage` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(12) **L** (`exotic_good`): ▶️ Labelled `exotic_good` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(13) **M** (`jewelry`): ▶️ Labelled `jewelry` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(14) **N** (`metal objects`): ▶️ Labelled `metal objects` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
+
+(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ Computed approximate ranges in this record’s `CommentPart.text` chronology block; do not extend the main Site dates from these bins.
+
+(37) **AK** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+
+(38) **AL** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+
+(39) **AM** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(40) **AN** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(41) **AO** (`review_status`): ❌ Item content; used by the import gate above.
+
+(42) **AP** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+
+#### Site Storage
+
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+
+(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No storage item or inferred hierarchy is created.
+
+(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+
+(4) **D** (`data_accuracy`): ▶️ Parent `MetadataPart.metadata`, scoped as `data_accuracy:storage:<storage_feature_id>`; common context-code / legacy rules.
+
+(5) **E** (`storage_type`): ▶️ `CommentPart.text`, labelled storage_type in the subsidiary record block. Preserve silo/pit; no categories_storage-type thesaurus is assumed in the current profile.
+
+(6) **F** (`storagetype_certainty`): ▶️ `CommentPart.text`, labelled storagetype_certainty in the same block.
+
+(7) **G** (`storage_feature_id`): ▶️ Heading / subsidiary EID in this `CommentPart.text` block. It is not a new item EID.
+
+(8) **H** (`ycoord`): ▶️ Together with xcoord and coord_certainty, a labelled location in this record block. Do not overwrite the parent Site location.
+
+(9) **I** (`xcoord`): ▶️ See H.
+
+(10) **J** (`coord_certainty`): ▶️ See H.
+
+(11) **K** (`evidence_type`): ▶️ `CommentPart.text`, labelled evidence_type, preserving architectural or other supplied values without an unsupported new category role.
+
+(12-33) **L-AG** (`period_1` … `period_22`): ▶️ Computed approximate ranges in the subsidiary `CommentPart.text` record block; do not add them as a new continuous period of the whole site.
+
+(34) **AH** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+
+(35) **AI** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+
+(36) **AJ** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(37) **AK** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+
+(38) **AL** (`review_status`): ❌ Item content; used by the import gate above.
+
+(39) **AM** (`cadmus_mapping`): ❌ Editorial working text; never executed.
 
 ### Cult
 
-(1) **A** (`id`).
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
 
-(2) **B** (`site_id`).
+(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`. This is not the cult EID.
 
-(3) **C** (`site_name`).
+(3) **C** (`site_name`): ❌ Display label for the site link; not the cult title.
 
-(4) **D** (`data_accuracy`).
+(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
 
-(5) **E** (`cult_element_type`).
+(5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type`; 📚 `categories_cult-type@en`. religious building (uncertain type) → `building-religious`; altar → `altar-300052391`; votive deposit → `deposit-votive`. Match other inputs to existing entries, never to IDs copied from `cadmus_mapping`.
 
-(6) **F** (`cult_element_type_certainty`).
+(6) **F** (`cult_element_type_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="cult_element_type_certainty"`, `value` = the supplied value. The certainty refers to this classification, not to the named divinity.
 
-(7) **G** (`cult_element_id`).
+(7) **G** (`cult_element_id`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`) and `Item.title`. Preserve the full supplied identifier, including any descriptive suffix, for matching. Resolve related cults by the same exact value; disambiguate with `site_id` when necessary.
 
-(8) **H** (`ycoord`).
+(8) **H** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: a labelled location block in `CommentPart.text`. The current cult facet has no `AssertedLocationsPart`; no point is borrowed from the parent site.
 
-(9) **I** (`xcoord`).
+(9) **I** (`xcoord`): ▶️ See the coordinate group at H.
 
-(10) **J** (`coord_certainty`).
+(10) **J** (`coord_certainty`): ▶️ See the coordinate group at H; preserve the label in that block.
 
-(11) **K** (`related_cult_element_id`).
+(11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank`. Preserve unresolved references in `CommentPart.text` and report them, never fabricate a target.
 
-(12) **L** (`relation_type`).
+(12) **L** (`relation_type`): ▶️ See K. Preserve `within_same_cult_area` literally in the link note. This is a spatial association; it is not evidence of the same god, function, or phase. No `categories_cult-rel` thesaurus is assumed.
 
-(13) **M>** (`relation_certainty`).
+(13) **M** (`relation_certainty`): ▶️ See K. If the target ID is blank, do not create a relation from this cell alone.
 
-(14) **N** (`divinity`).
+(14) **N** (`divinity`): ▶️ `CategoriesPart.categories:cult-gods`; 📚 `categories_cult-gods@en`. Match explicit supplied divinity labels to exact entries; leave blank if no divinity is identified.
 
-(15) **O** (`divinity_certainty`).
+(15) **O** (`divinity_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="divinity_certainty"`, `value` = the supplied value. It qualifies the supplied identification; no identification is inferred from a certainty value alone.
 
-(16) **P** (`animal_sacrifices`).
+(16) **P** (`animal_sacrifices`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `animal-sacrifices`; 📚 `categories_cult-feats@en`.
 
-(17) **Q** (`food_consumption`).
+(17) **Q** (`food_consumption`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `food-consumption`; 📚 `categories_cult-feats@en`.
 
-(18) **R** (`beverage_consumption`).
+(18) **R** (`beverage_consumption`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `beverage-consumption`; 📚 `categories_cult-feats@en`.
 
-(19) **S** (``).
+(19) **S** (`architectural_models`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `architectural-models`; 📚 `categories_cult-feats@en`.
 
-(20) **T** (``).
+(20) **T** (`statuettes`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `statuettes`; 📚 `categories_cult-feats@en`.
 
-(21) **U** (``).
+(21) **U** (`lamps`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `lamps`; 📚 `categories_cult-feats@en`.
 
-(22) **V** (``).
+(22) **V** (`weapons`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `weapons`; 📚 `categories_cult-feats@en`.
 
-(23) **W** (``).
+(23) **W** (`epigraphical_evidence`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `epigraphical-evidence`; 📚 `categories_cult-feats@en`.
 
-(24) **X** (``).
+(24-45) **X-AS** (`period_1` … `period_22`): ▶️ A labelled chronology block in `CommentPart.text`: list each computed approximate range separately. The current cult facet has no dates part; do not add one silently.
 
-(25) **Y** (``).
+(46) **AT** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
 
-(26) **Z** (``).
+(47) **AU** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
 
-(27) **AA** (``).
+(48) **AV** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
 
-(28) **AB** (``).
+(49) **AW** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
 
-(29) **AC** (``).
+(50) **AX** (`review_status`): ❌ Item content; used by the import gate above.
 
-(30) **AD** (``).
-
-(31) **AE** (``).
-
-(32) **AF** (``).
-
-(33) **AG** (``).
-
-(34) **AH** (``).
-
-(35) **AI** (``).
-
-(36) **AJ** (``).
-
-(37) **AK** (``).
-
-(38) **AL** (``).
-
-(39) **AM** (``).
-
-(40) **AN** (``).
-
-(41) **AO** (``).
-
-(42) **AP** (``).
-
-(43) **AQ** (``).
-
-(44) **AR** (``).
-
-(45) **AS** (``).
-
-(46) **AT** (``).
-
-(47) **AU** (``).
-
-(48) **AV** (``).
-
-(49) **AW** (``).
-
-(50) **AX** (``).
-
-(51) **AY** (``).
+(51) **AY** (`cadmus_mapping`): ❌ Editorial working text; never executed.
 
 ### Artifact
 
-(1) **A** (``).
+(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
 
-(2) **B** (``).
+(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`. This is not the artifact EID.
 
-(3) **C** (``).
+(3) **C** (`site_name`): ❌ Display label for the site link; the artifact title comes from designation.
 
-(4) **D** (``).
+(4) **D** (`feature_ID`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`, `value=feature_ID`). Use the original identifier; qualify with `site_id` if IDs repeat between sites. Maintain an explicit `(site_id, feature_ID)` lookup for links; do not silently merge distinct objects.
 
-(5) **E** (``).
+(5) **E** (`designation`): ▶️ `Item.title`.
 
-(6) **F** (``).
+(6) **F** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
 
-(7) **G** (``).
+(7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type`; 📚 `categories_art-type@en`. architectural elements → `architectural-300003531`; reliefs (sculpture) → `reliefs-300047218`; other inputs must resolve to an existing ID.
 
-(8) **H** (``).
+(8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value. Original unsplit label; does not create an iconography item or select a taxonomy term.
 
-(9) **I** (``).
+(9) **I** (`iconography_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy_certainty"`, `value` = the supplied value. Do not copy automatically to subject certainty: protome, for example, may be a form rather than an identified subject.
 
-(10) **J** (``).
+(10) **J** (`iconography_representation`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_representation"`, `value` = the supplied value. Local label identifying the depicted figure/scene described by the next fields.
 
-(11) **K** (``).
+(11) **K** (`iconography_descriptors`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_descriptors"`, `value` = the supplied value. Preserve the proposed labels and their ; separator; taxonomy resolution is postponed until the descriptor tree exists.
 
-(12) **L** (``).
+(12) **L** (`iconography_subject`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject"`, `value` = the supplied value. Proposed interpretation; may remain empty when only a form is documented.
 
-(13) **M>** (``).
+(13) **M** (`iconography_subject_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject_certainty"`, `value` = the supplied value. Applies only to the supplied subject; no value is inferred from legacy iconography certainty.
 
-(14) **N** (``).
+(14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx`; 📚 `categories_art-ctx@en`: isolated find → `isolated-find`, funerary context → `funerary`; match other explicit values to the existing thesaurus.
 
-(15) **O** (``).
+(15) **O** (`contexttype_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="contexttype_certainty"`, `value` = the supplied value.
 
-(16) **P** (``).
+(16) **P** (`material`): ▶️ `CategoriesPart.categories:art-mat`; 📚 `categories_art-mat@en`: limestone → `limestone-300011447`, terracotta → `terracotta-300010669`; match other materials to existing entries.
 
-(17) **Q** (``).
+(17) **Q** (`production_origin`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="production_origin"`, `value` = the supplied value. local / imported / uncertain is an origin statement, not a place identifier or a coordinate.
 
-(18) **R** (``).
+(18) **R** (`productionorigin_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="productionorigin_certainty"`, `value` = the supplied value.
 
-(19) **S** (``).
+(19) **S** (`evidence_type`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="evidence_type"`, `value` = the supplied value. Preserve e.g. reused or documented only (published analysis); it is distinct from documentary-context data_accuracy.
 
-(20) **T** (``).
+(20-41) **T-AO** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate range per consecutive YES run; apply `chronology_certainty` as specified at AP.
 
-(21) **U** (``).
+(42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range; also preserve the supplied label as `MetadataPart.metadata` (`name="chronology_certainty"`). If no range is supplied, the label alone does not generate a date.
 
-(22) **V** (``).
+(43) **AQ** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
 
-(23) **W** (``).
+(44) **AR** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
 
-(24) **X** (``).
+(45) **AS** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
 
-(25) **Y** (``).
+(46) **AT** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
 
-(26) **Z** (``).
+(47) **AU** (`review_status`): ❌ Item content; used by the import gate above.
 
-(27) **AA** (``).
-
-(28) **AB** (``).
-
-(29) **AC** (``).
-
-(30) **AD** (``).
-
-(31) **AE** (``).
-
-(32) **AF** (``).
-
-(33) **AG** (``).
-
-(34) **AH** (``).
-
-(35) **AI** (``).
-
-(36) **AJ** (``).
-
-(37) **AK** (``).
-
-(38) **AL** (``).
-
-(39) **AM** (``).
-
-(40) **AN** (``).
-
-(41) **AO** (``).
-
-(42) **AP** (``).
-
-(43) **AQ** (``).
-
-(44) **AR** (``).
-
-(45) **AS** (``).
-
-(46) **AT** (``).
-
-(47) **AU** (``).
+(48) **AV** (`cadmus_mapping`): ❌ Editorial working text; never executed.
 
 ### Code Template
 
