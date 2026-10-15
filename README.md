@@ -106,7 +106,22 @@ To import:
 ./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
 ```
 
-> In what follows, \* marks a required column. If not specified, the cell can be null/empty and is just skipped. If a cell belonging to a required column has no value, an error is logged and no data stored for that cell.
+In what follows:
+
+- **asterisk** \* marks a required column. If not specified, the cell can be null/empty and is just skipped. If a cell belonging to a required column has no value, an error is logged and no data stored for that cell.
+
+- **internal link** means an internal link in a `PinLinksPart` part, where the target has these properties:
+  - gid=`P` + GUID of the MetadataPart of the target item.
+  - label=metadata `eid` value + ` | ` + target item GUID + ` (metadata)`
+  - itemId=target item GUID
+  - partId=target item's MetadataPart GUID
+  - partTypeId: `it.vedph.metadata`
+  - name: `eid`
+  - value: `alpha`
+
+This implies that you need a mapping between items EIDs, which are the value of the (first) metadatum `eid` in the `MetadataPart` of each item, and the GUIDs of the item and of its metadata part.
+
+---
 
 ### Inscription
 
@@ -147,6 +162,8 @@ To import:
 (18) **R** (`Inventory number`): inventory number (e.g. `104387`) ▶️ `MetadataPart.metadata.inventory-nr`.
 
 (19) **S** (`Edition (interpretive)`): text (Leiden) ▶️ multiline text.
+
+---
 
 ### Site
 
@@ -202,11 +219,11 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 #### Site Resources
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to its `SiteResourcesPart.resources` with role `site-res`; no new item is created.
 
-(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+(3) **C** (`site_name`): ❌
 
 (4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:resources:<resource_feature_ID>`; apply the common context-code / legacy rules.
 
@@ -234,25 +251,25 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 (16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: one approximate interval. For multiple disjoint runs use the singular-date exception above; never bridge the gaps.
 
-(38) **AL** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(38) **AL** (`source_ids`): ❌
 
-(39) **AM** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(39) **AM** (`source_locator`): ❌
 
-(40) **AN** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(40) **AN** (`evidence_note`): ❌
 
-(41) **AO** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(41) **AO** (`certainty_note`): ❌
 
-(42) **AP** (`review_status`): ❌ Item content; used by the import gate above.
+(42) **AP** (`review_status`): ❌
 
-(43) **AQ** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(43) **AQ** (`cadmus_mapping`): ❌
 
 #### Site Production
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to `SiteResourcesPart.resources` with role `site-prod`; no new item is created.
 
-(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+(3) **C** (`site_name`): ❌
 
 (4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:production:<production_feature_ID>`; apply the common context-code / legacy rules.
 
@@ -278,27 +295,27 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 (15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: an approximate range for the documented activity represented by this row, not a precise date for every installation. Apply the singular-date exception for disjoint runs.
 
-(37) **AK** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(37) **AK** (`source_ids`): ❌
 
-(38) **AL** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(38) **AL** (`source_locator`): ❌
 
-(39) **AM** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(39) **AM** (`evidence_note`): ❌
 
-(40) **AN** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(40) **AN** (`certainty_note`): ❌
 
-(41) **AO** (`review_status`): ❌ Item content; used by the import gate above.
+(41) **AO** (`review_status`): ❌
 
-(42) **AP** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(42) **AP** (`cadmus_mapping`): ❌
 
 #### Site Markers
 
 Source sheet: `Funerary-social markers`.
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No funerary/status item or inferred hierarchy is created.
 
-(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+(3) **C** (`site_name`): ❌
 
 (4) **D** (`area_name`): ▶️ Heading of this `CommentPart.text` record block, preserving the supplied area name.
 
@@ -324,25 +341,25 @@ Source sheet: `Funerary-social markers`.
 
 (15-36) **O-AJ** (`period_1` … `period_22`): ▶️ Computed approximate ranges in this record’s `CommentPart.text` chronology block; do not extend the main Site dates from these bins.
 
-(37) **AK** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(37) **AK** (`source_ids`): ❌
 
-(38) **AL** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(38) **AL** (`source_locator`): ❌
 
-(39) **AM** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(39) **AM** (`evidence_note`): ❌
 
-(40) **AN** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(40) **AN** (`certainty_note`): ❌
 
-(41) **AO** (`review_status`): ❌ Item content; used by the import gate above.
+(41) **AO** (`review_status`): ❌
 
-(42) **AP** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(42) **AP** (`cadmus_mapping`): ❌
 
 #### Site Storage
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No storage item or inferred hierarchy is created.
 
-(3) **C** (`site_name`): ❌ Display context only; do not rename the parent.
+(3) **C** (`site_name`): ❌
 
 (4) **D** (`data_accuracy`): ▶️ Parent `MetadataPart.metadata`, scoped as `data_accuracy:storage:<storage_feature_id>`; common context-code / legacy rules.
 
@@ -362,23 +379,25 @@ Source sheet: `Funerary-social markers`.
 
 (12-33) **L-AG** (`period_1` … `period_22`): ▶️ Computed approximate ranges in the subsidiary `CommentPart.text` record block; do not add them as a new continuous period of the whole site.
 
-(34) **AH** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(34) **AH** (`source_ids`): ❌
 
-(35) **AI** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(35) **AI** (`source_locator`): ❌
 
-(36) **AJ** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(36) **AJ** (`evidence_note`): ❌
 
-(37) **AK** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(37) **AK** (`certainty_note`): ❌
 
-(38) **AL** (`review_status`): ❌ Item content; used by the import gate above.
+(38) **AL** (`review_status`): ❌
 
-(39) **AM** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(39) **AM** (`cadmus_mapping`): ❌
+
+---
 
 ### Cult
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`. This is not the cult EID.
+(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: internal link to the site whose EID is `site_id`
 
 (3) **C** (`site_name`): ❌ Display label for the site link; not the cult title.
 
@@ -436,9 +455,11 @@ Source sheet: `Funerary-social markers`.
 
 (51) **AY** (`cadmus_mapping`): ❌ Editorial working text; never executed.
 
+---
+
 ### Artifact
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`. This is not the artifact EID.
 
@@ -491,6 +512,8 @@ Source sheet: `Funerary-social markers`.
 (47) **AU** (`review_status`): ❌ Item content; used by the import gate above.
 
 (48) **AV** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+
+---
 
 ### Code Template
 
