@@ -209,13 +209,13 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 (40) **AN** (`source_ids`): ❌
 
-(41) **AO** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(41) **AO** (`source_locator`): ❌
 
 (42) **AP** (`evidence_note`): ❌
 
 (43) **AQ** (`certainty_note`): ❌
 
-(44) **AR** (`review_status`): ❌ this contains `READY` when the item is to be imported. The importer does not care about that: users will just filter the Excel file accordingly before importing.
+(44) **AR** (`review_status`): ❌ this contains `READY` when the item is to be imported. ⚠️ The importer does not care about that: users will just filter the Excel file accordingly before importing.
 
 (45) **AS** (`cadmus_mapping`): ❌
 
