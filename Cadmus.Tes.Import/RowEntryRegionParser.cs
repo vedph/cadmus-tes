@@ -10,6 +10,16 @@ using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
+/// <summary>
+/// Represents an abstract parser for entry regions tagged "row" that
+/// initializes a target Item with a configurable facet for the first row
+/// encountered.
+/// </summary>
+/// <remarks>Implementors must set the FacetId. The parser tracks entry into
+/// a "row" region and, for the first row only, resets the entry set context,
+/// locates a "row-start" command, logs the row Y coordinate, and adds a new
+/// Item with the FacetId. An InvalidOperationException is thrown if the
+/// "row-start" command is not found.</remarks>
 public abstract class RowEntryRegionParser : EntryRegionParser
 {
     private bool _first = false;
