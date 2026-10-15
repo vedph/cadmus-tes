@@ -43,7 +43,7 @@ internal static class PipelineFactoryProvider
                 // Cadmus.Import.Proteus
                 typeof(CadmusEntrySetContext).Assembly,
                 // Cadmus.Tes.Import
-                typeof(RowEntryRegionParser).Assembly);
+                typeof(InscriptionRowEntryRegionParser).Assembly);
         })
             .ConfigureLogging(logging =>
             {

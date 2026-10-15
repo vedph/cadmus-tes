@@ -71,7 +71,7 @@ public static class Program
             CommandApp app = new();
             app.Configure(config =>
             {
-                config.AddCommand<ImportCommand>("import")
+                config.AddCommand<ImportCommand>("import-i")
                       .WithDescription("Import inscriptions from XLSX into MongoDB.");
                 config.AddCommand<IndexDatabaseCommand>("index")
                     .WithDescription("Index a Cadmus TES database");
