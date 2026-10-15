@@ -1,4 +1,4 @@
-﻿using Cadmus.General.Parts;
+﻿using Cadmus.Epigraphy.Parts;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -8,21 +8,21 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import.Site;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column categories entry region parser for site_accuracy.
+/// TES column execution type 1 and 2 entry region parser.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-site-accuracy")]
-public sealed class ColSiteAccuracyEntryRegionParser :
+[Tag("entry-region-parser.tes.col-technique")]
+public sealed class ColTechniqueEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-site_accuracy"];
+    public string[] RegionTags => ["col-execution_type_1", "col-execution_type_2"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -46,25 +46,32 @@ public sealed class ColSiteAccuracyEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError(
-                "site_accuracy column without any item at region {Region}",
-                region);
+            Logger?.LogError("{Tag} column without any item at region {Region}",
+                region.Tag, region);
             throw new InvalidOperationException(
-                "site_accuracy column without any item at region " +
-                region);
+                $"{region.Tag} column without any item at region {region}");
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
         string? value = ImportHelper.FilterValue(txt.Value, false);
-        if (string.IsNullOrEmpty(value))
-        {
-            Logger?.LogWarning("site_accuracy column with empty " +
-                "value at region {Region}", region);
-            return Task.FromResult(entryIndex + 3);
-        }
 
-        // TODO
+        if (!string.IsNullOrEmpty(value))
+        {
+            string id = ImportHelper.GetThesaurusId(ctx, region,
+                "epi-technique-types@en", value, Logger);
+            if (id == null)
+            {
+                Logger?.LogError("Unknown execution type label for {Tag}: " +
+                    "\"{Label}\" at region {Region}", region.Tag, value, region);
+            }
+            else
+            {
+                EpiTechniquePart part =
+                    ctx.EnsurePartForCurrentItem<EpiTechniquePart>();
+                part.Techniques.Add(id);
+            }
+        }
 
         return Task.FromResult(entryIndex + 3);
     }

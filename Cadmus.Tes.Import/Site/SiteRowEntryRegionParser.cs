@@ -1,4 +1,5 @@
-﻿using Fusi.Tools.Configuration;
+﻿using Cadmus.Tes.Import.Inscription;
+using Fusi.Tools.Configuration;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;

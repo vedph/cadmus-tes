@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
 /// Place column links entry region parser. This targets PinLinksPart.

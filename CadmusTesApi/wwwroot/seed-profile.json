@@ -346,12 +346,21 @@
           "sortKey": "05"
         },
         {
+          "typeId": "it.vedph.categories",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence.",
+          "colorKey": "DCE8E8",
+          "groupKey": "identity",
+          "sortKey": "06"
+        },
+        {
           "typeId": "it.vedph.asserted-historical-dates",
           "name": "date(s)",
           "description": "Historical date(s).",
           "colorKey": "E8A0B8",
           "groupKey": "identity",
-          "sortKey": "06"
+          "sortKey": "07"
         },
         {
           "typeId": "it.vedph.geo.asserted-locations",
@@ -359,7 +368,7 @@
           "description": "Locations.",
           "colorKey": "7DC49C",
           "groupKey": "identity",
-          "sortKey": "07"
+          "sortKey": "08"
         },
         {
           "typeId": "it.vedph.comment",
@@ -367,7 +376,7 @@
           "description": "Comment.",
           "colorKey": "A8D4A8",
           "groupKey": "content",
-          "sortKey": "08"
+          "sortKey": "09"
         },
         {
           "typeId": "it.vedph.note",
@@ -375,7 +384,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "09"
+          "sortKey": "10"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -383,7 +392,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "10"
+          "sortKey": "11"
         }
       ]
     },
@@ -428,13 +437,22 @@
           "sortKey": "04"
         },
         {
+          "typeId": "it.vedph.categories",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence.",
+          "colorKey": "DCE8E8",
+          "groupKey": "identity",
+          "sortKey": "05"
+        },
+        {
           "typeId": "it.vedph.geo.asserted-toponyms",
           "name": "toponyms",
           "description": "Site toponym(s).",
           "isRequired": true,
           "colorKey": "B4C888",
           "groupKey": "identity",
-          "sortKey": "05"
+          "sortKey": "06"
         },
         {
           "typeId": "it.vedph.asserted-historical-dates",
@@ -442,7 +460,7 @@
           "description": "Historical date(s).",
           "colorKey": "E8A0B8",
           "groupKey": "identity",
-          "sortKey": "06"
+          "sortKey": "07"
         },
         {
           "typeId": "it.vedph.geo.asserted-locations",
@@ -450,7 +468,7 @@
           "description": "Locations.",
           "colorKey": "7DC49C",
           "groupKey": "identity",
-          "sortKey": "07"
+          "sortKey": "08"
         },
         {
           "typeId": "it.vedph.tes.site-resources",
@@ -459,7 +477,7 @@
           "description": "Site resources.",
           "colorKey": "DCD4A0",
           "groupKey": "content",
-          "sortKey": "08"
+          "sortKey": "09"
         },
         {
           "typeId": "it.vedph.tes.site-resources",
@@ -468,7 +486,7 @@
           "description": "Site production activities.",
           "colorKey": "DCD4B0",
           "groupKey": "content",
-          "sortKey": "09"
+          "sortKey": "10"
         },
         {
           "typeId": "it.vedph.comment",
@@ -476,7 +494,7 @@
           "description": "Comment.",
           "colorKey": "A8D4A8",
           "groupKey": "content",
-          "sortKey": "10"
+          "sortKey": "11"
         },
         {
           "typeId": "it.vedph.note",
@@ -484,7 +502,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "11"
+          "sortKey": "12"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -492,7 +510,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "12"
+          "sortKey": "13"
         }
       ]
     },
@@ -546,12 +564,21 @@
           "sortKey": "05"
         },
         {
+          "typeId": "it.vedph.categories",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence.",
+          "colorKey": "DCE8E8",
+          "groupKey": "identity",
+          "sortKey": "06"
+        },
+        {
           "typeId": "it.vedph.comment",
           "name": "comment",
           "description": "Comment.",
           "colorKey": "A8D4A8",
           "groupKey": "content",
-          "sortKey": "06"
+          "sortKey": "07"
         },
         {
           "typeId": "it.vedph.note",
@@ -559,7 +586,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "07"
+          "sortKey": "08"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -567,7 +594,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "08"
+          "sortKey": "09"
         }
       ]
     },
@@ -697,6 +724,10 @@
         {
           "id": "it.vedph.categories:cult-type",
           "value": "cult types"
+        },
+        {
+          "id": "it.vedph.categories:evidence",
+          "value": "evidence"
         },
         {
           "id": "it.vedph.categories:ico-sub",
@@ -1293,6 +1324,35 @@
         {
           "id": "ritual-activity",
           "value": "ritual activity area"
+        }
+      ]
+    },
+    {
+      "id": "categories_evidence@en",
+      "entries": [
+        {
+          "id": "stratigraphic-investigation",
+          "value": "stratigraphic investigation"
+        },
+        {
+          "id": "legacy-excavation",
+          "value": "legacy excavation"
+        },
+        {
+          "id": "survey",
+          "value": "archaeological survey"
+        },
+        {
+          "id": "chance-find",
+          "value": "chance find"
+        },
+        {
+          "id": "archaeometric-analysis",
+          "value": "archaeometric analysis"
+        },
+        {
+          "id": "undetermined-context",
+          "value": "unspecified documentary context"
         }
       ]
     },
@@ -3291,7 +3351,7 @@
   "seed": {
     "options": {
       "seed": 1,
-      "users": ["zeus"],
+      "users": [ "zeus" ],
       "partRoles": [],
       "fragmentRoles": []
     },
@@ -3303,7 +3363,7 @@
         "id": "seed.it.vedph.categories:art-ctx",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["funerary", "cultic", "domestic"]
+          "categories": [ "funerary", "cultic", "domestic" ]
         }
       },
       {
@@ -3344,63 +3404,63 @@
         "id": "seed.it.vedph.categories:cult-gods",
         "options": {
           "maxCategoriesPerItem": 2,
-          "categories": ["zeus-131", "dionysos-111", "kybele-123"]
+          "categories": [ "zeus-131", "dionysos-111", "kybele-123" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:cult-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["altar-300052391", "bothros", "oikos"]
+          "categories": [ "altar-300052391", "bothros", "oikos" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ico-sub",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["horse-46c13141", "zeus-92b1", "hephaestus-92b2"]
+          "categories": [ "horse-46c13141", "zeus-92b1", "hephaestus-92b2" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-fn",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["christian-383", "decree-384", "doc-357"]
+          "categories": [ "christian-383", "decree-384", "doc-357" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-lng",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["grc", "la"]
+          "categories": [ "grc", "la" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-feats",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["cults", "resources", "storage"]
+          "categories": [ "cults", "resources", "storage" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-res",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["clay-source", "metal-mine", "salt-source"]
+          "categories": [ "clay-source", "metal-mine", "salt-source" ]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": ["necropolis", "isolated-tomb", "sacred-area"]
+          "categories": [ "necropolis", "isolated-tomb", "sacred-area" ]
         }
       },
       {
         "id": "seed.it.vedph.comment",
         "options": {
-          "languages": ["en", "it"],
-          "categories": ["decree-384", "honorific-69"]
+          "languages": [ "en", "it" ],
+          "categories": [ "decree-384", "honorific-69" ]
         }
       },
       {
@@ -3427,8 +3487,8 @@
       {
         "id": "seed.it.vedph.index-keywords",
         "options": {
-          "indexIds": ["persons", "places"],
-          "languages": ["en", "de", "it", "fr", "sp"]
+          "indexIds": [ "persons", "places" ],
+          "languages": [ "en", "de", "it", "fr", "sp" ]
         }
       },
       {
@@ -3443,15 +3503,15 @@
       {
         "id": "seed.it.vedph.tes.site-resources:site-prod",
         "options": {
-          "resourceTypes": ["ceramic-production", "metalworking"],
-          "resourceFeatures": ["kilns", "furnaces"]
+          "resourceTypes": [ "ceramic-production", "metalworking" ],
+          "resourceFeatures": [ "kilns", "furnaces" ]
         }
       },
       {
         "id": "seed.it.vedph.tes.site-resources:site-res",
         "options": {
-          "resourceTypes": ["quarry", "mine", "salt", "water"],
-          "resourceFeatures": ["extraction-install", "slag"]
+          "resourceTypes": [ "quarry", "mine", "salt", "water" ],
+          "resourceFeatures": [ "extraction-install", "slag" ]
         }
       },
       {
@@ -3474,8 +3534,8 @@
       {
         "id": "seed.fr.it.vedph.comment",
         "options": {
-          "languages": ["en", "it"],
-          "categories": ["decree-384", "honorific-69"]
+          "languages": [ "en", "it" ],
+          "categories": [ "decree-384", "honorific-69" ]
         }
       },
       {
@@ -3508,7 +3568,7 @@
           ]
         },
         "it.vedph.categories": {
-          "thesauriIds": ["categories"]
+          "thesauriIds": [ "categories" ]
         },
         "it.vedph.chronotopes": {
           "thesauriIds": [
@@ -3532,7 +3592,7 @@
           ]
         },
         "it.vedph.decorated-counts": {
-          "thesauriIds": ["decorated-count-ids", "decorated-count-tags"]
+          "thesauriIds": [ "decorated-count-ids", "decorated-count-tags" ]
         },
         "it.vedph.district-location": {
           "thesauriIds": [
@@ -3541,7 +3601,7 @@
           ]
         },
         "it.vedph.doc-references": {
-          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
+          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
         },
         "it.vedph.external-ids": {
           "thesauriIds": [
@@ -3553,10 +3613,10 @@
           ]
         },
         "it.vedph.flags": {
-          "thesauriIds": ["flags"]
+          "thesauriIds": [ "flags" ]
         },
         "it.vedph.historical-date": {
-          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
+          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
         },
         "it.vedph.historical-events": {
           "thesauriIds": [
@@ -3573,13 +3633,13 @@
           ]
         },
         "it.vedph.index-keywords": {
-          "thesauriIds": ["languages", "keyword-indexes", "keyword-tags"]
+          "thesauriIds": [ "languages", "keyword-indexes", "keyword-tags" ]
         },
         "it.vedph.keywords": {
-          "thesauriIds": ["languages"]
+          "thesauriIds": [ "languages" ]
         },
         "it.vedph.metadata": {
-          "thesauriIds": ["metadata-names", "metadata-types"]
+          "thesauriIds": [ "metadata-names", "metadata-types" ]
         },
         "it.vedph.names": {
           "thesauriIds": [
@@ -3592,7 +3652,7 @@
           ]
         },
         "it.vedph.note": {
-          "thesauriIds": ["note-tags"]
+          "thesauriIds": [ "note-tags" ]
         },
         "it.vedph.physical-measurements": {
           "thesauriIds": [
@@ -3691,7 +3751,7 @@
       },
       "fragments": {
         "fr.it.vedph.chronology": {
-          "thesauriIds": ["chronology-tags"]
+          "thesauriIds": [ "chronology-tags" ]
         },
         "fr.it.vedph.comment": {
           "thesauriIds": [
@@ -3733,7 +3793,7 @@
           ]
         },
         "fr.it.vedph.epigraphy.ligatures": {
-          "thesauriIds": ["epi-ligature-types"]
+          "thesauriIds": [ "epi-ligature-types" ]
         }
       }
     }

@@ -1,6 +1,8 @@
 # History
 
-- 2026-10-15: refactor import to handle multiple items.
+- 2026-10-15:
+  - refactor import to handle multiple items.
+  - added categories:evidence to artifact, cult, site with its thesaurus.
 - 2026-10-10:
   - added `DateBinsConverter`.
   - migrated tests to MTP platform.

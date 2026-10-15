@@ -1,5 +1,5 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.General.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
@@ -8,21 +8,22 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column text entry region parser.
+/// TES column inscription language entry region parser. This targets
+/// CategoriesPart:ins-lng.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-text")]
-public sealed class ColTextEntryRegionParser :
+[Tag("entry-region-parser.tes.col-lng")]
+public sealed class ColLngEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-edition_(interpretive)"];
+    public string[] RegionTags => ["col-language"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -46,29 +47,35 @@ public sealed class ColTextEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("Text column without any item at region {Region}",
+            Logger?.LogError("Language column without any item at region {Region}",
                 region);
             throw new InvalidOperationException(
-                "Text column without any item at region " + region);
+                "Language column without any item at region " + region);
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
-        string? value = txt.Value;
+        string? value = ImportHelper.FilterValue(txt.Value, false);
 
-        if (!string.IsNullOrWhiteSpace(value))
+        HashSet<string> ids = [];
+        foreach (string label in ImportHelper.GetValueList(value, false, ['|']))
         {
-            TokenTextPart part = ctx.EnsurePartForCurrentItem<TokenTextPart>(
-                "base-text");
-            short n = 1;
-            foreach (string line in value.Trim().Split(['\r', '\n']))
+            string id = ImportHelper.GetThesaurusId(ctx, region, "categories_ins-lng@en",
+                label, Logger);
+            if (id == null)
             {
-                part.Lines.Add(new TextLine
-                {
-                    Y = n++,
-                    Text = line,
-                });
+                Logger?.LogError("Unknown language label for {Tag}: \"{Label}\" " +
+                    "at region {Region}", region.Tag, label, region);
+                continue;
             }
+            ids.Add(id);
+        }
+
+        if (ids.Count > 0)
+        {
+            CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>(
+                "ins-lng");
+            foreach (string id in ids) part.Categories.Add(id);
         }
 
         return Task.FromResult(entryIndex + 3);

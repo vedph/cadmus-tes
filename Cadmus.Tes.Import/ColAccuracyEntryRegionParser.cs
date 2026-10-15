@@ -1,4 +1,4 @@
-﻿using Cadmus.Epigraphy.Parts;
+﻿using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column execution type 1 and 2 entry region parser.
+/// TES column categories entry region parser for data_accuracy.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-technique")]
-public sealed class ColTechniqueEntryRegionParser :
+[Tag("entry-region-parser.tes.col-data-accuracy")]
+public sealed class ColAccuracyEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-execution_type_1", "col-execution_type_2"];
+    public string[] RegionTags => ["col-data_accuracy"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -46,31 +46,26 @@ public sealed class ColTechniqueEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("{Tag} column without any item at region {Region}",
-                region.Tag, region);
+            Logger?.LogError(
+                "data_accuracy column without any item at region {Region}",
+                region);
             throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
+                "data_accuracy column without any item at region " +
+                region);
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
         string? value = ImportHelper.FilterValue(txt.Value, false);
-
         if (!string.IsNullOrEmpty(value))
         {
-            string id = ImportHelper.GetThesaurusId(ctx, region,
-                "epi-technique-types@en", value, Logger);
-            if (id == null)
-            {
-                Logger?.LogError("Unknown execution type label for {Tag}: " +
-                    "\"{Label}\" at region {Region}", region.Tag, value, region);
-            }
-            else
-            {
-                EpiTechniquePart part =
-                    ctx.EnsurePartForCurrentItem<EpiTechniquePart>();
-                part.Techniques.Add(id);
-            }
+            // categories:evidence
+            CategoriesPart part =
+                ctx.EnsurePartForCurrentItem<CategoriesPart>("evidence");
+            string? id = ImportHelper.GetThesaurusId(
+                ctx, region, "categories_evidence", value, Logger);
+
+            if (id != null) part.Categories.Add(id);
         }
 
         return Task.FromResult(entryIndex + 3);

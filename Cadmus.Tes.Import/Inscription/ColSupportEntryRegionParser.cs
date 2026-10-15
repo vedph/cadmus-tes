@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Cadmus.Epigraphy.Parts;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
 /// TES column material support entry region parser.

@@ -52,6 +52,9 @@
       "id": "entry-region-parser.tes.col-site-type"
     },
     {
+      "id": "entry-region-parser.tes.col-data-accuracy"
+    },
+    {
       "id": "entry-region-parser.tes.col-site-coords"
     }
   ],

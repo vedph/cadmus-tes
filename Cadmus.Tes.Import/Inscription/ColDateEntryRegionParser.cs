@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
 /// TES column date entry region parser.

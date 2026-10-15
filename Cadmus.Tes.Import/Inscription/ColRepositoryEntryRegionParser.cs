@@ -8,30 +8,29 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column ID entry region parser. This adds a metadata part with an
-/// <c>eid</c> metadatum.
+/// TES column repository and inventory entry regions parser.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 /// <remarks>
-/// Initializes a new instance of the <see cref="ColIdEntryRegionParser"/>
+/// Initializes a new instance of the <see cref="ColRepositoryEntryRegionParser"/>
 /// class.
 /// </remarks>
 /// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.tes.col-id")]
-public sealed class ColIdEntryRegionParser :
+[Tag("entry-region-parser.tes.col-repository")]
+public sealed class ColRepositoryEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-id"];
+    public string[] RegionTags => ["col-repository_name", "col-inventory_number"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="entryRegionIndex" />
+    /// Parses the region of entries at <paramref name="regionIndex" />
     /// in the specified <paramref name="entryRegions" />.
     /// </summary>
     /// <param name="entrySet">The entries set.</param>
@@ -52,28 +51,28 @@ public sealed class ColIdEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("ID column without any item at region {Region}",
-                region);
+            Logger?.LogError("{Tag} column without any item at region {Region}",
+                region.Tag, region);
             throw new InvalidOperationException(
-                "ID column without any item at region " + region);
+                $"{region.Tag} column without any item at region {region}");
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
+
         string? value = ImportHelper.FilterValue(txt.Value, false);
 
         if (!string.IsNullOrEmpty(value))
         {
+            // metadata
             MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
             part.Metadata.Add(new Metadatum
             {
                 Type = "string",
-                Name = "eid",
+                Name = region.Tag == "col-repository_name"
+                    ? "preservation-place" : "inventory-nr",
                 Value = value
             });
-
-            // override item's title
-            ctx.CurrentItem.Title = value;
         }
 
         return Task.FromResult(entryIndex + 3);

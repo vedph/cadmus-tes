@@ -64,21 +64,12 @@ public sealed class ColSiteTypeEntryRegionParser :
             return Task.FromResult(entryIndex + 3);
         }
 
-        // categories:site-type (label to id)
+        // categories:site-type
         CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>("site-type");
-        string id = ImportHelper.GetThesaurusId(
+        string? id = ImportHelper.GetThesaurusId(
             ctx, region, "categories:site-type", value, Logger);
 
-        if (id == null)
-        {
-            Logger?.LogWarning("archaeological_site_type column with " +
-                "unmatched thesaurus label '{Value}' at region {Region}",
-                value, region);
-        }
-        else
-        {
-            part.Categories.Add(id);
-        }
+        if (id != null) part.Categories.Add(id);
 
         return Task.FromResult(entryIndex + 3);
     }

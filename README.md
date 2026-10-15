@@ -61,31 +61,31 @@ This part lists the resources present in a site. Each resource can contain tag, 
 
 ## Parts Matrix
 
-| part         | inscription    | lit. source | artifact                 | site                 | cult                           | iconography |
-| ------------ | -------------- | ----------- | ------------------------ | -------------------- | ------------------------------ | ----------- |
-| categories   | ins-fn ins-lng |             | art-type art-mat art-ctx | site-type site-feats | cult-type cult-gods cult-feats | ico-sub     |
-| comment      | X              |             | X                        | X                    | X                              | X           |
-| dates        | X              |             | X                        | X                    |                                |             |
-| fragments    | X              |             |                          |                      |                                |             |
-| links        | X              | X           | X                        | X                    | X                              | X           |
-| locations    | X              |             | X                        | X                    |                                |             |
-| metadata     | X              | X           | X                        | X                    | X                              | X           |
-| support      | X              |             |                          |                      |                                |             |
-| techniques   | X              |             |                          |                      |                                |             |
-| toponyms     |                |             |                          | X                    |                                |             |
-| note         | X transl       | X transl    | X                        | X                    | X                              | X           |
-| references   | X              | X           | X                        | X                    | X                              | X           |
-| resources    |                |             |                          | site-res site-prod   |                                |             |
-| states       | X              |             |                          |                      |                                |             |
-| scripts      | X              |             |                          |                      |                                |             |
-| signs        | X              |             |                          |                      |                                |             |
-| text         | X              | X           |                          |                      |                                |             |
-| apparatus=   | X              | X           |                          |                      |                                |             |
-| comment=     | X              | X           |                          |                      |                                |             |
-| chronology=  | X              | X           |                          |                      |                                |             |
-| orthography= | X              |             |                          |                      |                                |             |
-| ligatures=   | X              |             |                          |                      |                                |             |
-| links=       | X              | X           |                          |                      |                                |             |
+| part         | inscription    | lit. source | artifact                          | site                          | cult                                    | iconography |
+| ------------ | -------------- | ----------- | --------------------------------- | ----------------------------- | --------------------------------------- | ----------- |
+| categories   | ins-fn ins-lng |             | art-type art-mat art-ctx evidence | site-type site-feats evidence | cult-type cult-gods cult-feats evidence | ico-sub     |
+| comment      | X              |             | X                                 | X                             | X                                       | X           |
+| dates        | X              |             | X                                 | X                             |                                         |             |
+| fragments    | X              |             |                                   |                               |                                         |             |
+| links        | X              | X           | X                                 | X                             | X                                       | X           |
+| locations    | X              |             | X                                 | X                             |                                         |             |
+| metadata     | X              | X           | X                                 | X                             | X                                       | X           |
+| support      | X              |             |                                   |                               |                                         |             |
+| techniques   | X              |             |                                   |                               |                                         |             |
+| toponyms     |                |             |                                   | X                             |                                         |             |
+| note         | X transl       | X transl    | X                                 | X                             | X                                       | X           |
+| references   | X              | X           | X                                 | X                             | X                                       | X           |
+| resources    |                |             |                                   | site-res site-prod            |                                         |             |
+| states       | X              |             |                                   |                               |                                         |             |
+| scripts      | X              |             |                                   |                               |                                         |             |
+| signs        | X              |             |                                   |                               |                                         |             |
+| text         | X              | X           |                                   |                               |                                         |             |
+| apparatus=   | X              | X           |                                   |                               |                                         |             |
+| comment=     | X              | X           |                                   |                               |                                         |             |
+| chronology=  | X              | X           |                                   |                               |                                         |             |
+| orthography= | X              |             |                                   |                               |                                         |             |
+| ligatures=   | X              |             |                                   |                               |                                         |             |
+| links=       | X              | X           |                                   |                               |                                         |             |
 
 ## TES Import
 
@@ -161,23 +161,23 @@ List of target thesauri:
 
 ### Site
 
-(1) **A** (`id`): ❌ Local spreadsheet row number, not an item EID.
+(1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="eid"`, `value=site_id`. It is the EID; the title is supplied by `site_name`.
+(2) **B** (`site_id`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="eid"`, `value=site_id`.
 
-(3) **C** (`site_name`): ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language is inferred.
+(3) **C** (`site_name`): ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language.
 
 (4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
 
-(5) **E** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
+(5) **E** (`data_accuracy`): ▶️ `CategoriesPart.categories:evidence`; 📚 `categories_evidence@en`.
 
 (6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank`. Label the location with `site_name`.
 
 (7) **G** (`xcoord`): ▶️ See the coordinate group at F.
 
-(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F.
+(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F; independent of `data_accuracy`.
 
-(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="pleiades"`, only when an actual Pleiades ID or place URL is supplied. A label such as “Castiglione di Ragusa: a Pleiades place resource” is not an ID: preserve it as `MetadataPart.metadata` (`name="pleiades_label"`) and report that the link needs an identifier; do not search or invent an ID during import.
+(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="pleiades"`, only when an actual Pleiades ID or place URL is supplied. A label such as “Castiglione di Ragusa: a Pleiades place resource” is not an ID: preserve it as `MetadataPart.metadata` (`name="pleiades_label"`) and report that the link needs an identifier.
 
 (10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="geonames"`; accept the supplied GeoNames ID or extract it from a valid supplied URL, e.g. https://www.geonames.org/2525450/caltagirone.html → `2525450`.
 
@@ -197,17 +197,17 @@ List of target thesauri:
 
 (18-39) **R-AM** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate date range per consecutive YES run, using the common period-boundary rule.
 
-(40) **AN** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(40) **AN** (`source_ids`): ❌
 
 (41) **AO** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
 
-(42) **AP** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(42) **AP** (`evidence_note`): ❌
 
-(43) **AQ** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(43) **AQ** (`certainty_note`): ❌
 
 (44) **AR** (`review_status`): ❌ Item content; used by the import gate above.
 
-(45) **AS** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(45) **AS** (`cadmus_mapping`): ❌
 
 #### Site Resources
 
@@ -569,6 +569,6 @@ public sealed class Col__TAG__EntryRegionParser :
         // TODO
 
         return Task.FromResult(entryIndex + 3);
-    }   
+    }
 }
 ```

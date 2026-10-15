@@ -8,26 +8,22 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column repository and inventory entry regions parser.
+/// TES column inscription type entry region parser. This targets
+/// CategoriesPart:ins-fn.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-/// <remarks>
-/// Initializes a new instance of the <see cref="ColRepositoryEntryRegionParser"/>
-/// class.
-/// </remarks>
-/// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.tes.col-repository")]
-public sealed class ColRepositoryEntryRegionParser :
+[Tag("entry-region-parser.tes.col-type")]
+public sealed class ColTypeEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-repository_name", "col-inventory_number"];
+    public string[] RegionTags => ["col-type"];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -51,28 +47,35 @@ public sealed class ColRepositoryEntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("{Tag} column without any item at region {Region}",
-                region.Tag, region);
+            Logger?.LogError("Type column without any item at region {Region}",
+                region);
             throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
+                "Type column without any item at region " + region);
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
             entryIndex + 1)!;
-
         string? value = ImportHelper.FilterValue(txt.Value, false);
 
-        if (!string.IsNullOrEmpty(value))
+        HashSet<string> ids = [];
+        foreach (string label in ImportHelper.GetValueList(value, false, ['|']))
         {
-            // metadata
-            MetadataPart part = ctx.EnsurePartForCurrentItem<MetadataPart>();
-            part.Metadata.Add(new Metadatum
+            string id = ImportHelper.GetThesaurusId(ctx, region, "categories_ins-fn@en",
+                label, Logger);
+            if (id == null)
             {
-                Type = "string",
-                Name = region.Tag == "col-repository_name"
-                    ? "preservation-place" : "inventory-nr",
-                Value = value
-            });
+                Logger?.LogError("Unknown category label for {Tag}: \"{Label}\" " +
+                    "at region {Region}", region.Tag, label, region);
+                continue;
+            }
+            ids.Add(id);
+        }
+
+        if (ids.Count > 0)
+        {
+            CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>(
+                "ins-fn");
+            foreach (string id in ids) part.Categories.Add(id);
         }
 
         return Task.FromResult(entryIndex + 3);

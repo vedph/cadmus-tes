@@ -1,5 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Tes.Import;
+using Cadmus.Tes.Import.Inscription;
 using Fusi.Microsoft.Extensions.Configuration.InMemoryJson;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

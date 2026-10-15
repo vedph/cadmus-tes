@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
 /// Represents an abstract parser for entry regions tagged "row" that
