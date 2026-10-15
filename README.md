@@ -100,6 +100,8 @@ To import:
 ./tes-tool import-i c:/users/dfusi/desktop/tes/import-i.json
 ```
 
+Note that dump importers will save an `item-ids.json` file with the item GUIDs and their EIDs, which is used to resolve internal links in the next import passes. So be sure to copy it in the pipeline folder before running the next import command.
+
 3. finally, index the imported database:
 
 ```sh
