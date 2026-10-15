@@ -1,17 +1,20 @@
 ﻿using Cadmus.Geo.Parts;
 using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Site;
 
 /// <summary>
-/// TES column categories entry region parser. This targets ycoord and xcoord.
+/// TES column categories entry region parser. This targets ycoord, xcoord,
+/// coord_certainty.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -22,7 +25,10 @@ public sealed class ColSiteCoordsEntryRegionParser :
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-ycoord", "col-xcoord"];
+    public string[] RegionTags =>
+    [
+        "col-ycoord", "col-xcoord", "col-coord_certainty"
+    ];
 
     /// <summary>
     /// Parses the region of entries at <paramref name="regionIndex" />
@@ -90,6 +96,26 @@ public sealed class ColSiteCoordsEntryRegionParser :
                                 Label = ctx.CurrentItem.Title
                             }
                         });
+                    }
+                    break;
+
+                // add rank to existing location part (error if not found)
+                case "col-coord_certainty":
+                    AssertedLocationsPart? existingPart = ctx.CurrentItem.Parts
+                        .OfType<AssertedLocationsPart>().FirstOrDefault();
+                    if (existingPart == null)
+                    {
+                        Logger?.LogError(
+                            "Missing location part for coordinate certainty " +
+                            "{Certainty} at region {Region}",
+                            value, region);
+                    }
+                    else
+                    {
+                        existingPart.Locations.Last().Assertion = new Assertion
+                        {
+                            Rank = ImportHelper.LabelToRank(value, Logger)
+                        };
                     }
                     break;
             }

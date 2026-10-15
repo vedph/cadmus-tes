@@ -175,7 +175,7 @@ List of target thesauri:
 
 (7) **G** (`xcoord`): ▶️ See the coordinate group at F.
 
-(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F; independent of `data_accuracy`.
+(8) **H** (`coord_certainty`): ▶️ See the coordinate group at F.
 
 (9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: external target with `scope="pleiades"`, only when an actual Pleiades ID or place URL is supplied. A label such as “Castiglione di Ragusa: a Pleiades place resource” is not an ID: preserve it as `MetadataPart.metadata` (`name="pleiades_label"`) and report that the link needs an identifier; do not search or invent an ID during import.
 
