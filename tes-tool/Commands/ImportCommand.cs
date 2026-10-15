@@ -1,5 +1,6 @@
 ﻿using Cadmus.Import.Proteus;
-using Tes.Cli.Services;
+using Cadmus.Tes.Import;
+using DiffMatchPatch;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using Proteus.Entries.Config;
@@ -10,8 +11,9 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using Tes.Cli.Services;
 
 namespace Tes.Cli.Commands;
 
@@ -40,6 +42,17 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
         return map;
     }
 
+    private static ExportedItemIdSet? Load(string path)
+    {
+        if (!File.Exists(path)) return null;
+
+        AnsiConsole.MarkupLine($"Loading exported item IDs set from [cyan]{path}[/]...");
+
+        return ExportedItemIdSet.Load(
+            Path.Combine(Path.GetDirectoryName(path!)!,
+            "item-ids.json"));
+    }
+
     public override async Task<int> ExecuteAsync(CommandContext context,
         ImportCommandSettings settings, CancellationToken cancellationToken)
     {
@@ -47,7 +60,14 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
 
         try
         {
+            // load thesaurus map
             ThesaurusEntryMap map = LoadThesaurusMap();
+
+            // load item IDs set if present
+            string itemIdsPath = Path.Combine(
+                Path.GetDirectoryName(settings.PipelinePath!) ?? "",
+                "item-ids.json");
+            ExportedItemIdSet? set = Load(itemIdsPath);
 
             // load pipeline config
             AnsiConsole.WriteLine("Building pipeline...");
@@ -90,9 +110,11 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
             {
                 while (await setReader.ReadAsync())
                 {
+                    // get context and assign thesaurus map and IDs set if present
                     CadmusEntrySetContext c =
                         (CadmusEntrySetContext)setReader.Set.Context;
                     c.ThesaurusEntryMap = map;
+                    if (set != null) c.Data[ImportHelper.ITEM_IDS_KEY] = set;
 
                     count++;
                     AnsiConsole.Write('.');

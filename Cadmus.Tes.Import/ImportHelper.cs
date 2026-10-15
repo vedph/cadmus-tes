@@ -8,12 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace Cadmus.Tes.Import;
 
-internal static partial class ImportHelper
+public static partial class ImportHelper
 {
     private static readonly HashSet<string> _emptyValues = [];
 
     [GeneratedRegex(@"\s+")]
     private static partial Regex WsRegex();
+
+    /// <summary>
+    /// The key used to get the item IDs set loaded in the pipeline data context
+    /// when present. This is used to lookup target items to link to.
+    /// </summary>
+    public const string ITEM_IDS_KEY = "*item-ids";
 
     /// <summary>
     /// Filters a cell value. This trims it, normalizes whitespaces to a single
