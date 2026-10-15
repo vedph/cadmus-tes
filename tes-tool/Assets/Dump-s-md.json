@@ -40,7 +40,7 @@
   ],
   "entryRegionParsers": [
     {
-      "id": "entry-region-parser.tes.inscription-row"
+      "id": "entry-region-parser.tes.row-site"
     },
     {
       "id": "entry-region-parser.tes.col-site-id"
@@ -70,6 +70,12 @@
         "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
         "noEntries": true,
         "jsonParts": true
+      }
+    },
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.item-id",
+      "options": {
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids.json"
       }
     }
   ]

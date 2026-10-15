@@ -40,7 +40,7 @@
   ],
   "entryRegionParsers": [
     {
-      "id": "entry-region-parser.tes.inscription-row"
+      "id": "entry-region-parser.tes.row-inscription"
     },
     {
       "id": "entry-region-parser.tes.col-id"

@@ -9,7 +9,7 @@ namespace Cadmus.Tes.Import.Inscription;
 /// <summary>
 /// TES row entry region parser for inscriptions. This resets the context and
 /// adds a new item to it.
-/// <para>Tag: <c>entry-region-parser.tes.inscription-row</c>.</para>
+/// <para>Tag: <c>entry-region-parser.tes.row-inscription</c>.</para>
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -18,7 +18,7 @@ namespace Cadmus.Tes.Import.Inscription;
 /// class.
 /// </remarks>
 /// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.tes.inscription-row")]
+[Tag("entry-region-parser.tes.row-inscription")]
 public sealed class InscriptionRowEntryRegionParser :
     RowEntryRegionParser, IEntryRegionParser
 {
