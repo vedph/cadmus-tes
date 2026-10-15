@@ -215,7 +215,7 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 (43) **AQ** (`certainty_note`): ❌
 
-(44) **AR** (`review_status`): ❌ Item content; used by the import gate above.
+(44) **AR** (`review_status`): ❌ this contains `READY` when the item is to be imported. The importer does not care about that: users will just filter the Excel file accordingly before importing.
 
 (45) **AS** (`cadmus_mapping`): ❌
 

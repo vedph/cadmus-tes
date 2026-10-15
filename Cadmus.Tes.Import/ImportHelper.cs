@@ -179,8 +179,8 @@ public static partial class ImportHelper
     /// <summary>
     /// Converts a label string to a 16-bit rank value.
     /// </summary>
-    /// <remarks>The input is normalized via FilterValue(true) before attempting
-    /// short.TryParse; non-numeric results return 0.</remarks>
+    /// <remarks>The input is normalized via FilterValue(true) before matching.
+    /// </remarks>
     /// <param name="value">Label text to parse; null or whitespace yields 0.
     /// The input is filtered before parsing.</param>
     /// <param name="logger">The optional logger.</param>
@@ -191,9 +191,16 @@ public static partial class ImportHelper
         if (string.IsNullOrWhiteSpace(value)) return 0;
 
         value = FilterValue(value, true);
-        if (short.TryParse(value, out short n)) return n;
+        switch (value)
+        {
+            case "high": return 1;
+            case "medium": return 2;
+            case "low": return 3;
+            default:
+                logger?.LogError("Unable to parse rank from label: \"{Value}\"", value);
+                break;
+        }
 
-        logger?.LogError("Unable to parse rank from label: \"{Value}\"", value);
         return 0;
     }
 }
