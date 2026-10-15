@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Site;
 
 /// <summary>
 /// TES row entry region parser for sites. This resets the context and
 /// adds a new item to it.
-/// <para>Tag: <c>entry-region-parser.tes.site-row</c>.</para>
+/// <para>Tag: <c>entry-region-parser.tes.row-site</c>.</para>
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -18,7 +18,7 @@ namespace Cadmus.Tes.Import;
 /// class.
 /// </remarks>
 /// <param name="logger">The logger.</param>
-[Tag("entry-region-parser.tes.site-row")]
+[Tag("entry-region-parser.tes.row-site")]
 public sealed class SiteRowEntryRegionParser :
     RowEntryRegionParser, IEntryRegionParser
 {

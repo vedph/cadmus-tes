@@ -167,7 +167,7 @@ List of target thesauri:
 
 (3) **C** (`site_name`): ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language is inferred.
 
-(4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart.categories:site-type`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
+(4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
 
 (5) **E** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
 
@@ -555,8 +555,9 @@ public sealed class Col__TAG__EntryRegionParser :
 
         if (ctx.CurrentItem == null)
         {
-            Logger?.LogError("__TAG__ column without any item at region {Region}",
-                region);
+            Logger?.LogError(
+                "{Tag} column without any item at region {Region}",
+                region.Tag, region);
             throw new InvalidOperationException(
                 "__TAG__ column without any item at region " + region);
         }
