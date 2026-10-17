@@ -576,7 +576,7 @@ public sealed class Col__TAG__EntryRegionParser :
                 "{Tag} column without any item at region {Region}",
                 region.Tag, region);
             throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + region);
+                $"{region.Tag} column without any item at region {region}");
         }
 
         DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(

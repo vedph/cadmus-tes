@@ -62,6 +62,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-site-geonames"
+    },
+    {
+      "id": "entry-region-parser.tes.col-site-feats"
     }
   ],
   "entrySetContextPatchers": [
