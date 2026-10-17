@@ -56,6 +56,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-site-coords"
+    },
+    {
+      "id": "entry-region-parser.tes.col-site-pleiades"
     }
   ],
   "entrySetContextPatchers": [

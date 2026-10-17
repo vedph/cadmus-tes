@@ -399,7 +399,7 @@ Source sheet: `Funerary-social markers`.
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: internal link to the site whose EID is `site_id`
+(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: internal link to the site whose EID is `site_id`.
 
 (3) **C** (`site_name`): ❌ Display label for the site link; not the cult title.
 
@@ -532,11 +532,12 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column categories entry region parser. This targets TODO.
+/// TES column categories entry region parser.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />

@@ -1,4 +1,5 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.Core.Config;
+using Cadmus.Import.Proteus;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using System;
@@ -174,6 +175,42 @@ public static partial class ImportHelper
         }
 
         return id;
+    }
+
+    /// <summary>
+    /// Returns true when the ID of the specified thesaurus entry is valid,
+    /// false otherwise.
+    /// </summary>
+    /// <param name="context">The data context.</param>
+    /// <param name="thesaurusId">The thesaurus identifier.</param>
+    /// <param name="entryId">The entry ID.</param>
+    /// <param name="logger">The optional logger.</param>
+    /// <returns>True if the entry ID is valid, false otherwise.</returns>
+    public static bool ValidateThesaurusId(CadmusEntrySetContext context,
+        string thesaurusId, string entryId, ILogger? logger)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(thesaurusId);
+        ArgumentNullException.ThrowIfNull(entryId);
+
+        // get thesaurus
+        Thesaurus? thesaurus = context.ThesaurusEntryMap!.GetThesaurus(thesaurusId);
+        if (thesaurus == null)
+        {
+            logger?.LogError("Unknown value for thesaurus {ThesaurusId}: " +
+                "\"{EntryId}\"", thesaurusId, entryId);
+            return false;
+        }
+
+        // check entry
+        bool valid = thesaurus.Entries.Any(e => e.Id == entryId);
+        if (!valid)
+        {
+            logger?.LogError("Unknown entry ID for thesaurus {ThesaurusId}: " +
+                "\"{EntryId}\"", thesaurusId, entryId);
+        }
+
+        return valid;
     }
 
     /// <summary>
