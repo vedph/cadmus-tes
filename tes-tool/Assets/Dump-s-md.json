@@ -59,6 +59,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-site-pleiades"
+    },
+    {
+      "id": "entry-region-parser.tes.col-site-geonames"
     }
   ],
   "entrySetContextPatchers": [

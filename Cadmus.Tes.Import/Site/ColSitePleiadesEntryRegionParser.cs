@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Cadmus.Refs.Bricks;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Site;
 
 /// <summary>
-/// TES column categories entry region parser.
+/// TES column site Pleiades entry region parser.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
@@ -21,7 +21,7 @@ namespace Cadmus.Tes.Import;
 public sealed class ColSitePleiadesEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
-    private readonly Regex _digitsRegex = new(@"^\d+$");
+    private readonly Regex _digitsRegex = new(@"^\d+$", RegexOptions.Compiled);
 
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
