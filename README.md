@@ -222,39 +222,39 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 (45) **AS** (`cadmus_mapping`): ❌
 
+> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers.
+
 #### Site Resources
+
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-res`.
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to its `SiteResourcesPart:site-res.resources`; no new item is created.
+(2) **B** (`site_id`)\*: ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:resources:<resource_feature_ID>`; apply the common context-code / legacy rules.
+(4) **D** (`data_accuracy`): ▶️ ??.
 
-(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: clay → `clay`; quarry → `quarry`; mine → `mine`; salt source → `salt`; water source → `water`.
+(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: map strings to thesauri ID: "clay" → `clay-source`; "quarry" → `stone-quarry`; "mine" → `metal-mine`; "salt source" → `salt-source`; "water source" → `water-spring`. The cell contains a single entry.
 
-(6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`, labelled resource_type_certainty; it is not location certainty.
+(6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`??.
 
 (7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`: retain the supplied subsidiary identifier.
 
-(8) **H** (`ycoord`): ▶️ With `xcoord` and `coord_certainty`, `resources[].location.value.latitude/longitude` and `resources[].location.assertion.rank`; `value.label=resource_feature_ID`. No location is created for the sample with missing coordinates.
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates.
 
-(9) **I** (`xcoord`): ▶️ See H.
+(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: map these strings to thesauri ID: "archaeological assemblage" → `archaeological-asm`; for all other values, match labels from thesauri to their IDs as usual??.
 
-(10) **J** (`coord_certainty`): ▶️ See H; if coordinates are absent retain this label in `resources[].note` only.
+(12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`??.
 
-(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: archaeological assemblage → `archaeological-asm`; match other explicit values to existing entries.
+(13) **M** (`connection_to_site`): ▶️ `resources[].note`??.
 
-(12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`, labelled exploitation_evidence_certainty.
+(14) **N** (`production_scale`): ▶️ `resources[].note`??.
 
-(13) **M** (`connection_to_site`): ▶️ `resources[].note`, labelled connection_to_site; preserve analytical match and proximity without translating it into a more specific spatial or economic assertion.
+(15) **O** (`productionscale_certainty`): ▶️ `resources[].note`??.
 
-(14) **N** (`production_scale`): ▶️ `resources[].note`, labelled production_scale. The resource features thesaurus has no production-scale branch.
-
-(15) **O** (`productionscale_certainty`): ▶️ `resources[].note`, labelled productionscale_certainty.
-
-(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: one approximate interval. For multiple disjoint runs use the singular-date exception above; never bridge the gaps.
+(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
 (38) **AL** (`source_ids`): ❌
 

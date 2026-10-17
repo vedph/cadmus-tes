@@ -1,6 +1,5 @@
 ﻿using Cadmus.Import.Proteus;
 using Cadmus.Tes.Import;
-using DiffMatchPatch;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using Proteus.Entries.Config;
