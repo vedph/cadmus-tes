@@ -43,10 +43,10 @@ public sealed class DateBinsConverter
     /// non-adjacent sequence of bins.</returns>
     /// <exception cref="ArgumentNullException">Thrown when
     /// <paramref name="selectedBins"/> is null.</exception>
-    public IList<(int Start, int End)> Convert(int[] selectedBins)
+    public IList<(int Start, int End)> Convert(List<int> selectedBins)
     {
         ArgumentNullException.ThrowIfNull(selectedBins);
-        if (selectedBins.Length == 0) return [];
+        if (selectedBins.Count == 0) return [];
 
         int[] sortedBins = [.. selectedBins.Distinct().OrderBy(x => x)];
         List<(int Start, int End)> result = [];

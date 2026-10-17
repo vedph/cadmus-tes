@@ -65,6 +65,9 @@
     },
     {
       "id": "entry-region-parser.tes.col-site-feats"
+    },
+    {
+      "id": "entry-region-parser.tes.col-site-period"
     }
   ],
   "entrySetContextPatchers": [
