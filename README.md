@@ -110,8 +110,11 @@ Note that dump importers will save an `item-ids.json` file with the item GUIDs a
 
 In what follows:
 
+- ❌ = ignored.
+- ▶️ = target part type ID or target item property.
+- 📚 = thesaurus ID.
 - **asterisk** \* marks a required column. If not specified, the cell can be null/empty and is just skipped. If a cell belonging to a required column has no value, an error is logged and no data stored for that cell.
-
+- **colon** after a part name specifies the part's role ID (e.g. `CategoriesPart:ins-fn.categories`).
 - **internal link** means an internal link in a `PinLinksPart` part, where the target has these properties:
   - gid=`P` + GUID of the MetadataPart of the target item.
   - label=metadata `eid` value + ` | ` + target item GUID + ` (metadata)`
@@ -147,17 +150,17 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (10) **J** (`Provenance longitude`): longitude ▶️ `AssertedLocationsPart.locations` together with I. I-J are the second location which refers to provenance.
 
-(11) **K** (`Material`)\*: ▶️ `EpiSupportPart.material` mapped to thesaurus 📚 `epi-support-materials`.
+(11) **K** (`Material`)\*: ▶️ `EpiSupportPart.material` mapped to 📚 `epi-support-materials`.
 
-(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `EpiSupportPart.support.objectType` mapped to thesaurus 📚 `epi-support-object-types`.
+(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `EpiSupportPart.support.objectType` mapped to 📚 `epi-support-object-types`.
 
-(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `CategoriesPart.categories:ins-fn` mapped to thesaurus 📚 `categories_ins-fn`.
+(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `CategoriesPart:ins-fn.categories` mapped to 📚 `categories_ins-fn`.
 
-(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `EpiTechniquePart.techniques` mapped to thesaurus 📚 `epi-technique-types`.
+(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `EpiTechniquePart.techniques` mapped to 📚 `epi-technique-types`.
 
 (15) **O** (`Execution type 2`): as for N.
 
-(16) **P** (`Language`)\*: ▶️ `CategoriesPart.categories:ins-lng` mapped to thesaurus 📚 `categories_ins-lng`.
+(16) **P** (`Language`)\*: ▶️ `CategoriesPart:ins-lng.categories` mapped to 📚 `categories_ins-lng`.
 
 (17) **Q** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `MetadataPart.metadata.preservation-place`.
 
@@ -177,7 +180,7 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
 
-(5) **E** (`data_accuracy`): ▶️ `CategoriesPart.categories:evidence`; 📚 `categories_evidence@en`.
+(5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
 
 (6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank`. Label the location with `site_name`.
 
@@ -189,21 +192,21 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external link with `Scope`=`geonames`, `Target.Gid`=value.
 
-Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
+Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ part `CategoriesPart:site-feats`; when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
 
-(11) **K** (`cults`): ▶️ `CategoriesPart.categories:site-feats`: YES → `cults`.
+(11) **K** (`cults`): → `cults`.
 
-(12) **L** (`resources`): ▶️ `CategoriesPart.categories:site-feats`: YES → `resources`.
+(12) **L** (`resources`): → `resources`.
 
-(13) **M** (`storage`): ▶️ `CategoriesPart.categories:site-feats`: YES → `storage`.
+(13) **M** (`storage`): → `storage`.
 
-(14) **N** (`production`): ▶️ `CategoriesPart.categories:site-feats`: YES → `production`.
+(14) **N** (`production`): → `production`.
 
-(15) **O** (`status_marker`): ▶️ `CategoriesPart.categories:site-feats`: YES → `status-marker`.
+(15) **O** (`status_marker`): → `status-marker`.
 
-(16) **P** (`figurative_representations`): ▶️ `CategoriesPart.categories:site-feats`: YES → `representations-figurative`.
+(16) **P** (`figurative_representations`): → `representations-figurative`.
 
-(17) **Q** (`inscriptions`): ▶️ `CategoriesPart.categories:site-feats`: YES → `inscriptions`; 📚 `categories_site-feats@en`.
+(17) **Q** (`inscriptions`): → `inscriptions`.
 
 (18-39) **R-AM** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate date range per consecutive YES run, using the common period-boundary rule. These columns correspond each to a binned years range starting from -1000 with size=25. Use `DateBinsConverter` to convert the array of cells with YES into one or more ranges; then create a `HistoricalDate` for each range having its A and B points set to the range boundaries, both with approximate=true, and add it to `AssertedHistoricalDatesPart`.
 
@@ -223,7 +226,7 @@ Columns 11-17 are booleans targeting 📚 thesaurus `categories_site-feats@en`: 
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to its `SiteResourcesPart.resources` with role `site-res`; no new item is created.
+(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to its `SiteResourcesPart:site-res.resources`; no new item is created.
 
 (3) **C** (`site_name`): ❌
 
