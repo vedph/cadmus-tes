@@ -236,7 +236,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`data_accuracy`): ▶️ ??.
 
-(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: map strings to thesauri ID: "clay" → `clay-source`; "quarry" → `stone-quarry`; "mine" → `metal-mine`; "salt source" → `salt-source`; "water source" → `water-spring`. The cell contains a single entry.
+(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`??.
 
@@ -296,7 +296,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (14) **N** (`productionscale_certainty`): ▶️ `resources[].note`??
 
-(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: an approximate range for the documented activity represented by this row, not a precise date for every installation. Apply the singular-date exception for disjoint runs.
+(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
 (37) **AK** (`source_ids`): ❌
 
