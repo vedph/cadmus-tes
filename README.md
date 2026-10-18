@@ -112,7 +112,7 @@ In what follows:
 
 - ❌ = ignored.
 - ▶️ = target part type ID or target item property.
-- 📚 = thesaurus ID.
+- 📚 = ID of thesaurus. The default behavior for mapping a cell text to a thesaurus is assuming a single value and assuming it represents the entry label; this is filtered and converted to the corresponding entry ID. Error is signaled on no match.
 - **asterisk** \* marks a required column. If not specified, the cell can be null/empty and is just skipped. If a cell belonging to a required column has no value, an error is logged and no data stored for that cell.
 - **colon** after a part name specifies the part's role ID (e.g. `CategoriesPart:ins-fn.categories`).
 - **internal link** means an internal link in a `PinLinksPart` part, where the target has these properties:
@@ -150,17 +150,17 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (10) **J** (`Provenance longitude`): longitude ▶️ `AssertedLocationsPart.locations` together with I. I-J are the second location which refers to provenance.
 
-(11) **K** (`Material`)\*: ▶️ `EpiSupportPart.material` mapped to 📚 `epi-support-materials`.
+(11) **K** (`Material`)\*: ▶️ `EpiSupportPart.material` via 📚 `epi-support-materials`.
 
-(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `EpiSupportPart.support.objectType` mapped to 📚 `epi-support-object-types`.
+(12) **L** (`Object type`): when not specified the value is `N/A`. ▶️ `EpiSupportPart.support.objectType` via 📚 `epi-support-object-types`.
 
-(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `CategoriesPart:ins-fn.categories` mapped to 📚 `categories_ins-fn`.
+(13) **M** (`Type`): when not specified the value is `N/A`. ▶️ `CategoriesPart:ins-fn.categories` via 📚 `categories_ins-fn`.
 
-(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `EpiTechniquePart.techniques` mapped to 📚 `epi-technique-types`.
+(14) **N** (`Execution type 1`): e.g. `chiselled` ▶️ `EpiTechniquePart.techniques` via 📚 `epi-technique-types`.
 
 (15) **O** (`Execution type 2`): as for N.
 
-(16) **P** (`Language`)\*: ▶️ `CategoriesPart:ins-lng.categories` mapped to 📚 `categories_ins-lng`.
+(16) **P** (`Language`)\*: ▶️ `CategoriesPart:ins-lng.categories` via 📚 `categories_ins-lng`.
 
 (17) **Q** (`Repository name`): repository name (e.g. `Antiquarium di Megara Hyblaia`) ▶️ `MetadataPart.metadata.preservation-place`.
 
@@ -178,9 +178,9 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (3) **C** (`site_name`)\*: ▶️ `Item.title` and `AssertedToponymsPart.toponyms[].name.pieces[]`: one piece with `type="name"`, `value=site_name`; no ancient name or language.
 
-(4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories`; 📚 `categories_site-type@en`. Match the supplied label to its exact ID, e.g. multiple functions → `multiple`, sacred area → `sacred-area`, necropolis → `necropolis`.
+(4) **D** (`archaeological_site_type`): ▶️ `CategoriesPart:site-type.categories` via 📚 `categories_site-type@en`.
 
-(5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
+(5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
 
 (6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank`. Label the location with `site_name`.
 
@@ -236,7 +236,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`data_accuracy`): ▶️ ??.
 
-(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type`; 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`??.
 
@@ -244,7 +244,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
-(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`??.
 
@@ -280,7 +280,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`data_accuracy`): ??
 
-(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type`; 📚 `site-resource-types_site-prod@en`: ceramic production → `ceramic-production`; match the other activities to existing entries.
+(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en`.
 
 (6) **F** (`activitytype_certainty`): ▶️ `resources[].note`??
 
@@ -290,9 +290,9 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (11) **K** (`material_focus`): ▶️ `resources[].note`??
 
-(12) **L** (`evidence_type`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(12) **L** (`evidence_type`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(13) **M** (`production_scale`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(13) **M** (`production_scale`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (14) **N** (`productionscale_certainty`): ▶️ `resources[].note`??
 
@@ -311,6 +311,8 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 (42) **AP** (`cadmus_mapping`): ❌
 
 #### Site Markers
+
+??
 
 (1) **A** (`id`): ❌
 
@@ -355,6 +357,8 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 (42) **AP** (`cadmus_mapping`): ❌
 
 #### Site Storage
+
+??
 
 (1) **A** (`id`): ❌
 
@@ -402,9 +406,9 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
+(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
 
-(5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type`; 📚 `categories_cult-type@en`. religious building (uncertain type) → `building-religious`; altar → `altar-300052391`; votive deposit → `deposit-votive`. Match other inputs to existing entries, never to IDs copied from `cadmus_mapping`.
+(5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type` via 📚 `categories_cult-type@en`.
 
 (6) **F** (`cult_element_type_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="cult_element_type_certainty"`, `value` = the supplied value. The certainty refers to this classification, not to the named divinity.
 
@@ -418,25 +422,27 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (13) **M** (`relation_certainty`): ▶️ See K. If the target ID is blank, do not create a relation from this cell alone.
 
-(14) **N** (`divinity`): ▶️ `CategoriesPart.categories:cult-gods`; 📚 `categories_cult-gods@en`. Match explicit supplied divinity labels to exact entries; leave blank if no divinity is identified.
+(14) **N** (`divinity`): ▶️ `CategoriesPart.categories:cult-gods` via 📚 `categories_cult-gods@en`.
 
 (15) **O** (`divinity_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="divinity_certainty"`, `value` = the supplied value. It qualifies the supplied identification; no identification is inferred from a certainty value alone.
 
-(16) **P** (`animal_sacrifices`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `animal-sacrifices`; 📚 `categories_cult-feats@en`.
+Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ part `CategoriesPart:cult-feats`; when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
 
-(17) **Q** (`food_consumption`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `food-consumption`; 📚 `categories_cult-feats@en`.
+(16) **P** (`animal_sacrifices`): → `animal-sacrifices`.
 
-(18) **R** (`beverage_consumption`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `beverage-consumption`; 📚 `categories_cult-feats@en`.
+(17) **Q** (`food_consumption`): → `food-consumption`.
 
-(19) **S** (`architectural_models`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `architectural-models`; 📚 `categories_cult-feats@en`.
+(18) **R** (`beverage_consumption`): → `beverage-consumption`.
 
-(20) **T** (`statuettes`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `statuettes`; 📚 `categories_cult-feats@en`.
+(19) **S** (`architectural_models`): → `architectural-models`.
 
-(21) **U** (`lamps`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `lamps`; 📚 `categories_cult-feats@en`.
+(20) **T** (`statuettes`): → `statuettes`.
 
-(22) **V** (`weapons`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `weapons`; 📚 `categories_cult-feats@en`.
+(21) **U** (`lamps`): → `lamps`.
 
-(23) **W** (`epigraphical_evidence`): ▶️ `CategoriesPart.categories:cult-feats`: explicit YES → `epigraphical-evidence`; 📚 `categories_cult-feats@en`.
+(22) **V** (`weapons`): → `weapons`.
+
+(23) **W** (`epigraphical_evidence`): → `epigraphical-evidence`.
 
 (24-45) **X-AS** (`period_1` … `period_22`): ▶️ A labelled chronology block in `CommentPart.text`: list each computed approximate range separately. The current cult facet has no dates part; do not add one silently.
 
@@ -466,9 +472,9 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (5) **E** (`designation`): ▶️ `Item.title`.
 
-(6) **F** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
+(6) **F** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
 
-(7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type`; 📚 `categories_art-type@en`. architectural elements → `architectural-300003531`; reliefs (sculpture) → `reliefs-300047218`; other inputs must resolve to an existing ID.
+(7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type` via 📚 `categories_art-type@en`.
 
 (8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value. Original unsplit label; does not create an iconography item or select a taxonomy term.
 
@@ -482,11 +488,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (13) **M** (`iconography_subject_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject_certainty"`, `value` = the supplied value. Applies only to the supplied subject; no value is inferred from legacy iconography certainty.
 
-(14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx`; 📚 `categories_art-ctx@en`: isolated find → `isolated-find`, funerary context → `funerary`; match other explicit values to the existing thesaurus.
+(14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
 (15) **O** (`contexttype_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="contexttype_certainty"`, `value` = the supplied value.
 
-(16) **P** (`material`): ▶️ `CategoriesPart.categories:art-mat`; 📚 `categories_art-mat@en`: limestone → `limestone-300011447`, terracotta → `terracotta-300010669`; match other materials to existing entries.
+(16) **P** (`material`): ▶️ `CategoriesPart.categories:art-mat` via 📚 `categories_art-mat@en`.
 
 (17) **Q** (`production_origin`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="production_origin"`, `value` = the supplied value. local / imported / uncertain is an origin statement, not a place identifier or a coordinate.
 
