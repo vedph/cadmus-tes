@@ -410,17 +410,17 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type` via 📚 `categories_cult-type@en`.
 
-(6) **F** (`cult_element_type_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="cult_element_type_certainty"`, `value` = the supplied value. The certainty refers to this classification, not to the named divinity.
+(6) **F** (`cult_element_type_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="cult_element_type_certainty"`, `value` = the supplied value.
 
-(7) **G** (`cult_element_id`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`) and `Item.title`. Preserve the full supplied identifier, including any descriptive suffix, for matching. Resolve related cults by the same exact value; disambiguate with `site_id` when necessary.
+(7) **G** (`cult_element_id`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`) and `Item.title`.
 
 (8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates.
 
-(11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank`. Preserve unresolved references in `CommentPart.text` and report them, never fabricate a target.
+(11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank`.
 
-(12) **L** (`relation_type`): ▶️ See K. Preserve `within_same_cult_area` literally in the link note. This is a spatial association; it is not evidence of the same god, function, or phase. No `categories_cult-rel` thesaurus is assumed.
+(12) **L** (`relation_type`): ▶️ See K.
 
-(13) **M** (`relation_certainty`): ▶️ See K. If the target ID is blank, do not create a relation from this cell alone.
+(13) **M** (`relation_certainty`): ▶️ See K.
 
 (14) **N** (`divinity`): ▶️ `CategoriesPart.categories:cult-gods` via 📚 `categories_cult-gods@en`.
 
@@ -464,11 +464,11 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`. This is not the artifact EID.
+(2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: link to the site resolved by `site_id`; set `target.itemId` to the resolved item UUID and its display label to `site_name`.
 
-(3) **C** (`site_name`): ❌ Display label for the site link; the artifact title comes from designation.
+(3) **C** (`site_name`): ❌
 
-(4) **D** (`feature_ID`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`, `value=feature_ID`). Use the original identifier; qualify with `site_id` if IDs repeat between sites. Maintain an explicit `(site_id, feature_ID)` lookup for links; do not silently merge distinct objects.
+(4) **D** (`feature_ID`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`, `value=feature_ID`).
 
 (5) **E** (`designation`): ▶️ `Item.title`.
 
@@ -476,17 +476,17 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type` via 📚 `categories_art-type@en`.
 
-(8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value. Original unsplit label; does not create an iconography item or select a taxonomy term.
+(8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value.
 
-(9) **I** (`iconography_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy_certainty"`, `value` = the supplied value. Do not copy automatically to subject certainty: protome, for example, may be a form rather than an identified subject.
+(9) **I** (`iconography_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy_certainty"`, `value` = the supplied value.
 
-(10) **J** (`iconography_representation`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_representation"`, `value` = the supplied value. Local label identifying the depicted figure/scene described by the next fields.
+(10) **J** (`iconography_representation`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_representation"`, `value` = the supplied value.
 
-(11) **K** (`iconography_descriptors`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_descriptors"`, `value` = the supplied value. Preserve the proposed labels and their ; separator; taxonomy resolution is postponed until the descriptor tree exists.
+(11) **K** (`iconography_descriptors`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_descriptors"`, `value` = the supplied value.
 
 (12) **L** (`iconography_subject`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject"`, `value` = the supplied value. Proposed interpretation; may remain empty when only a form is documented.
 
-(13) **M** (`iconography_subject_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject_certainty"`, `value` = the supplied value. Applies only to the supplied subject; no value is inferred from legacy iconography certainty.
+(13) **M** (`iconography_subject_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject_certainty"`, `value` = the supplied value.
 
 (14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
@@ -498,11 +498,11 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (18) **R** (`productionorigin_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="productionorigin_certainty"`, `value` = the supplied value.
 
-(19) **S** (`evidence_type`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="evidence_type"`, `value` = the supplied value. Preserve e.g. reused or documented only (published analysis); it is distinct from documentary-context data_accuracy.
+(19) **S** (`evidence_type`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="evidence_type"`, `value` = the supplied value.
 
-(20-41) **T-AO** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: one approximate range per consecutive YES run; apply `chronology_certainty` as specified at AP.
+(20-41) **T-AO** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
-(42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range; also preserve the supplied label as `MetadataPart.metadata` (`name="chronology_certainty"`). If no range is supplied, the label alone does not generate a date.
+(42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range; also preserve the supplied label as `MetadataPart.metadata` (`name="chronology_certainty"`).
 
 (43) **AQ** (`source_ids`): ❌
 
