@@ -272,11 +272,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID and append this record to `SiteResourcesPart.resources` with role `site-prod`; no new item is created.
+(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` on the parent site, scoped as `data_accuracy:production:<production_feature_ID>`; apply the common context-code / legacy rules.
+(4) **D** (`data_accuracy`): ??
 
 (5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type`; 📚 `site-resource-types_site-prod@en`: ceramic production → `ceramic-production`; match the other activities to existing entries.
 
@@ -318,13 +318,13 @@ Source sheet: `Funerary-social markers`.
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No funerary/status item or inferred hierarchy is created.
+(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
 (4) **D** (`area_name`): ▶️ Heading of this `CommentPart.text` record block, preserving the supplied area name.
 
-(5) **E** (`data_accuracy`): ▶️ Parent `MetadataPart.metadata`, scoped as `data_accuracy:funerary:<area_name>`; common context-code / legacy rules.
+(5) **E** (`data_accuracy`): ??
 
 (6) **F** (`ycoord`): ▶️ Together with xcoord and coord_certainty, a labelled location in this record block. Do not overwrite the parent Site location.
 
@@ -362,11 +362,11 @@ Source sheet: `Funerary-social markers`.
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ Resolve the parent Site by EID; append one labelled record block to its `CommentPart.text`. No storage item or inferred hierarchy is created.
+(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ Parent `MetadataPart.metadata`, scoped as `data_accuracy:storage:<storage_feature_id>`; common context-code / legacy rules.
+(4) **D** (`data_accuracy`): ??
 
 (5) **E** (`storage_type`): ▶️ `CommentPart.text`, labelled storage_type in the subsidiary record block. Preserve silo/pit; no categories_storage-type thesaurus is assumed in the current profile.
 
@@ -406,7 +406,7 @@ Source sheet: `Funerary-social markers`.
 
 (3) **C** (`site_name`): ❌ Display label for the site link; not the cult title.
 
-(4) **D** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
+(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
 
 (5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type`; 📚 `categories_cult-type@en`. religious building (uncertain type) → `building-religious`; altar → `altar-300052391`; votive deposit → `deposit-votive`. Match other inputs to existing entries, never to IDs copied from `cadmus_mapping`.
 
@@ -474,7 +474,7 @@ Source sheet: `Funerary-social markers`.
 
 (5) **E** (`designation`): ▶️ `Item.title`.
 
-(6) **F** (`data_accuracy`): ▶️ `MetadataPart.metadata` (`name="data_accuracy"`), following the context-code and legacy-score rules above.
+(6) **F** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
 
 (7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type`; 📚 `categories_art-type@en`. architectural elements → `architectural-300003531`; reliefs (sculpture) → `reliefs-300047218`; other inputs must resolve to an existing ID.
 
