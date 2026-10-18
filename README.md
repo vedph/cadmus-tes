@@ -240,11 +240,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`??.
 
-(7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`: retain the supplied subsidiary identifier.
+(7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`.
 
-(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates.
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
-(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: map these strings to thesauri ID: "archaeological assemblage" → `archaeological-asm`; for all other values, match labels from thesauri to their IDs as usual??.
+(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`??.
 
@@ -274,7 +274,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
@@ -282,23 +282,19 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type`; 📚 `site-resource-types_site-prod@en`: ceramic production → `ceramic-production`; match the other activities to existing entries.
 
-(6) **F** (`activitytype_certainty`): ▶️ `resources[].note`, labelled activitytype_certainty.
+(6) **F** (`activitytype_certainty`): ▶️ `resources[].note`??
 
-(7) **G** (`production_feature_ID`): ▶️ `resources[].eid`: retain the supplied subsidiary identifier.
+(7) **G** (`production_feature_ID`): ▶️ `resources[].eid`.
 
-(8) **H** (`ycoord`): ▶️ With `xcoord` and `coord_certainty`, `resources[].location.value.latitude/longitude` and `resources[].location.assertion.rank`; `value.label=production_feature_ID`. No location is created for the sample with missing coordinates.
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
-(9) **I** (`xcoord`): ▶️ See H.
+(11) **K** (`material_focus`): ▶️ `resources[].note`??
 
-(10) **J** (`coord_certainty`): ▶️ See H; if coordinates are absent retain this label in `resources[].note` only.
+(12) **L** (`evidence_type`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(11) **K** (`material_focus`): ▶️ `resources[].note`, labelled material_focus; preserve the stated material without assigning an artifact-material category to the site.
+(13) **M** (`production_scale`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(12) **L** (`evidence_type`): ▶️ `resources[].features[]`; 📚 `site-resource-features_site-prod@en`. Split on ;: kilns → `kilns`, wasters → `wasters`; unknown values stay in `resources[].note` and are reported.
-
-(13) **M** (`production_scale`): ▶️ `resources[].features[]`, same production features thesaurus: household scale → `household-scale`, workshop scale → `workshop-scale`, uncertain → `uncertain`. Do not infer a scale from kiln presence alone.
-
-(14) **N** (`productionscale_certainty`): ▶️ `resources[].note`, labelled productionscale_certainty.
+(14) **N** (`productionscale_certainty`): ▶️ `resources[].note`??
 
 (15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: an approximate range for the documented activity represented by this row, not a precise date for every installation. Apply the singular-date exception for disjoint runs.
 
