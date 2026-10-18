@@ -270,6 +270,8 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 #### Site Production
 
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`.
+
 (1) **A** (`id`): ❌
 
 (2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
@@ -313,8 +315,6 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 (42) **AP** (`cadmus_mapping`): ❌
 
 #### Site Markers
-
-Source sheet: `Funerary-social markers`.
 
 (1) **A** (`id`): ❌
 
@@ -404,7 +404,7 @@ Source sheet: `Funerary-social markers`.
 
 (2) **B** (`site_id`): ▶️ `PinLinksPart.links[].target`: internal link to the site whose EID is `site_id`.
 
-(3) **C** (`site_name`): ❌ Display label for the site link; not the cult title.
+(3) **C** (`site_name`): ❌
 
 (4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories`; 📚 `categories_evidence@en`.
 
@@ -414,11 +414,7 @@ Source sheet: `Funerary-social markers`.
 
 (7) **G** (`cult_element_id`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`) and `Item.title`. Preserve the full supplied identifier, including any descriptive suffix, for matching. Resolve related cults by the same exact value; disambiguate with `site_id` when necessary.
 
-(8) **H** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: a labelled location block in `CommentPart.text`. The current cult facet has no `AssertedLocationsPart`; no point is borrowed from the parent site.
-
-(9) **I** (`xcoord`): ▶️ See the coordinate group at H.
-
-(10) **J** (`coord_certainty`): ▶️ See the coordinate group at H; preserve the label in that block.
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates.
 
 (11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank`. Preserve unresolved references in `CommentPart.text` and report them, never fabricate a target.
 
@@ -448,17 +444,17 @@ Source sheet: `Funerary-social markers`.
 
 (24-45) **X-AS** (`period_1` … `period_22`): ▶️ A labelled chronology block in `CommentPart.text`: list each computed approximate range separately. The current cult facet has no dates part; do not add one silently.
 
-(46) **AT** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(46) **AT** (`source_ids`): ❌
 
-(47) **AU** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(47) **AU** (`source_locator`): ❌
 
-(48) **AV** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(48) **AV** (`evidence_note`): ❌
 
-(49) **AW** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(49) **AW** (`certainty_note`): ❌
 
-(50) **AX** (`review_status`): ❌ Item content; used by the import gate above.
+(50) **AX** (`review_status`): ❌
 
-(51) **AY** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(51) **AY** (`cadmus_mapping`): ❌
 
 ---
 
@@ -506,17 +502,17 @@ Source sheet: `Funerary-social markers`.
 
 (42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range; also preserve the supplied label as `MetadataPart.metadata` (`name="chronology_certainty"`). If no range is supplied, the label alone does not generate a date.
 
-(43) **AQ** (`source_ids`): ❌ Retained in the source workbook, outside this import pass.
+(43) **AQ** (`source_ids`): ❌
 
-(44) **AR** (`source_locator`): ❌ Retained in the source workbook, outside this import pass.
+(44) **AR** (`source_locator`): ❌
 
-(45) **AS** (`evidence_note`): ❌ Retained in the source workbook, outside this import pass.
+(45) **AS** (`evidence_note`): ❌
 
-(46) **AT** (`certainty_note`): ❌ Retained in the source workbook, outside this import pass.
+(46) **AT** (`certainty_note`): ❌
 
-(47) **AU** (`review_status`): ❌ Item content; used by the import gate above.
+(47) **AU** (`review_status`): ❌
 
-(48) **AV** (`cadmus_mapping`): ❌ Editorial working text; never executed.
+(48) **AV** (`cadmus_mapping`): ❌
 
 ---
 
