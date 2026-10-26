@@ -182,13 +182,13 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 (5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
 
-(6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank`. Label the location with `site_name`.
+(6) **F** (`ycoord`): ▶️ Together with `xcoord` and `coord_certainty`: `AssertedLocationsPart.locations[].value.latitude/longitude` and `locations[].assertion.rank` (`high`=1, `medium`=2, `low`=3). Label the location with `site_name`.
 
 (7) **G** (`xcoord`): ▶️ See the coordinate group at F.
 
 (8) **H** (`coord_certainty`): ▶️ See the coordinate group at F.
 
-(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: when it contains digits only, it's a Pleiades ID, which goes into `PinLinksPart` as an external link with `Scope`=`pleiades`, `Target.Gid`=value; else preserve a generic label in a metadatum entry in `MetadataPart.metadata` (`name="pleiades_label"`) and log a warning (missing Pleiades identifier).
+(9) **I** (`pleiades_ref`): ▶️ `PinLinksPart.links[]`: when it contains digits only, it's a Pleiades ID, which goes into `PinLinksPart` as an external link with `Scope`=`pleiades`, `Target.Gid`=value; else preserve a generic label in a metadatum entry in `MetadataPart.metadata` (`name="pleiades_label"`) and log a warning ("missing Pleiades identifier").
 
 (10) **J** (`geonames_ref`): ▶️ `PinLinksPart.links[]`: external link with `Scope`=`geonames`, `Target.Gid`=value.
 
