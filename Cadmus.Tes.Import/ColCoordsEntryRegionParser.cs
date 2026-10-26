@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import.Site;
+namespace Cadmus.Tes.Import;
 
 /// <summary>
 /// TES column categories entry region parser. This targets ycoord, xcoord,
@@ -18,8 +18,8 @@ namespace Cadmus.Tes.Import.Site;
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-site_coords")]
-public sealed class ColSiteCoordsEntryRegionParser :
+[Tag("entry-region-parser.tes.col-coords")]
+public sealed class ColCoordsEntryRegionParser :
     EntryRegionParser, IEntryRegionParser
 {
     /// <summary>

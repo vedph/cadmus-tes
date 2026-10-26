@@ -2,7 +2,7 @@
   "profiles": {
     "tes-tool": {
       "commandName": "Project",
-      "commandLineArgs": "import-i c:\\users\\dfusi\\desktop\\tes\\dump-md.json"
+      "commandLineArgs": "import-i c:\\users\\dfusi\\desktop\\tes\\dump-s-md.json"
     }
   }
 }

@@ -5,7 +5,7 @@
   "entryReader": {
     "id": "entry-reader.xlsx",
     "options": {
-      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes.xlsx",
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-sites.xlsx",
       "hasHeaderRow": true,
       "columnNameFiltering": true,
       "eofCheckColumn": 1
@@ -55,7 +55,7 @@
       "id": "entry-region-parser.tes.col-data-accuracy"
     },
     {
-      "id": "entry-region-parser.tes.col-site-coords"
+      "id": "entry-region-parser.tes.col-coords"
     },
     {
       "id": "entry-region-parser.tes.col-site-pleiades"
