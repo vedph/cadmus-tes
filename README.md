@@ -230,11 +230,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ ??.
+(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
 
 (5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
@@ -246,13 +246,13 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(12) **L** (`exploitation_evidence_certainty`): ▶️ `resources[].note`??.
+(12) **L** (`exploitation_evidence_certainty`): ▶️ append to `resources[].note` under header `## Evidence Certainty`.
 
 (13) **M** (`connection_to_site`): ▶️ `resources[].note`??.
 
-(14) **N** (`production_scale`): ▶️ `resources[].note`??.
+(14) **N** (`production_scale`): ❌
 
-(15) **O** (`productionscale_certainty`): ▶️ `resources[].note`??.
+(15) **O** (`productionscale_certainty`): ❌
 
 (16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
@@ -274,7 +274,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
@@ -292,9 +292,9 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (12) **L** (`evidence_type`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(13) **M** (`production_scale`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(13) **M** (`production_scale`): ❌
 
-(14) **N** (`productionscale_certainty`): ▶️ `resources[].note`??
+(14) **N** (`productionscale_certainty`): ❌
 
 (15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
@@ -316,7 +316,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`): ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
 
 (3) **C** (`site_name`): ❌
 
