@@ -226,7 +226,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 #### Site Resources
 
-All columns in this spreadsheet refer to site resources, which target two parts with different roles: ▶️ `SiteResourcesPart:site-res` and `SiteResourcesPart:site-prod`.
+All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPart:site-res`.
 
 (1) **A** (`id`): ❌
 
