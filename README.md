@@ -73,7 +73,7 @@ This part lists the resources present in a site. Each resource can contain tag, 
 | support      | X              |             |                                   |                               |                                         |             |
 | techniques   | X              |             |                                   |                               |                                         |             |
 | toponyms     |                |             |                                   | X                             |                                         |             |
-| note         | X transl       | X transl    | X                                 | X                             | X                                       | X           |
+| note         | X transl       | X transl    | X                                 | X evidence certainty          | X                                       | X           |
 | references   | X              | X           | X                                 | X                             | X                                       | X           |
 | resources    |                |             |                                   | site-res site-prod            |                                         |             |
 | states       | X              |             |                                   |                               |                                         |             |
@@ -117,7 +117,7 @@ In what follows:
 - **colon** after a part name specifies the part's role ID (e.g. `CategoriesPart:ins-fn.categories`).
 - **internal link** means an internal link in a `PinLinksPart` part, where the target has these properties:
   - gid=`P` + GUID of the MetadataPart of the target item.
-  - label=metadata `eid` value + ` | ` + target item GUID + ` (metadata)`
+  - label=metadata `eid` value + `|` + target item GUID + ` (metadata)`
   - itemId=target item GUID
   - partId=target item's MetadataPart GUID
   - partTypeId: `it.vedph.metadata`
@@ -214,9 +214,9 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 (41) **AO** (`source_locator`): ❌
 
-(42) **AP** (`evidence_note`): ❌
+(42) **AP** (`evidence_note`): ▶️ `NotePart:evidence`.
 
-(43) **AQ** (`certainty_note`): ❌
+(43) **AQ** (`certainty_note`): ▶️ `NotePart:certainty`.
 
 (44) **AR** (`review_status`): ❌ this contains `READY` when the item is to be imported. ⚠️ The importer does not care about that: users will just filter the Excel file accordingly before importing.
 

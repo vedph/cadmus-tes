@@ -498,11 +498,29 @@
         },
         {
           "typeId": "it.vedph.note",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence note.",
+          "colorKey": "A8D488",
+          "groupKey": "content",
+          "sortKey": "12"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "roleId": "certainty",
+          "name": "certainty",
+          "description": "Certainty note.",
+          "colorKey": "A8B4A8",
+          "groupKey": "content",
+          "sortKey": "13"
+        },
+        {
+          "typeId": "it.vedph.note",
           "name": "note",
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "12"
+          "sortKey": "14"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -510,7 +528,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "13"
+          "sortKey": "15"
         }
       ]
     },

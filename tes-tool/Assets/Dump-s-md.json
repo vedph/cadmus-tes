@@ -68,6 +68,12 @@
     },
     {
       "id": "entry-region-parser.tes.col-site-period"
+    },
+    {
+      "id": "entry-region-parser.tes.col-evidence"
+    },
+    {
+      "id": "entry-region-parser.tes.col-certainty"
     }
   ],
   "entrySetContextPatchers": [
