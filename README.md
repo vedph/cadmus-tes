@@ -248,7 +248,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (12) **L** (`exploitation_evidence_certainty`): ▶️ append to `resources[].note` under header `## Evidence Certainty`.
 
-(13) **M** (`connection_to_site`): ▶️ `resources[].note`??.
+(13) **M** (`connection_to_site`): ❌
 
 (14) **N** (`production_scale`): ❌
 
