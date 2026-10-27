@@ -389,13 +389,13 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
-(15) **O** (`contexttype_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="contexttype_certainty"`, `value` = the supplied value.
+(15) **O** (`contexttype_certainty`): ❌
 
 (16) **P** (`material`): ▶️ `CategoriesPart.categories:art-mat` via 📚 `categories_art-mat@en`.
 
 (17) **Q** (`production_origin`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="production_origin"`, `value` = the supplied value. local / imported / uncertain is an origin statement, not a place identifier or a coordinate.
 
-(18) **R** (`productionorigin_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="productionorigin_certainty"`, `value` = the supplied value.
+(18) **R** (`productionorigin_certainty`): ❌
 
 (19) **S** (`evidence_type`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="evidence_type"`, `value` = the supplied value.
 
