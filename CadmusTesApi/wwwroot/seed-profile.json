@@ -500,11 +500,29 @@
         {
           "typeId": "it.vedph.tes.site-resources",
           "roleId": "site-prod",
-          "name": "production",
+          "name": "productions",
           "description": "Site production activities.",
-          "colorKey": "DCD4B0",
+          "colorKey": "E9E5CD",
           "groupKey": "content",
           "sortKey": "10"
+        },
+        {
+          "typeId": "it.vedph.tes.site-resources",
+          "roleId": "site-mark",
+          "name": "markings",
+          "description": "Site markings.",
+          "colorKey": "DCD4A0",
+          "groupKey": "content",
+          "sortKey": "11"
+        },
+        {
+          "typeId": "it.vedph.tes.site-resources",
+          "roleId": "site-store",
+          "name": "storage",
+          "description": "Site storage facilities.",
+          "colorKey": "C4B344",
+          "groupKey": "content",
+          "sortKey": "12"
         },
         {
           "typeId": "it.vedph.comment",
@@ -512,7 +530,7 @@
           "description": "Comment.",
           "colorKey": "A8D4A8",
           "groupKey": "content",
-          "sortKey": "11"
+          "sortKey": "13"
         },
         {
           "typeId": "it.vedph.note",
@@ -521,7 +539,7 @@
           "description": "Evidence note.",
           "colorKey": "A8D488",
           "groupKey": "content",
-          "sortKey": "12"
+          "sortKey": "14"
         },
         {
           "typeId": "it.vedph.note",
@@ -530,7 +548,7 @@
           "description": "Certainty note.",
           "colorKey": "A8B4A8",
           "groupKey": "content",
-          "sortKey": "13"
+          "sortKey": "15"
         },
         {
           "typeId": "it.vedph.note",
@@ -538,7 +556,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "14"
+          "sortKey": "16"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -546,7 +564,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "15"
+          "sortKey": "17"
         }
       ]
     },
