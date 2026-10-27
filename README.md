@@ -138,7 +138,7 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 ---
 
-### Inscription
+### 🟢 Inscription
 
 (1) **A** (`ID`)\*: the ISicily inscription ID (e.g. `ISic000822`) ▶️ `MetadataPart.metadata`: add metadata and set as item's title.
 
@@ -248,7 +248,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(6) **F** (`resourcetype_certainty`): ▶️ `resources[].note`??.
+(6) **F** (`resourcetype_certainty`): ❌
 
 (7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`.
 
@@ -256,7 +256,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
-(12) **L** (`exploitation_evidence_certainty`): ▶️ append to `resources[].note` under header `## Evidence Certainty`.
+(12) **L** (`exploitation_evidence_certainty`): ❌
 
 (13) **M** (`connection_to_site`): ❌
 

@@ -3019,6 +3019,10 @@
       ]
     },
     {
+      "id": "site-resource-features_site-mark@en",
+      "targetId": "site-resource-features_site-res"
+    },
+    {
       "id": "site-resource-features_site-prod@en",
       "entries": [
         {
@@ -3109,6 +3113,14 @@
       ]
     },
     {
+      "id": "site-resource-features_site-store@en",
+      "targetId": "site-resource-features_site-res"
+    },
+    {
+      "id": "site-resource-types_site-mark@en",
+      "targetId": "site-resource-types_site-res"
+    },
+    {
       "id": "site-resource-types_site-prod@en",
       "entries": [
         {
@@ -3169,6 +3181,10 @@
           "value": "water source"
         }
       ]
+    },
+    {
+      "id": "site-resource-types_site-store@en",
+      "targetId": "site-resource-types_site-res"
     }
   ],
   "seed": {
