@@ -1,25 +1,27 @@
+using Cadmus.Api.Config;
+using Cadmus.Api.Config.Services;
+using Cadmus.Api.Controllers;
+using Cadmus.Api.Controllers.Import;
 using Cadmus.Api.Services;
 using Cadmus.Api.Services.Seeding;
 using Cadmus.Core;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using System.Diagnostics;
 using Cadmus.Core.Config;
 using Cadmus.Seed;
-using Serilog.Events;
+using Cadmus.Tes.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
-using Scalar.AspNetCore;
-using Cadmus.Api.Controllers;
-using Cadmus.Api.Controllers.Import;
-using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
+using Scalar.AspNetCore;
+using Serilog;
+using Serilog.Events;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Cadmus.Api.Config.Services;
-using Cadmus.Api.Config;
-using Cadmus.Tes.Services;
+using TaxoStore.Api.Controllers;
+using TaxoStore.Api.Controllers.Services;
 
 namespace CadmusTesApi;
 
@@ -61,6 +63,25 @@ public static class Program
 
         // previewer
         services.AddSingleton(p => ServiceConfigurator.GetPreviewer(p, config));
+
+        // TaxoStore (from wwwroot/taxo/trees.csv and nodes.csv)
+        services.AddTaxoStoreServices(options =>
+        {
+            string? connectionString = config.GetConnectionString("TaxoStore");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "Connection string 'TaxoStore' not found.");
+            }
+
+            options.ConnectionString = connectionString;
+
+            options.EnableAutoInitialization =
+                config.GetValue("TaxoStore:EnableAutoInitialization", true);
+
+            options.InitializationDelaySeconds =
+                config.GetValue("TaxoStore:InitializationDelaySeconds", 0);
+        });
     }
 
     /// <summary>
@@ -101,6 +122,8 @@ public static class Program
             builder.Services.AddControllers()
                 .AddApplicationPart(typeof(ItemController).Assembly)
                 .AddApplicationPart(typeof(ThesaurusImportController).Assembly)
+                // TaxoStore
+                .AddApplicationPart(typeof(TaxoTreeController).Assembly)
                 .AddControllersAsServices();
 
             WebApplication app = builder.Build();

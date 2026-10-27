@@ -1,0 +1,4 @@
+id,name,note,flat
+descriptors,descriptors,"Iconographic atomic descriptors (S(A))",true
+subjects,subjects,"Iconographic subjects in narrative form (SVO)",true
+gods,gods,"Gods and other divine beings (S(A))",true

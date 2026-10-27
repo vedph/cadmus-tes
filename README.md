@@ -68,31 +68,33 @@ A resource is any generic resource present in a site: a source of materials, a p
 
 ## Parts Matrix
 
-| part         | inscription    | lit. source | artifact                          | site                          | cult                                    | iconography |
-| ------------ | -------------- | ----------- | --------------------------------- | ----------------------------- | --------------------------------------- | ----------- |
-| categories   | ins-fn ins-lng |             | art-type art-mat art-ctx evidence | site-type site-feats evidence | cult-type cult-gods cult-feats evidence | ico-sub     |
-| comment      | X              |             | X                                 | X                             | X                                       | X           |
-| dates        | X              |             | X                                 | X                             |                                         |             |
-| fragments    | X              |             |                                   |                               |                                         |             |
-| links        | X              | X           | X                                 | X                             | X                                       | X           |
-| locations    | X              |             | X                                 | X                             |                                         |             |
-| metadata     | X              | X           | X                                 | X                             | X                                       | X           |
-| support      | X              |             |                                   |                               |                                         |             |
-| techniques   | X              |             |                                   |                               |                                         |             |
-| toponyms     |                |             |                                   | X                             |                                         |             |
-| note         | X transl       | X transl    | X                                 | X evidence certainty          | X                                       | X           |
-| references   | X              | X           | X                                 | X                             | X                                       | X           |
-| resources    |                |             |                                   | site-res site-prod            |                                         |             |
-| states       | X              |             |                                   |                               |                                         |             |
-| scripts      | X              |             |                                   |                               |                                         |             |
-| signs        | X              |             |                                   |                               |                                         |             |
-| text         | X              | X           |                                   |                               |                                         |             |
-| apparatus=   | X              | X           |                                   |                               |                                         |             |
-| comment=     | X              | X           |                                   |                               |                                         |             |
-| chronology=  | X              | X           |                                   |                               |                                         |             |
-| orthography= | X              |             |                                   |                               |                                         |             |
-| ligatures=   | X              |             |                                   |                               |                                         |             |
-| links=       | X              | X           |                                   |                               |                                         |             |
+> Items are columns and parts rows. Each cell contains X when the part is present in the item, or is empty when the part is not present. If multiple parts are used for the same item, the part name is suffixed with its role ID (e.g. `CategoriesPart:ins-fn.categories`) and the role ID appears in the cell. Parts suffixed with `=` indicate text layer parts.
+
+| part         | inscription    | lit. source | artifact                          | site                                    | cult                          |
+| ------------ | -------------- | ----------- | --------------------------------- | --------------------------------------- | ----------------------------- |
+| categories   | ins-fn ins-lng |             | art-type art-mat art-ctx evidence | site-type site-feats evidence           | cult-type cult-feats evidence |
+| comment      | X              |             | X                                 | X                                       | X                             |
+| dates        | X              |             | X                                 | X                                       |                               |
+| fragments    | X              |             |                                   |                                         |                               |
+| links        | X              | X           | X                                 | X                                       | X                             |
+| locations    | X              |             | X                                 | X                                       |                               |
+| metadata     | X              | X           | X                                 | X                                       | X                             |
+| support      | X              |             |                                   |                                         |                               |
+| techniques   | X              |             |                                   |                                         |                               |
+| toponyms     |                |             |                                   | X                                       |                               |
+| note         | X transl       | X transl    | X evidence certainty              | X evidence certainty                    | X evidence certainty          |
+| references   | X              | X           | X                                 | X                                       | X                             |
+| resources    |                |             |                                   | site-res site-prod site-mark site-store |                               |
+| states       | X              |             |                                   |                                         |                               |
+| scripts      | X              |             |                                   |                                         |                               |
+| signs        | X              |             |                                   |                                         |                               |
+| text         | X              | X           |                                   |                                         |                               |
+| apparatus=   | X              | X           |                                   |                                         |                               |
+| comment=     | X              | X           |                                   |                                         |                               |
+| chronology=  | X              | X           |                                   |                                         |                               |
+| orthography= | X              |             |                                   |                                         |                               |
+| ligatures=   | X              |             |                                   |                                         |                               |
+| links=       | X              | X           |                                   |                                         |                               |
 
 ## TES Import
 
@@ -100,16 +102,17 @@ The CLI app `tes-tool` in this solution is used to import entities from an Excel
 
 To import:
 
-1. fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
-2. run the import commands, once per item type (change the path to your import file), e.g. for inscriptions:
+▶️ (1) fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
+
+▶️ (2) run the import commands, once per item type (change the path to your import file), e.g. for inscriptions:
 
 ```sh
 ./tes-tool import-i c:/users/dfusi/desktop/tes/import-i.json
 ```
 
-Note that dump importers will save an `item-ids.json` file with the item GUIDs and their EIDs, which is used to resolve internal links in the next import passes. So be sure to copy it in the pipeline folder before running the next import command.
+> ⚠️ Note that dump importers will save an `item-ids.json` file with the item GUIDs and their EIDs, which is used to resolve internal links in the next import passes. Be sure to copy it in the pipeline folder before running the next import command.
 
-3. finally, index the imported database:
+▶️ (3) finally, index the imported database:
 
 ```sh
 ./tes-tool index cadmus-tes D:/Projects/Cadmus/Tes/CadmusTes/CadmusTesApi/wwwroot/seed-profile.json
@@ -322,10 +325,6 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (13) **M** (`relation_certainty`): ▶️ See K.
 
-(14) **N** (`divinity`): ▶️ `CategoriesPart.categories:cult-gods` via 📚 `categories_cult-gods@en`.
-
-(15) **O** (`divinity_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="divinity_certainty"`, `value` = the supplied value. It qualifies the supplied identification; no identification is inferred from a certainty value alone.
-
 Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ part `CategoriesPart:cult-feats`; when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
 
 (16) **P** (`animal_sacrifices`): → `animal-sacrifices`.
@@ -350,9 +349,9 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (47) **AU** (`source_locator`): ❌
 
-(48) **AV** (`evidence_note`): ❌
+(48) **AV** (`evidence_note`): ▶️ `NotePart:evidence`.
 
-(49) **AW** (`certainty_note`): ❌
+(49) **AW** (`certainty_note`): ▶️ `NotePart:certainty`.
 
 (50) **AX** (`review_status`): ❌
 
@@ -378,7 +377,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value.
 
-(9) **I** (`iconography_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy_certainty"`, `value` = the supplied value.
+(9) **I** (`iconography_certainty`): ❌
 
 (10) **J** (`iconography_representation`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_representation"`, `value` = the supplied value.
 
@@ -386,7 +385,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (12) **L** (`iconography_subject`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject"`, `value` = the supplied value. Proposed interpretation; may remain empty when only a form is documented.
 
-(13) **M** (`iconography_subject_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject_certainty"`, `value` = the supplied value.
+(13) **M** (`iconography_subject_certainty`): ❌
 
 (14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
@@ -408,9 +407,9 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (44) **AR** (`source_locator`): ❌
 
-(45) **AS** (`evidence_note`): ❌
+(45) **AS** (`evidence_note`): ▶️ `NotePart:evidence`.
 
-(46) **AT** (`certainty_note`): ❌
+(46) **AT** (`certainty_note`): ▶️ `NotePart:certainty`.
 
 (47) **AU** (`review_status`): ❌
 

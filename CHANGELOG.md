@@ -1,5 +1,9 @@
 # History
 
+- 2026-10-27:
+  -	removed iconography item from profile.
+  - removed gods categories from cult item (will be replaced by taxonomies via links).
+  - added support for taxonomies.
 - 2026-10-26:
   - updated packages.
   - added `NotePart:evidence` and `NotePart:certainty` to site profile.

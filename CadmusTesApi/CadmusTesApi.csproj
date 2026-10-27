@@ -36,10 +36,9 @@
 		<PackageReference Include="Serilog.Sinks.File" />
 		<PackageReference Include="Serilog.Sinks.MongoDB" />
 		<PackageReference Include="Serilog.Sinks.Postgresql.Alternative" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\" />
+		<PackageReference Include="TaxoStore.Api.Controllers" />
+		<PackageReference Include="TaxoStore.Core" />
+		<PackageReference Include="TaxoStore.PgSql" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">

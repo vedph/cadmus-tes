@@ -380,11 +380,29 @@
         },
         {
           "typeId": "it.vedph.note",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence note.",
+          "colorKey": "A8D488",
+          "groupKey": "content",
+          "sortKey": "10"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "roleId": "certainty",
+          "name": "certainty",
+          "description": "Certainty note.",
+          "colorKey": "A8B4A8",
+          "groupKey": "content",
+          "sortKey": "11"
+        },
+        {
+          "typeId": "it.vedph.note",
           "name": "note",
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "10"
+          "sortKey": "12"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -392,7 +410,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "11"
+          "sortKey": "13"
         }
       ]
     },
@@ -565,21 +583,12 @@
         },
         {
           "typeId": "it.vedph.categories",
-          "roleId": "cult-gods",
-          "name": "gods",
-          "description": "Cult gods.",
-          "colorKey": "E8D498",
-          "groupKey": "identity",
-          "sortKey": "04"
-        },
-        {
-          "typeId": "it.vedph.categories",
           "roleId": "cult-feats",
           "name": "features",
           "description": "Cult features.",
           "colorKey": "C8A0C0",
           "groupKey": "identity",
-          "sortKey": "05"
+          "sortKey": "04"
         },
         {
           "typeId": "it.vedph.categories",
@@ -588,72 +597,33 @@
           "description": "Evidence.",
           "colorKey": "DCE8E8",
           "groupKey": "identity",
-          "sortKey": "06"
+          "sortKey": "05"
         },
         {
           "typeId": "it.vedph.comment",
           "name": "comment",
           "description": "Comment.",
           "colorKey": "A8D4A8",
+          "groupKey": "content",
+          "sortKey": "06"
+        },
+        {
+          "typeId": "it.vedph.note",
+          "roleId": "evidence",
+          "name": "evidence",
+          "description": "Evidence note.",
+          "colorKey": "A8D488",
           "groupKey": "content",
           "sortKey": "07"
         },
         {
           "typeId": "it.vedph.note",
-          "name": "note",
-          "description": "Free text note.",
-          "colorKey": "ECC4A0",
-          "groupKey": "editorial",
-          "sortKey": "08"
-        },
-        {
-          "typeId": "it.vedph.doc-references",
-          "name": "references",
-          "description": "Documental references.",
-          "colorKey": "9CC894",
-          "groupKey": "editorial",
-          "sortKey": "09"
-        }
-      ]
-    },
-    {
-      "id": "iconography",
-      "label": "iconography",
-      "description": "Iconography.",
-      "colorKey": "E8B0A0",
-      "partDefinitions": [
-        {
-          "typeId": "it.vedph.metadata",
-          "name": "metadata",
-          "description": "Generic metadata.",
-          "colorKey": "9DBCD4",
-          "groupKey": "identity",
-          "sortKey": "01"
-        },
-        {
-          "typeId": "it.vedph.pin-links",
-          "name": "links",
-          "description": "Inner/outer links.",
-          "colorKey": "84B5E8",
-          "groupKey": "identity",
-          "sortKey": "02"
-        },
-        {
-          "typeId": "it.vedph.categories",
-          "roleId": "ico-sub",
-          "name": "subjects",
-          "description": "Iconography subjects.",
-          "colorKey": "E0A0B0",
-          "groupKey": "identity",
-          "sortKey": "03"
-        },
-        {
-          "typeId": "it.vedph.comment",
-          "name": "comment",
-          "description": "Comment.",
-          "colorKey": "A8D4A8",
+          "roleId": "certainty",
+          "name": "certainty",
+          "description": "Certainty note.",
+          "colorKey": "A8B4A8",
           "groupKey": "content",
-          "sortKey": "04"
+          "sortKey": "08"
         },
         {
           "typeId": "it.vedph.note",
@@ -661,7 +631,7 @@
           "description": "Free text note.",
           "colorKey": "ECC4A0",
           "groupKey": "editorial",
-          "sortKey": "05"
+          "sortKey": "09"
         },
         {
           "typeId": "it.vedph.doc-references",
@@ -669,7 +639,7 @@
           "description": "Documental references.",
           "colorKey": "9CC894",
           "groupKey": "editorial",
-          "sortKey": "06"
+          "sortKey": "10"
         }
       ]
     }
@@ -734,10 +704,6 @@
         {
           "id": "it.vedph.categories:cult-feats",
           "value": "cult features"
-        },
-        {
-          "id": "it.vedph.categories:cult-gods",
-          "value": "cult gods"
         },
         {
           "id": "it.vedph.categories:cult-type",
@@ -1136,167 +1102,6 @@
         {
           "id": "epigraphical-evidence",
           "value": "epigraphical evidence"
-        }
-      ]
-    },
-    {
-      "id": "categories_cult-gods@en",
-      "entries": [
-        {
-          "id": "zeus-131",
-          "value": "Zeus (Jupiter)"
-        },
-        {
-          "id": "dionysos-111",
-          "value": "Dionysos"
-        },
-        {
-          "id": "kybele-123",
-          "value": "Kybele"
-        },
-        {
-          "id": "haroeris-602",
-          "value": "Haroeris"
-        },
-        {
-          "id": "herakles-117",
-          "value": "Herakles"
-        },
-        {
-          "id": "poseidon-129",
-          "value": "Poseidon"
-        },
-        {
-          "id": "hestia-120",
-          "value": "Hestia"
-        },
-        {
-          "id": "kronos-121",
-          "value": "Kronos"
-        },
-        {
-          "id": "nereis-1556",
-          "value": "Nereis"
-        },
-        {
-          "id": "demeter-110",
-          "value": "Demeter"
-        },
-        {
-          "id": "apollon-105",
-          "value": "Apollon"
-        },
-        {
-          "id": "aphrodites-104",
-          "value": "Aphrodites"
-        },
-        {
-          "id": "hera-116",
-          "value": "Hera"
-        },
-        {
-          "id": "artemis-107",
-          "value": "Artemis"
-        },
-        {
-          "id": "hermes-118",
-          "value": "Hermes"
-        },
-        {
-          "id": "asklepios-108",
-          "value": "Asklepios"
-        },
-        {
-          "id": "athena-109",
-          "value": "Athena"
-        },
-        {
-          "id": "hygieia-205",
-          "value": "Hygieia"
-        },
-        {
-          "id": "helios-114",
-          "value": "Helios"
-        },
-        {
-          "id": "soter-1752",
-          "value": "Soter"
-        },
-        {
-          "id": "theos-870",
-          "value": "Theos/Thea"
-        },
-        {
-          "id": "diktynna-700",
-          "value": "Diktynna"
-        },
-        {
-          "id": "tyche-651",
-          "value": "Tyche"
-        },
-        {
-          "id": "daimon-1204",
-          "value": "Daimon"
-        },
-        {
-          "id": "ourania-778",
-          "value": "Ourania"
-        },
-        {
-          "id": "ouranios-1809",
-          "value": "Ouranios"
-        },
-        {
-          "id": "ouranos-1609",
-          "value": "Ouranos"
-        },
-        {
-          "id": "gaia-1335",
-          "value": "Gaia"
-        },
-        {
-          "id": "theoichthonioi-1805",
-          "value": "Theoi Chthonioi"
-        },
-        {
-          "id": "hephaistos-115",
-          "value": "Hephaistos"
-        },
-        {
-          "id": "mousa-471",
-          "value": "Mousa"
-        },
-        {
-          "id": "nymphe-186",
-          "value": "Nymphe"
-        },
-        {
-          "id": "nike-1562",
-          "value": "Nike"
-        },
-        {
-          "id": "ares-106",
-          "value": "Ares"
-        },
-        {
-          "id": "eros-112",
-          "value": "Eros"
-        },
-        {
-          "id": "leto-122",
-          "value": "Leto"
-        },
-        {
-          "id": "dioskouroi-168",
-          "value": "Dioskouroi/Tyndarides"
-        },
-        {
-          "id": "daphne-1220",
-          "value": "Daphne"
-        },
-        {
-          "id": "eos-1285",
-          "value": "Eos"
         }
       ]
     },
@@ -3369,7 +3174,7 @@
   "seed": {
     "options": {
       "seed": 1,
-      "users": [ "zeus" ],
+      "users": ["zeus"],
       "partRoles": [],
       "fragmentRoles": []
     },
@@ -3381,7 +3186,7 @@
         "id": "seed.it.vedph.categories:art-ctx",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "funerary", "cultic", "domestic" ]
+          "categories": ["funerary", "cultic", "domestic"]
         }
       },
       {
@@ -3422,63 +3227,63 @@
         "id": "seed.it.vedph.categories:cult-gods",
         "options": {
           "maxCategoriesPerItem": 2,
-          "categories": [ "zeus-131", "dionysos-111", "kybele-123" ]
+          "categories": ["zeus-131", "dionysos-111", "kybele-123"]
         }
       },
       {
         "id": "seed.it.vedph.categories:cult-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "altar-300052391", "bothros", "oikos" ]
+          "categories": ["altar-300052391", "bothros", "oikos"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ico-sub",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "horse-46c13141", "zeus-92b1", "hephaestus-92b2" ]
+          "categories": ["horse-46c13141", "zeus-92b1", "hephaestus-92b2"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-fn",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "christian-383", "decree-384", "doc-357" ]
+          "categories": ["christian-383", "decree-384", "doc-357"]
         }
       },
       {
         "id": "seed.it.vedph.categories:ins-lng",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "grc", "la" ]
+          "categories": ["grc", "la"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-feats",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "cults", "resources", "storage" ]
+          "categories": ["cults", "resources", "storage"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-res",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "clay-source", "metal-mine", "salt-source" ]
+          "categories": ["clay-source", "metal-mine", "salt-source"]
         }
       },
       {
         "id": "seed.it.vedph.categories:site-type",
         "options": {
           "maxCategoriesPerItem": 1,
-          "categories": [ "necropolis", "isolated-tomb", "sacred-area" ]
+          "categories": ["necropolis", "isolated-tomb", "sacred-area"]
         }
       },
       {
         "id": "seed.it.vedph.comment",
         "options": {
-          "languages": [ "en", "it" ],
-          "categories": [ "decree-384", "honorific-69" ]
+          "languages": ["en", "it"],
+          "categories": ["decree-384", "honorific-69"]
         }
       },
       {
@@ -3505,8 +3310,8 @@
       {
         "id": "seed.it.vedph.index-keywords",
         "options": {
-          "indexIds": [ "persons", "places" ],
-          "languages": [ "en", "de", "it", "fr", "sp" ]
+          "indexIds": ["persons", "places"],
+          "languages": ["en", "de", "it", "fr", "sp"]
         }
       },
       {
@@ -3521,15 +3326,15 @@
       {
         "id": "seed.it.vedph.tes.site-resources:site-prod",
         "options": {
-          "resourceTypes": [ "ceramic-production", "metalworking" ],
-          "resourceFeatures": [ "kilns", "furnaces" ]
+          "resourceTypes": ["ceramic-production", "metalworking"],
+          "resourceFeatures": ["kilns", "furnaces"]
         }
       },
       {
         "id": "seed.it.vedph.tes.site-resources:site-res",
         "options": {
-          "resourceTypes": [ "quarry", "mine", "salt", "water" ],
-          "resourceFeatures": [ "extraction-install", "slag" ]
+          "resourceTypes": ["quarry", "mine", "salt", "water"],
+          "resourceFeatures": ["extraction-install", "slag"]
         }
       },
       {
@@ -3552,8 +3357,8 @@
       {
         "id": "seed.fr.it.vedph.comment",
         "options": {
-          "languages": [ "en", "it" ],
-          "categories": [ "decree-384", "honorific-69" ]
+          "languages": ["en", "it"],
+          "categories": ["decree-384", "honorific-69"]
         }
       },
       {
@@ -3586,7 +3391,7 @@
           ]
         },
         "it.vedph.categories": {
-          "thesauriIds": [ "categories" ]
+          "thesauriIds": ["categories"]
         },
         "it.vedph.chronotopes": {
           "thesauriIds": [
@@ -3610,7 +3415,7 @@
           ]
         },
         "it.vedph.decorated-counts": {
-          "thesauriIds": [ "decorated-count-ids", "decorated-count-tags" ]
+          "thesauriIds": ["decorated-count-ids", "decorated-count-tags"]
         },
         "it.vedph.district-location": {
           "thesauriIds": [
@@ -3619,7 +3424,7 @@
           ]
         },
         "it.vedph.doc-references": {
-          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
         },
         "it.vedph.external-ids": {
           "thesauriIds": [
@@ -3631,10 +3436,10 @@
           ]
         },
         "it.vedph.flags": {
-          "thesauriIds": [ "flags" ]
+          "thesauriIds": ["flags"]
         },
         "it.vedph.historical-date": {
-          "thesauriIds": [ "doc-reference-types", "doc-reference-tags" ]
+          "thesauriIds": ["doc-reference-types", "doc-reference-tags"]
         },
         "it.vedph.historical-events": {
           "thesauriIds": [
@@ -3651,13 +3456,13 @@
           ]
         },
         "it.vedph.index-keywords": {
-          "thesauriIds": [ "languages", "keyword-indexes", "keyword-tags" ]
+          "thesauriIds": ["languages", "keyword-indexes", "keyword-tags"]
         },
         "it.vedph.keywords": {
-          "thesauriIds": [ "languages" ]
+          "thesauriIds": ["languages"]
         },
         "it.vedph.metadata": {
-          "thesauriIds": [ "metadata-names", "metadata-types" ]
+          "thesauriIds": ["metadata-names", "metadata-types"]
         },
         "it.vedph.names": {
           "thesauriIds": [
@@ -3670,7 +3475,7 @@
           ]
         },
         "it.vedph.note": {
-          "thesauriIds": [ "note-tags" ]
+          "thesauriIds": ["note-tags"]
         },
         "it.vedph.physical-measurements": {
           "thesauriIds": [
@@ -3769,7 +3574,7 @@
       },
       "fragments": {
         "fr.it.vedph.chronology": {
-          "thesauriIds": [ "chronology-tags" ]
+          "thesauriIds": ["chronology-tags"]
         },
         "fr.it.vedph.comment": {
           "thesauriIds": [
@@ -3811,7 +3616,7 @@
           ]
         },
         "fr.it.vedph.epigraphy.ligatures": {
-          "thesauriIds": [ "epi-ligature-types" ]
+          "thesauriIds": ["epi-ligature-types"]
         }
       }
     }
