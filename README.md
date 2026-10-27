@@ -180,7 +180,7 @@ This implies that you need a mapping between items EIDs, which are the value of 
 
 ---
 
-### Site
+### 🟢 Site
 
 (1) **A** (`id`): ❌
 
@@ -234,7 +234,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 > The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers.
 
-#### Site Resources
+#### 🟢 Site Resources
 
 All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPart:site-res`.
 
@@ -278,21 +278,21 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (43) **AQ** (`cadmus_mapping`): ❌
 
-#### Site Productions
+#### 🟢 Site Productions
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-prod@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-prod@en` rather than `site-resource-features_site-res@en`.
 
-#### Site Markers
+#### 🟢 Site Markers
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-store@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-store@en` rather than `site-resource-features_site-res@en`.
 
-#### Site Storages
+#### 🟢 Site Storages
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
@@ -301,7 +301,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 ---
 
-### Cult
+### 🟢 Cult
 
 (1) **A** (`id`): ❌
 
@@ -359,7 +359,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 ---
 
-### Artifact
+### 🟢 Artifact
 
 (1) **A** (`id`): ❌
 
