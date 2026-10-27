@@ -66,6 +66,31 @@ public sealed class SiteResourcesPartSeeder : PartSeederBase,
         ];
     }
 
+    /// <summary>
+    /// Gets a random number of document references.
+    /// </summary>
+    /// <param name="min">The min number of references to get.</param>
+    /// <param name="max">The max number of references to get.</param>
+    /// <returns>References.</returns>
+    private static List<DocReference> GetDocReferences(int min, int max)
+    {
+        List<DocReference> refs = [];
+
+        for (int n = 1; n <= Randomizer.Seed.Next(min, max + 1); n++)
+        {
+            refs.Add(new Faker<DocReference>()
+                .RuleFor(r => r.Type, "book")
+                .RuleFor(r => r.Tag, f => f.PickRandom(null, "tag"))
+                .RuleFor(r => r.Type, "biblio")
+                .RuleFor(r => r.Citation,
+                    f => f.Person.LastName + " " + f.Date.Past(10).Year)
+                .RuleFor(r => r.Note, f => f.Lorem.Sentence())
+                .Generate());
+        }
+
+        return refs;
+    }
+
     private List<SiteResource> GetResources(int count, Faker f)
     {
         List<SiteResource> resources = new(count);
@@ -82,8 +107,9 @@ public sealed class SiteResourcesPartSeeder : PartSeederBase,
                 Features = [f.PickRandom(_options?.ResourceFeatures
                     ?? ["alpha", "beta", "gamma"])],
                 Location = GetAssertedLocation(),
-                Date = GetAssertedHistoricalDate(f),
-                Counts = GetCounts()
+                Dates = [GetAssertedHistoricalDate(f)],
+                Counts = GetCounts(),
+                References = GetDocReferences(1, 3),
             });
         }
 

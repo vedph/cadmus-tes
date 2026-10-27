@@ -96,8 +96,11 @@ public class SiteResourcesPartTest
                         Label = "Location 1"
                     }
                 };
-                part.Resources[0].Date = new AssertedHistoricalDate(
-                    HistoricalDate.Parse("100 BC")!);
+                part.Resources[0].Dates =
+                [
+                    new AssertedHistoricalDate(
+                        HistoricalDate.Parse("100 BC")!)
+                ];
             }
         }
 

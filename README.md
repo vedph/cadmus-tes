@@ -16,13 +16,15 @@ docker buildx build . --platform linux/amd64,linux/arm64,windows/amd64 -t vedph2
 
 ### SiteResourcesPart
 
-This part lists the resources present in a site. Each resource can contain tag, type, any number of features, location, date, counts, and a free note.
+This part lists the resources present in a site. Each resource can contain tag, type, any number of features, location, date, counts, references and a free note.
+
+A resource is any generic resource present in a site: a source of materials, a production facility, a storage facility, a marker, etc. Usually each resource type is represented by a `SiteResourcePart` with a specific role ID, and most thesauri change conditionally.
 
 - `resources` (`SiteResource[]`):
   - `eid` (`string`): the resource's entity identifier.
   - `type`\* (`string`, 📚 `site-resource-types`): the type of the resource, e.g. "quarry", "mine", "water source", etc.
   - `tag` (`string`, 📚 `site-resource-tags`): an optional tag or label associated with the object, e.g. "cava A", "pozzo B".
-  - `features` (`string[]`, 📚 `site-resource-features` hierarchical): the list of features for this resource, including evidences in their own branch.
+  - `features` (`string[]`, 📚 `site-resource-features`): the list of features for this resource.
   - `location` (`AssertedLocation`: see [brick](https://github.com/vedph/cadmus-bricks-shell-v3/blob/master/projects/myrmidon/cadmus-geo-location/README.md) and its [demo](https://cadmus-bricks-v3.fusi-soft.com/geo/geo-location-editor)):
     - `eid` (`string`)
     - `label`\* (`string`)
@@ -31,7 +33,7 @@ This part lists the resources present in a site. Each resource can contain tag, 
     - `altitude` (`double`) in mt.
     - `radius` (`double`): uncertainty radius in mt.
     - `geometry` (`string`) in WKT.
-  - `date` (`AssertedHistoricalDate`):
+  - `dates` (`AssertedHistoricalDate[]`):
     - `tag` (`string` 📚 `asserted-historical-date-tags`)
     - `a`\* (🧱 [Datation](https://github.com/vedph/cadmus-bricks/blob/master/docs/datation.md)):
       - `value`\* (`int`): the numeric value of the point. Its interpretation depends on other points properties: it may represent a year or a century, or a span between two consecutive Gregorian years.
@@ -56,6 +58,11 @@ This part lists the resources present in a site. Each resource can contain tag, 
     - `id`\* (`string` 📚 `site-resource-count-ids`)
     - `tag` (`string` 📚 `site-resource-count-tags`)
     - `value`\* (`int`)
+    - `note` (`string`)
+  - `references` (🧱 [DocReference[]](https://github.com/vedph/cadmus-bricks/blob/master/docs/doc-reference.md)):
+    - `type` (`string` 📚 `doc-reference-types`)
+    - `tag` (`string` 📚 `doc-reference-tags`)
+    - `citation` (`string`)
     - `note` (`string`)
   - `note` (`string`)
 
@@ -254,7 +261,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (15) **O** (`productionscale_certainty`): ❌
 
-(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
+(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].dates[].a.value/b.value`: as above for site periods.
 
 (38) **AL** (`source_ids`): ❌
 
@@ -268,133 +275,26 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (43) **AQ** (`cadmus_mapping`): ❌
 
-#### Site Production
+#### Site Productions
 
-All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`.
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
-(1) **A** (`id`): ❌
-
-(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
-
-(3) **C** (`site_name`): ❌
-
-(4) **D** (`data_accuracy`): ??
-
-(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en`.
-
-(6) **F** (`activitytype_certainty`): ▶️ `resources[].note`??
-
-(7) **G** (`production_feature_ID`): ▶️ `resources[].eid`.
-
-(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
-
-(11) **K** (`material_focus`): ▶️ `resources[].note`??
-
-(12) **L** (`evidence_type`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-prod@en`. Split on `;` and map thesauri labels (from cells) to the corresponding IDs.
-
-(13) **M** (`production_scale`): ❌
-
-(14) **N** (`productionscale_certainty`): ❌
-
-(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
-
-(37) **AK** (`source_ids`): ❌
-
-(38) **AL** (`source_locator`): ❌
-
-(39) **AM** (`evidence_note`): ❌
-
-(40) **AN** (`certainty_note`): ❌
-
-(41) **AO** (`review_status`): ❌
-
-(42) **AP** (`cadmus_mapping`): ❌
+- 📚 `site-resource-types_site-prod@en` rather than `site-resource-types_site-res@en`.
+- 📚 `site-resource-features_site-prod@en` rather than `site-resource-features_site-res@en`.
 
 #### Site Markers
 
-??
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
-(1) **A** (`id`): ❌
+- 📚 `site-resource-types_site-store@en` rather than `site-resource-types_site-res@en`.
+- 📚 `site-resource-features_site-store@en` rather than `site-resource-features_site-res@en`.
 
-(2) **B** (`site_id`): ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+#### Site Storages
 
-(3) **C** (`site_name`): ❌
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
-(4) **D** (`area_name`): ▶️ Heading of this `CommentPart.text` record block, preserving the supplied area name.
-
-(5) **E** (`data_accuracy`): ??
-
-(6) **F** (`ycoord`): ▶️ Together with xcoord and coord_certainty, a labelled location in this record block. Do not overwrite the parent Site location.
-
-(7) **G** (`xcoord`): ▶️ See F.
-
-(8) **H** (`coord_certainty`): ▶️ See F.
-
-(9) **I** (`differentiated_tomb_types`): ▶️ Labelled `differentiated_tomb_types` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(10) **J** (`distinctive_funerary_habit`): ▶️ Labelled `distinctive_funerary_habit` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(11) **K** (`distinctive_funerary_assemblage`): ▶️ Labelled `distinctive_funerary_assemblage` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(12) **L** (`exotic_good`): ▶️ Labelled `exotic_good` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(13) **M** (`jewelry`): ▶️ Labelled `jewelry` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(14) **N** (`metal objects`): ▶️ Labelled `metal objects` in this `CommentPart.text` block. Preserve YES / NO / blank distinctly; no social rank, ethnicity, or group membership is inferred.
-
-(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ Computed approximate ranges in this record’s `CommentPart.text` chronology block; do not extend the main Site dates from these bins.
-
-(37) **AK** (`source_ids`): ❌
-
-(38) **AL** (`source_locator`): ❌
-
-(39) **AM** (`evidence_note`): ❌
-
-(40) **AN** (`certainty_note`): ❌
-
-(41) **AO** (`review_status`): ❌
-
-(42) **AP** (`cadmus_mapping`): ❌
-
-#### Site Storage
-
-??
-
-(1) **A** (`id`): ❌
-
-(2) **B** (`site_id`): ▶️ the target site EID. This must be resolved from the loaded item IDs set (otherwise it's an error).
-
-(3) **C** (`site_name`): ❌
-
-(4) **D** (`data_accuracy`): ??
-
-(5) **E** (`storage_type`): ▶️ `CommentPart.text`, labelled storage_type in the subsidiary record block. Preserve silo/pit; no categories_storage-type thesaurus is assumed in the current profile.
-
-(6) **F** (`storagetype_certainty`): ▶️ `CommentPart.text`, labelled storagetype_certainty in the same block.
-
-(7) **G** (`storage_feature_id`): ▶️ Heading / subsidiary EID in this `CommentPart.text` block. It is not a new item EID.
-
-(8) **H** (`ycoord`): ▶️ Together with xcoord and coord_certainty, a labelled location in this record block. Do not overwrite the parent Site location.
-
-(9) **I** (`xcoord`): ▶️ See H.
-
-(10) **J** (`coord_certainty`): ▶️ See H.
-
-(11) **K** (`evidence_type`): ▶️ `CommentPart.text`, labelled evidence_type, preserving architectural or other supplied values without an unsupported new category role.
-
-(12-33) **L-AG** (`period_1` … `period_22`): ▶️ Computed approximate ranges in the subsidiary `CommentPart.text` record block; do not add them as a new continuous period of the whole site.
-
-(34) **AH** (`source_ids`): ❌
-
-(35) **AI** (`source_locator`): ❌
-
-(36) **AJ** (`evidence_note`): ❌
-
-(37) **AK** (`certainty_note`): ❌
-
-(38) **AL** (`review_status`): ❌
-
-(39) **AM** (`cadmus_mapping`): ❌
+- 📚 `site-resource-types_site-mark@en` rather than `site-resource-types_site-res@en`.
+- 📚 `site-resource-features_site-mark@en` rather than `site-resource-features_site-res@en`.
 
 ---
 
@@ -410,7 +310,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (5) **E** (`cult_element_type`): ▶️ `CategoriesPart.categories:cult-type` via 📚 `categories_cult-type@en`.
 
-(6) **F** (`cult_element_type_certainty`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="cult_element_type_certainty"`, `value` = the supplied value.
+(6) **F** (`cult_element_type_certainty`): ❌
 
 (7) **G** (`cult_element_id`): ▶️ `MetadataPart.metadata` (`type="string"`, `name="eid"`) and `Item.title`.
 

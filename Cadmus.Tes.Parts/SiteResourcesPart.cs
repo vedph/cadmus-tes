@@ -54,8 +54,11 @@ public sealed class SiteResourcesPart : PartBase
                         locEids.Add(entry.Location.Value.Eid);
                 }
 
-                if (entry.Date is not null)
-                    dateValues.Add(entry.Date.GetSortValue());
+                if (entry.Dates is not null)
+                {
+                    foreach (var date in entry.Dates)
+                        dateValues.Add(date.GetSortValue());
+                }
             }
 
             builder.AddValues("eid", eids);

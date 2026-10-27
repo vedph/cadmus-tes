@@ -39,9 +39,9 @@ public class SiteResource
     public AssertedLocation? Location { get; set; }
 
     /// <summary>
-    /// Gets or sets the asserted historical date associated with the resource.
+    /// Gets or sets the asserted historical date(s) associated with the resource.
     /// </summary>
-    public AssertedHistoricalDate? Date { get; set; }
+    public List<AssertedHistoricalDate>? Dates { get; set; }
 
     /// <summary>
     /// Gets or sets the collection of decorated counts associated with the
@@ -49,6 +49,11 @@ public class SiteResource
     /// blocks found in a quarry, etc.
     /// </summary>
     public List<DecoratedCount>? Counts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of document references for this resource.
+    /// </summary>
+    public List<DocReference>? References { get; set; }
 
     /// <summary>
     /// Gets or sets an optional free text note for this resource.
@@ -62,11 +67,16 @@ public class SiteResource
     public override string ToString()
     {
         StringBuilder sb = new();
+        
         if (!string.IsNullOrEmpty(Eid)) sb.Append($"#{Eid} ");
+        
         sb.Append('[').Append(Type).Append(']');
+
         if (!string.IsNullOrEmpty(Tag)) sb.Append($" ({Tag})");
+        
         if (Features != null && Features.Count > 0)
             sb.Append($": {string.Join(", ", Features)}");
+        
         return sb.ToString();
     }
 }

@@ -4,6 +4,7 @@
   - updated packages.
   - added `NotePart:evidence` and `NotePart:certainty` to site profile.
   - completed site import code.
+  - changed `SiteResourcesPart`.`date` to `dates` and added `references`.
 - 2026-10-15:
   - refactor import to handle multiple items.
   - added categories:evidence to artifact, cult, site with its thesaurus.
