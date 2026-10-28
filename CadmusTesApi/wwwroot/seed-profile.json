@@ -748,7 +748,19 @@
           "value": "site features"
         },
         {
+          "id": "it.vedph.categories:site-mark",
+          "value": "site resources"
+        },
+        {
+          "id": "it.vedph.categories:site-prod",
+          "value": "site resources"
+        },
+        {
           "id": "it.vedph.categories:site-res",
+          "value": "site resources"
+        },
+        {
+          "id": "it.vedph.categories:site-store",
           "value": "site resources"
         },
         {
