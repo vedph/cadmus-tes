@@ -57,9 +57,9 @@
     <PackageVersion Include="Serilog.Sinks.Postgresql.Alternative" Version="4.3.0" />
     <PackageVersion Include="Spectre.Console" Version="0.57.2" />
     <PackageVersion Include="Spectre.Console.Cli" Version="0.57.2" />
-    <PackageVersion Include="TaxoStore.Api.Controllers" Version="2.0.0" />
-    <PackageVersion Include="TaxoStore.Core" Version="2.0.0" />
-    <PackageVersion Include="TaxoStore.PgSql" Version="2.0.0" />
+    <PackageVersion Include="TaxoStore.Api.Controllers" Version="2.0.1" />
+    <PackageVersion Include="TaxoStore.Core" Version="2.0.1" />
+    <PackageVersion Include="TaxoStore.PgSql" Version="2.0.1" />
     <PackageVersion Include="xunit.v3" Version="4.0.2" />
   </ItemGroup>
 </Project>
