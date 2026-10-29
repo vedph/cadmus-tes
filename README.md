@@ -82,7 +82,7 @@ A resource is any generic resource present in a site: a source of materials, a p
 | support      | X              |             |                                   |                                         |                               |
 | techniques   | X              |             |                                   |                                         |                               |
 | toponyms     |                |             |                                   | X                                       |                               |
-| note         | X transl       | X transl    | X evidence certainty              | X evidence certainty                    | X evidence certainty          |
+| note         | X transl       | X transl    | X evidence certainty ico          | X evidence certainty                    | X evidence certainty          |
 | references   | X              | X           | X                                 | X                                       | X                             |
 | resources    |                |             |                                   | site-res site-prod site-mark site-store |                               |
 | states       | X              |             |                                   |                                         |                               |
