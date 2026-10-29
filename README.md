@@ -250,11 +250,11 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (6) **F** (`resourcetype_certainty`): ❌
 
-(7) **G** (`resource_feature_ID`): ▶️ `resources[].eid`.
+(7) **G** (`resource_feature_ID`): ▶️ `SiteResourcesPart:site-res.resources[].eid`.
 
 (8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
-(11) **K** (`exploitation_evidence`): ▶️ `resources[].features[]` via 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(11) **K** (`exploitation_evidence`): ▶️ `SiteResourcesPart:site-res.resources[].features[]` via 📚 `site-resource-features_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
 (12) **L** (`exploitation_evidence_certainty`): ❌
 
@@ -264,15 +264,15 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (15) **O** (`productionscale_certainty`): ❌
 
-(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `resources[].dates[].a.value/b.value`: as above for site periods.
+(16-37) **P-AK** (`period_1` … `period_22`): ▶️ `SiteResourcesPart:site-res.resources[].dates[].a.value/b.value`: as above for site periods.
 
 (38) **AL** (`source_ids`): ❌
 
 (39) **AM** (`source_locator`): ❌
 
-(40) **AN** (`evidence_note`): ❌
+(40) **AN** (`evidence_note`): ▶️ append to `SiteResourcesPart:site-res.resources[].note` under heading "Evidence Note".
 
-(41) **AO** (`certainty_note`): ❌
+(41) **AO** (`certainty_note`): ▶️ append to `SiteResourcesPart:site-res.resources[].note` under heading "Certainty Note".
 
 (42) **AP** (`review_status`): ❌
 
@@ -280,24 +280,132 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 #### 🟢 Site Productions
 
-All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`. These thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-prod@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-prod@en` rather than `site-resource-features_site-res@en`.
 
+(1) **A** (`id`): ❌
+
+(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+
+(3) **C** (`site_name`): ❌
+
+(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+
+(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+
+(6) **F** (`activity_type_certainty`): ❌
+
+(7) **G** (`production_feature_ID`): ▶️ `SiteResourcesPart:site-prod.resources[].eid`.
+
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
+
+(11) **K** (`material_focus`): ▶️ `SiteResourcesPart:site-prod.resources[].features[]` via 📚 `site-resource-features_site-prod@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+
+(12) **L** (`evidence_type`): ▶️ `SiteResourcesPart:site-prod.resources[].features[]` via 📚 `site-resource-features_site-prod@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+
+(13) **M** (`production_scale`): ❌
+
+(14) **N** (`productionscale_certainty`): ❌
+
+(15-36) **O-AJ** (`period_1` … `period_22`): ▶️ `SiteResourcesPart:site-prod.resources[].dates[].a.value/b.value`: as above for site periods.
+
+(37) **AK** (`source_ids`): ❌
+
+(38) **AL** (`source_locator`): ❌
+
+(39) **AM** (`evidence_note`): ▶️ append to `SiteResourcesPart:site-prod.resources[].note` under heading "Evidence Note".
+
+(40) **AN** (`certainty_note`): ▶️ append to `SiteResourcesPart:site-prod.resources[].note` under heading "Certainty Note".
+
+(41) **AO** (`review_status`): ❌
+
+(42) **AP** (`cadmus_mapping`): ❌
+
 #### 🟢 Site Markers
 
-All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. These thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-mark@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-mark@en` rather than `site-resource-features_site-res@en`.
 
+(1) **A** (`id`): ❌
+
+(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+
+(3) **C** (`site_name`): ❌
+
+(4) **D** (`area_name`): ❌
+
+(5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+
+(6-8) **F-H** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
+
+Columns 7-12 are booleans targeting 📚 `site-resource-features_site-mark@en` for ▶️ `SiteResourcesPart:site-mark.resources[].features[]`; when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
+
+(7) **I** (`differentiated_tomb_types`)
+
+(8) **J** (`distinctive_funerary_habit`)
+
+(9) **K** (`distinctive_funerary_assemblage`)
+
+(10) **L** (`exotic_good`)
+
+(11) **M** (`jewelry`)
+
+(12) **N** (`metal objects`)
+
+(13-34) **O-AJ** (`period_1` … `period_22`): ▶️ `SiteResourcesPart:site-mark.resources[].dates[].a.value/b.value`: as above for site periods.
+
+(35) **AK** (`source_ids`): ❌
+
+(36) **AL** (`source_locator`): ❌
+
+(37) **AM** (`evidence_note`): ▶️ append to `SiteResourcesPart:site-mark.resources[].note` under heading "Evidence Note".
+
+(38) **AN** (`certainty_note`): ▶️ append to `SiteResourcesPart:site-mark.resources[].note` under heading "Certainty Note".
+
+(39) **AO** (`cadmus_mapping`): ❌
+
+(40) **AP** (`marker_feature_id`): ▶️ `SiteResourcesPart:site-mark.resources[].eid`.
+
 #### 🟢 Site Storages
 
-All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. These thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-store@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-store@en` rather than `site-resource-features_site-res@en`.
+
+(1) **A** (`id`): ❌
+
+(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+
+(3) **C** (`site_name`): ❌
+
+(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+
+(5) **E** (`storage_type`): ▶️ `SiteResourcesPart:site-store.resources[].type` via 📚 `site-resource-types_site-store@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+
+(6) **F** (`storage_type_certainty`): ❌
+
+(7) **G** (`storage_feature_ID`): ▶️ `SiteResourcesPart:site-store.resources[].eid`.
+
+(8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
+
+(11) **K** (`evidence_type`): ▶️ `SiteResourcesPart:site-store.resources[].features[]` via 📚 `site-resource-features_site-store@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+
+(12-33) **L-AG** (`period_1` … `period_22`): ▶️ `SiteResourcesPart:site-store.resources[].dates[].a.value/b.value`: as above for site periods.
+
+(34) **AH** (`source_ids`): ❌
+
+(35) **AI** (`source_locator`): ❌
+
+(36) **AJ** (`evidence_note`): ▶️ append to `SiteResourcesPart:site-store.resources[].note` under heading "Evidence Note".
+
+(37) **AK** (`certainty_note`): ▶️ append to `SiteResourcesPart:site-store.resources[].note` under heading "Certainty Note".
+
+(38) **AL** (`cadmus_mapping`): ❌
 
 ---
 
