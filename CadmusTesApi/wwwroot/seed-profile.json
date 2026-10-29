@@ -3050,7 +3050,32 @@
     },
     {
       "id": "site-resource-features_site-mark@en",
-      "targetId": "site-resource-features_site-res"
+      "entries": [
+        {
+          "id": "differentiated-tomb-types",
+          "value": "differentiated tomb types"
+        },
+        {
+          "id": "distinctive-funerary-habit",
+          "value": "distinctive funerary habit"
+        },
+        {
+          "id": "distinctive-funerary-assemblage",
+          "value": "distinctive funerary assemblage"
+        },
+        {
+          "id": "exotic-good",
+          "value": "exotic good"
+        },
+        {
+          "id": "jewelry",
+          "value": "jewelry"
+        },
+        {
+          "id": "metal-objects",
+          "value": "metal objects"
+        }
+      ]
     },
     {
       "id": "site-resource-features_site-prod@en",
@@ -3092,16 +3117,48 @@
           "value": "workshop installations"
         },
         {
-          "id": "household-scale",
-          "value": "household scale"
+          "id": "material",
+          "value": "material"
         },
         {
-          "id": "workshop-scale",
-          "value": "workshop scale"
+          "id": "material.bronze",
+          "value": "material: bronze"
         },
         {
-          "id": "uncertain",
-          "value": "uncertain"
+          "id": "material.clay",
+          "value": "material: clay"
+        },
+        {
+          "id": "material.glass",
+          "value": "material: glass"
+        },
+        {
+          "id": "material.gold",
+          "value": "material: gold"
+        },
+        {
+          "id": "material.iron",
+          "value": "material: iron"
+        },
+        {
+          "id": "material.lead",
+          "value": "material: lead"
+        },
+        {
+          "id": "material.organic",
+          "value": "material: organic"
+        },
+        {
+          "id": "material.silver",
+          "value": "material: silver"
+        },
+        {
+          "id": "material.stone",
+          "value": "material: stone"
+        },
+        {
+          "id": "material.textile",
+          "value": "material: textile"
         }
       ]
     },
@@ -3139,16 +3196,34 @@
         {
           "id": "archaeological-asm",
           "value": "archaeological assemblage"
+        },
+        {
+          "id": "processing-evidence",
+          "value": "evidence of processing"
         }
       ]
     },
     {
       "id": "site-resource-features_site-store@en",
-      "targetId": "site-resource-features_site-res"
+      "entries": [
+        {
+          "id": "architectural",
+          "value": "architectural"
+        },
+        {
+          "id": "movable",
+          "value": "movable"
+        }
+      ]
     },
     {
       "id": "site-resource-types_site-mark@en",
-      "targetId": "site-resource-types_site-res"
+      "entries": [
+        {
+          "id": "funerary-evidence",
+          "value": "funerary evidence"
+        }
+      ]
     },
     {
       "id": "site-resource-types_site-prod@en",
@@ -3184,6 +3259,10 @@
         {
           "id": "glassworking",
           "value": "glassworking"
+        },
+        {
+          "id": "bone-ivory-working",
+          "value": "bone/ivory working"
         }
       ]
     },
@@ -3214,7 +3293,24 @@
     },
     {
       "id": "site-resource-types_site-store@en",
-      "targetId": "site-resource-types_site-res"
+      "entries": [
+        {
+          "id": "amphora-transport-container",
+          "value": "amphora/transport container"
+        },
+        {
+          "id": "magazine-storeroom",
+          "value": "magazine/storeroom"
+        },
+        {
+          "id": "pithos-dolium",
+          "value": "pithos/dolium"
+        },
+        {
+          "id": "silo-pit",
+          "value": "silo/pit"
+        }
+      ]
     }
   ],
   "seed": {
