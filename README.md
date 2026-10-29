@@ -232,7 +232,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 (45) **AS** (`cadmus_mapping`): ❌
 
-> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers.
+> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each of these additional parts will link to the parent site via an internal link in a `PinLinksPart` part, as illustrated above. All data required to build this link are provided in `ExportedItemIdSet`.
 
 #### 🟢 Site Resources
 
@@ -287,17 +287,17 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 #### 🟢 Site Markers
 
-All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
-
-- 📚 `site-resource-types_site-store@en` rather than `site-resource-types_site-res@en`.
-- 📚 `site-resource-features_site-store@en` rather than `site-resource-features_site-res@en`.
-
-#### 🟢 Site Storages
-
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
 
 - 📚 `site-resource-types_site-mark@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-mark@en` rather than `site-resource-features_site-res@en`.
+
+#### 🟢 Site Storages
+
+All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. The mapping is the same as for Site Resources, except that these thesauri change their name because of the different part's role:
+
+- 📚 `site-resource-types_site-store@en` rather than `site-resource-types_site-res@en`.
+- 📚 `site-resource-features_site-store@en` rather than `site-resource-features_site-res@en`.
 
 ---
 
