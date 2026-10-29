@@ -427,11 +427,15 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (8-10) **H-J** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates.
 
-(11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank`.
+(11) **K** (`related_cult_element_id`): ▶️ Together with `relation_type` and `relation_certainty`: `PinLinksPart.links[]`, resolving the target cult by EID plus site context. Set `target.itemId` and `target.label`; keep the relation code in `links[].note`, with its supplied certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
 
 (12) **L** (`relation_type`): ▶️ See K.
 
 (13) **M** (`relation_certainty`): ▶️ See K.
+
+(14) **N** (`divinity`): ▶️ Together with `divinity_certainty`: `PinLinksPart.links[]`, external link whose GID=`@TX` + value of `divinity` (the divinity ID in a taxonomy, e.g. `zeus`); label=value of `divinity`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
+
+(15) **O** (`divinity_certainty`): ▶️ See N.
 
 Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ part `CategoriesPart:cult-feats`; when the cell contains `YES`, add the specified thesaurus entry ID to the categories part:
 
@@ -461,9 +465,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (49) **AW** (`certainty_note`): ▶️ `NotePart:certainty`.
 
-(50) **AX** (`review_status`): ❌
-
-(51) **AY** (`cadmus_mapping`): ❌
+(50) **AX** (`cadmus_mapping`): ❌
 
 ---
 
