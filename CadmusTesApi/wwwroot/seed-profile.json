@@ -3311,6 +3311,22 @@
           "value": "silo/pit"
         }
       ]
+    },
+    {
+      "id": "site-resource-tags_site-res@en",
+      "targetId": "categories_evidence"
+    },
+    {
+      "id": "site-resource-tags_site-prod@en",
+      "targetId": "categories_evidence"
+    },
+    {
+      "id": "site-resource-tags_site-mark@en",
+      "targetId": "categories_evidence"
+    },
+    {
+      "id": "site-resource-tags_site-store@en",
+      "targetId": "categories_evidence"
     }
   ],
   "seed": {

@@ -244,7 +244,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-res.resources[].tag` via 📚 `site-resource-tags@en`.
 
 (5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
@@ -291,7 +291,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-prod.resources[].tag` via 📚 `site-resource-tags@en`.
 
 (5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
@@ -338,7 +338,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`area_name`): ❌
 
-(5) **E** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+(5) **E** (`data_accuracy`): ▶️ `SiteResourcesPart:site-mark.resources[].tag` via 📚 `site-resource-tags@en`.
 
 (6-8) **F-H** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
@@ -383,7 +383,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `CategoriesPart:evidence.categories` via 📚 `categories_evidence@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-store.resources[].tag` via 📚 `site-resource-tags@en`.
 
 (5) **E** (`storage_type`): ▶️ `SiteResourcesPart:site-store.resources[].type` via 📚 `site-resource-types_site-store@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
 
