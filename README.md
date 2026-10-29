@@ -433,7 +433,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (13) **M** (`relation_certainty`): ▶️ See K.
 
-(14) **N** (`divinity`): ▶️ Together with `divinity_certainty`: `PinLinksPart.links[]`, external link whose GID=`@TX` + value of `divinity` (the divinity ID in a taxonomy, e.g. `zeus`); label=value of `divinity`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
+(14) **N** (`divinity`): ▶️ Together with `divinity_certainty`: `PinLinksPart.links[]`, taxonomy link (tree=gods) whose GID=`@TX` + value derived from the corresponding label found in `divinity` (the divinity ID in a taxonomy, e.g. `zeus`); label=value of `divinity`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
 
 (15) **O** (`divinity_certainty`): ▶️ See N.
 
@@ -485,17 +485,17 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type` via 📚 `categories_art-type@en`.
 
-(8) **H** (`iconography`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_legacy"`, `value` = the supplied value.
+(8) **H** (`iconography`): ??
 
-(9) **I** (`iconography_certainty`): ❌
+(9) **I** (`iconography_certainty`): see K??.
 
-(10) **J** (`iconography_representation`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_representation"`, `value` = the supplied value.
+(10) **J** (`iconography_representation`): ▶️ `NotePart:ico`: free text description of iconography representation.
 
-(11) **K** (`iconography_descriptors`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_descriptors"`, `value` = the supplied value.
+(11) **K** (`iconography_descriptors`): Together with `iconography_certainty`: ▶️ `PinLinksPart.links[]`, taxonomy link (tree=descriptors) whose GID=`@TX` + value derived from the corresponding label found in `iconography` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3). Multiple items are separated by `;` in the cell; create 1 link per item. All items share the same certainty, which is the value of `iconography_certainty`.
 
-(12) **L** (`iconography_subject`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="iconography_subject"`, `value` = the supplied value. Proposed interpretation; may remain empty when only a form is documented.
+(12) **L** (`iconography_subject`): Together with `iconography_subject_certainty`: ▶️ `PinLinksPart.links[]`, taxonomy link (tree=subjects) whose GID=`@TX` + value derived from the corresponding label found in `iconography_subject` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_subject`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3). Multiple items are separated by `;` in the cell; create 1 link per item. All items share the same certainty, which is the value of `iconography_subject_certainty`.
 
-(13) **M** (`iconography_subject_certainty`): ❌
+(13) **M** (`iconography_subject_certainty`): See L.
 
 (14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
@@ -503,7 +503,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (16) **P** (`material`): ▶️ `CategoriesPart.categories:art-mat` via 📚 `categories_art-mat@en`.
 
-(17) **Q** (`production_origin`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="production_origin"`, `value` = the supplied value. local / imported / uncertain is an origin statement, not a place identifier or a coordinate.
+(17) **Q** (`production_origin`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="production_origin"`, `value` = the supplied value: `local` / `imported` / `uncertain`, as an origin statement, not a place identifier or a coordinate.
 
 (18) **R** (`productionorigin_certainty`): ❌
 
@@ -511,7 +511,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (20-41) **T-AO** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
 
-(42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range; also preserve the supplied label as `MetadataPart.metadata` (`name="chronology_certainty"`).
+(42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range.
 
 (43) **AQ** (`source_ids`): ❌
 
@@ -521,9 +521,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (46) **AT** (`certainty_note`): ▶️ `NotePart:certainty`.
 
-(47) **AU** (`review_status`): ❌
-
-(48) **AV** (`cadmus_mapping`): ❌
+(47) **AU** (`cadmus_mapping`): ❌
 
 ---
 
