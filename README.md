@@ -136,6 +136,24 @@ In what follows:
 
 This implies that you need a mapping between items EIDs, which are the value of the (first) metadatum `eid` in the `MetadataPart` of each item, and the GUIDs of the item and of its metadata part.
 
+### Import Overview
+
+Essentially, the Proteus conversion pipeline gets a sequence of "decoded entries", which are the minimum unit defined for the purpose of a generic conversion: entries are of type T=text, P=properties (e.g. `bold`=`1`), C=commands (e.g. `block(open=1)`). Data from any format, e.g. DOCX or XLSX, is read in this way. Then, regions are detected as sequences of such entries.
+
+In this case the `ExcelEntryReader` is used to read rows from an Excel file where each row represents a target _item_ in Cadmus. A Cadmus item is a record containing any number and type of _parts_, which are objects with their own self-contained model.
+
+The import idea is that each row, read as a sequence of open command entry, text entry and close command entry, whence a row region, generates an item of a given type (=facet); then data from columns (read in the same way, whence a column region) get remodeled into parts and added to the item.
+
+Each row and column read are treated as regions with a specific name. Entry region parsers in the import project handle each row and column accordingly. In XLSX we just deal with open/close commands for rows and columns and text entries for cell content.
+
+As for naming, note that (this is relevant to validate JSON pipeline configurations in `tes-tool/Assets` and `Tag` attributes of code components):
+
+- the region tag is always built with prefix `col-` + the column name exactly as it stands in README. For instance in Inscription column A has ID `ID`, so its region tag is `col-ID`.
+- the component `Tag` attribute value is built from the region tag but can be shortened or renamed when the component is more generic. It uses only dash as separator. Each component must have its own distinct `Tag`.
+- the corresponding thesauri IDs are suffixed with `_` + part role ID when present.
+
+Finally, an exporter in the Proteus pipeline exports the item either in a Markdown file for diagnostic purposes, or into a MongoDB database. Here the import covers multiple items, so each item type has its own pipeline profile. Right now the importers defined are inscription importer and site importer. Their pipeline profiles are in `tes-tool/Assets` (`Dump*` for those exporting Markdown, `Import*` for those exporting into a database).
+
 ---
 
 ### 🟢 Inscription
