@@ -8,7 +8,6 @@ using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Resource;

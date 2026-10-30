@@ -50,6 +50,30 @@
       "options": {
         "tag": "col-site_id"
       }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-data-accuracy",
+      "options": {
+        "tag": "col-res_data_accuracy",
+        "thesaurusId": "site-resource-tags_site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-resource-type",
+      "options": {
+        "tag": "col-resource_type",
+        "thesaurusId": "site-resource-types_site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-resource-feature-id",
+      "options": {
+        "tag": "col-resource_feature_id",
+        "thesaurusId": "site-resource-features_site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-coords"
     }
   ],
   "entrySetContextPatchers": [
