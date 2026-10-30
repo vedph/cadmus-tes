@@ -330,6 +330,8 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 - 📚 `site-resource-types_site-mark@en` rather than `site-resource-types_site-res@en`.
 - 📚 `site-resource-features_site-mark@en` rather than `site-resource-features_site-res@en`.
 
+The type of this resource is always `funerary-evidence`.
+
 (1) **A** (`id`): ❌
 
 (2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).

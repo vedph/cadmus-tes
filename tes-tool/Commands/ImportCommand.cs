@@ -45,7 +45,8 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
     {
         if (!File.Exists(path)) return null;
 
-        AnsiConsole.MarkupLine($"Loading exported item IDs set from [cyan]{path}[/]...");
+        AnsiConsole.MarkupLine(
+            $"Loading exported item IDs set from [cyan]{path}[/]...");
 
         return ExportedItemIdSet.Load(
             Path.Combine(Path.GetDirectoryName(path!)!,
