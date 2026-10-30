@@ -58,7 +58,7 @@ public sealed class ColTechniqueEntryRegionParser :
 
         if (!string.IsNullOrEmpty(value))
         {
-            string id = ImportHelper.GetThesaurusId(ctx, region,
+            string id = ImportHelper.GetThesaurusEntryId(ctx, region,
                 "epi-technique-types@en", value, Logger);
             if (id == null)
             {

@@ -62,7 +62,7 @@ public sealed class ColAccuracyEntryRegionParser :
             // categories:evidence
             CategoriesPart part =
                 ctx.EnsurePartForCurrentItem<CategoriesPart>("evidence");
-            string? id = ImportHelper.GetThesaurusId(
+            string? id = ImportHelper.GetThesaurusEntryId(
                 ctx, region, "categories_evidence", value, Logger);
 
             if (id != null) part.Categories.Add(id);

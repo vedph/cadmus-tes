@@ -1,6 +1,7 @@
 ﻿using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
+using Proteus.Core;
 using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
@@ -10,23 +11,36 @@ using System.Threading.Tasks;
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column site ID entry region parser. This column contains the EID
-/// of the parent site item of the resource item being imported. This EID is
+/// TES column parent item ID entry region parser. This column contains the EID
+/// of the parent item of the resource item being imported. This EID is
 /// used to fetch the corresponding item ID so that the item being created
-/// for this row has the same ID of the parent site item. When exporting items
+/// for this row has the same ID of the parent item. When exporting items
 /// into database, this will merge parts of the resource item into the parent
-/// site item.
+/// item.
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-parent-site-id")]
-public sealed class ColParentSiteIdEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+[Tag("entry-region-parser.tes.col-parent-item-id")]
+public sealed class ColParentItemIdEntryRegionParser :
+    EntryRegionParser, IEntryRegionParser,
+    IConfigurable<ColParentItemIdEntryRegionParserOptions>
 {
+    private ColParentItemIdEntryRegionParserOptions? _options;
+
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-site-id"];
+    public string[] RegionTags => _options?.Tag != null ? [_options.Tag] : [];
+
+    /// <summary>
+    /// Configure this parser.
+    /// </summary>
+    /// <param name="options">Options.</param>
+    /// <exception cref="ArgumentNullException">Null options.</exception>
+    public void Configure(ColParentItemIdEntryRegionParserOptions options)
+    {
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+    }
 
     /// <summary>
     /// Parses the region of entries at <paramref name="entryRegionIndex" />
@@ -73,7 +87,7 @@ public sealed class ColParentSiteIdEntryRegionParser :
             // get the item IDs set
             ExportedItemIdSet set = ImportHelper.GetItemIdsSet(ctx);
 
-            // get the parent site item ID from EID
+            // get the parent item ID from EID
             ExportedItemId? id = set.Get(value);
             if (id == null)
             {
@@ -84,7 +98,7 @@ public sealed class ColParentSiteIdEntryRegionParser :
             }
             else
             {
-                // set the parent site item in the context
+                // set the parent item in the context
                 ctx.CurrentItem.Id = id.Id;
                 ctx.CurrentItem.Title = id.Title;
             }
@@ -92,4 +106,15 @@ public sealed class ColParentSiteIdEntryRegionParser :
 
         return Task.FromResult(entryIndex + 3);
     }
+}
+
+/// <summary>
+/// Options for <see cref="ColParentItemIdEntryRegionParser"/>.
+/// </summary>
+public class ColParentItemIdEntryRegionParserOptions : DisabledOptions
+{
+    /// <summary>
+    /// Gets or sets the tag of the column to be parsed.
+    /// </summary>
+    public string? Tag { get; set; }
 }

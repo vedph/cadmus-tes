@@ -7,6 +7,7 @@ using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Proteus.Core;
 
 
 namespace Cadmus.Tes.Import;
@@ -97,7 +98,7 @@ public sealed class ColInternalLinkEntryRegionParser :
 /// <summary>
 /// Options for <see cref="ColInternalLinkEntryRegionParser"/>.
 /// </summary>
-public class ColInternalLinkEntryRegionParserOptions
+public class ColInternalLinkEntryRegionParserOptions : DisabledOptions
 {
     /// <summary>
     /// Gets or sets the region tag to be handled by parser.

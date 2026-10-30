@@ -17,6 +17,8 @@
 
 	<ItemGroup>
 		<None Remove="appsettings.json" />
+		<None Remove="Assets\Dump-r-md.json" />
+		<None Remove="Assets\Dump-s-md.json" />
 		<None Remove="Assets\Thesauri.json" />
 	</ItemGroup>
 
@@ -28,6 +30,12 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Dump-i-xlsx.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Dump-r-md.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Dump-s-md.json">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Assets\Import-i.json">

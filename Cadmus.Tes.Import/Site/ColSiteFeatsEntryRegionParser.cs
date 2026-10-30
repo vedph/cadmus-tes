@@ -62,8 +62,8 @@ public sealed class ColSiteFeatsEntryRegionParser :
             entryIndex + 1)!;
         string? value = ImportHelper.FilterValue(txt.Value, true);
 
-        if (value == "yes" && ImportHelper.ValidateThesaurusId(ctx, "categories_site-feats@en",
-                value, Logger))
+        if (value == "yes" && ImportHelper.ValidateThesaurusEntryId(
+            ctx, "categories_site-feats@en", value, Logger))
         {
             CategoriesPart part = ctx.EnsurePartForCurrentItem<CategoriesPart>(
                 "site-feats");

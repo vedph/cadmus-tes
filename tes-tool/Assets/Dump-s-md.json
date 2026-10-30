@@ -49,7 +49,12 @@
       "id": "entry-region-parser.tes.col-site-name"
     },
     {
-      "id": "entry-region-parser.tes.col-site-type"
+      "id": "entry-region-parser.tes.col-categories",
+      "options": {
+        "tag": "col-archaeological_site_type",
+        "thesaurusId": "categories_site-type",
+        "partRoleId": "site-type"
+      }
     },
     {
       "id": "entry-region-parser.tes.col-data-accuracy"

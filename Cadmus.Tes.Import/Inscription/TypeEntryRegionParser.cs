@@ -60,7 +60,7 @@ public sealed class ColTypeEntryRegionParser :
         HashSet<string> ids = [];
         foreach (string label in ImportHelper.GetValueList(value, false, ['|']))
         {
-            string id = ImportHelper.GetThesaurusId(ctx, region, "categories_ins-fn@en",
+            string id = ImportHelper.GetThesaurusEntryId(ctx, region, "categories_ins-fn@en",
                 label, Logger);
             if (id == null)
             {

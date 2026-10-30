@@ -155,7 +155,7 @@ public static partial class ImportHelper
     /// <param name="value">The entry value.</param>
     /// <param name="logger">The optional logger.</param>
     /// <returns>ID or value if not found.</returns>
-    public static string GetThesaurusId(CadmusEntrySetContext context,
+    public static string GetThesaurusEntryId(CadmusEntrySetContext context,
         EntryRegion region, string thesaurusId, string value,
         ILogger? logger)
     {
@@ -188,7 +188,7 @@ public static partial class ImportHelper
     /// <param name="entryId">The entry ID.</param>
     /// <param name="logger">The optional logger.</param>
     /// <returns>True if the entry ID is valid, false otherwise.</returns>
-    public static bool ValidateThesaurusId(CadmusEntrySetContext context,
+    public static bool ValidateThesaurusEntryId(CadmusEntrySetContext context,
         string thesaurusId, string entryId, ILogger? logger)
     {
         ArgumentNullException.ThrowIfNull(context);

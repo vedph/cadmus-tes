@@ -63,7 +63,7 @@ public sealed class ColSupportEntryRegionParser :
             switch (region.Tag)
             {
                 case "col-material":
-                    string id = ImportHelper.GetThesaurusId(ctx, region,
+                    string id = ImportHelper.GetThesaurusEntryId(ctx, region,
                         "epi-support-materials@en", value, Logger);
                     if (id == null)
                     {
@@ -75,7 +75,7 @@ public sealed class ColSupportEntryRegionParser :
                     break;
 
                 case "col-object_type":
-                    string objectTypeId = ImportHelper.GetThesaurusId(ctx, region,
+                    string objectTypeId = ImportHelper.GetThesaurusEntryId(ctx, region,
                         "epi-support-object-types@en", value, Logger);
                     if (objectTypeId == null)
                     {

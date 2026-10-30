@@ -27,12 +27,12 @@
         "value": "cult features"
       },
       {
-        "id": "it.vedph.categories:cult-gods",
-        "value": "cult gods"
-      },
-      {
         "id": "it.vedph.categories:cult-type",
         "value": "cult types"
+      },
+      {
+        "id": "it.vedph.categories:evidence",
+        "value": "evidence"
       },
       {
         "id": "it.vedph.categories:ico-sub",
@@ -51,7 +51,19 @@
         "value": "site features"
       },
       {
+        "id": "it.vedph.categories:site-mark",
+        "value": "site resources"
+      },
+      {
+        "id": "it.vedph.categories:site-prod",
+        "value": "site resources"
+      },
+      {
         "id": "it.vedph.categories:site-res",
+        "value": "site resources"
+      },
+      {
+        "id": "it.vedph.categories:site-store",
         "value": "site resources"
       },
       {
@@ -252,7 +264,6 @@
         "id": "lead-300011020",
         "value": "lead"
       },
-
       {
         "id": "marble-300011443",
         "value": "marble"
@@ -428,167 +439,6 @@
     ]
   },
   {
-    "id": "categories_cult-gods@en",
-    "entries": [
-      {
-        "id": "zeus-131",
-        "value": "Zeus (Jupiter)"
-      },
-      {
-        "id": "dionysos-111",
-        "value": "Dionysos"
-      },
-      {
-        "id": "kybele-123",
-        "value": "Kybele"
-      },
-      {
-        "id": "haroeris-602",
-        "value": "Haroeris"
-      },
-      {
-        "id": "herakles-117",
-        "value": "Herakles"
-      },
-      {
-        "id": "poseidon-129",
-        "value": "Poseidon"
-      },
-      {
-        "id": "hestia-120",
-        "value": "Hestia"
-      },
-      {
-        "id": "kronos-121",
-        "value": "Kronos"
-      },
-      {
-        "id": "nereis-1556",
-        "value": "Nereis"
-      },
-      {
-        "id": "demeter-110",
-        "value": "Demeter"
-      },
-      {
-        "id": "apollon-105",
-        "value": "Apollon"
-      },
-      {
-        "id": "aphrodites-104",
-        "value": "Aphrodites"
-      },
-      {
-        "id": "hera-116",
-        "value": "Hera"
-      },
-      {
-        "id": "artemis-107",
-        "value": "Artemis"
-      },
-      {
-        "id": "hermes-118",
-        "value": "Hermes"
-      },
-      {
-        "id": "asklepios-108",
-        "value": "Asklepios"
-      },
-      {
-        "id": "athena-109",
-        "value": "Athena"
-      },
-      {
-        "id": "hygieia-205",
-        "value": "Hygieia"
-      },
-      {
-        "id": "helios-114",
-        "value": "Helios"
-      },
-      {
-        "id": "soter-1752",
-        "value": "Soter"
-      },
-      {
-        "id": "theos-870",
-        "value": "Theos/Thea"
-      },
-      {
-        "id": "diktynna-700",
-        "value": "Diktynna"
-      },
-      {
-        "id": "tyche-651",
-        "value": "Tyche"
-      },
-      {
-        "id": "daimon-1204",
-        "value": "Daimon"
-      },
-      {
-        "id": "ourania-778",
-        "value": "Ourania"
-      },
-      {
-        "id": "ouranios-1809",
-        "value": "Ouranios"
-      },
-      {
-        "id": "ouranos-1609",
-        "value": "Ouranos"
-      },
-      {
-        "id": "gaia-1335",
-        "value": "Gaia"
-      },
-      {
-        "id": "theoichthonioi-1805",
-        "value": "Theoi Chthonioi"
-      },
-      {
-        "id": "hephaistos-115",
-        "value": "Hephaistos"
-      },
-      {
-        "id": "mousa-471",
-        "value": "Mousa"
-      },
-      {
-        "id": "nymphe-186",
-        "value": "Nymphe"
-      },
-      {
-        "id": "nike-1562",
-        "value": "Nike"
-      },
-      {
-        "id": "ares-106",
-        "value": "Ares"
-      },
-      {
-        "id": "eros-112",
-        "value": "Eros"
-      },
-      {
-        "id": "leto-122",
-        "value": "Leto"
-      },
-      {
-        "id": "dioskouroi-168",
-        "value": "Dioskouroi/Tyndarides"
-      },
-      {
-        "id": "daphne-1220",
-        "value": "Daphne"
-      },
-      {
-        "id": "eos-1285",
-        "value": "Eos"
-      }
-    ]
-  },
-  {
     "id": "categories_cult-type@en",
     "entries": [
       {
@@ -630,6 +480,35 @@
       {
         "id": "ritual-activity",
         "value": "ritual activity area"
+      }
+    ]
+  },
+  {
+    "id": "categories_evidence@en",
+    "entries": [
+      {
+        "id": "stratigraphic-investigation",
+        "value": "stratigraphic investigation"
+      },
+      {
+        "id": "legacy-excavation",
+        "value": "legacy excavation"
+      },
+      {
+        "id": "survey",
+        "value": "archaeological survey"
+      },
+      {
+        "id": "chance-find",
+        "value": "chance find"
+      },
+      {
+        "id": "archaeometric-analysis",
+        "value": "archaeometric analysis"
+      },
+      {
+        "id": "undetermined-context",
+        "value": "unspecified documentary context"
       }
     ]
   },
@@ -2473,6 +2352,35 @@
     ]
   },
   {
+    "id": "site-resource-features_site-mark@en",
+    "entries": [
+      {
+        "id": "differentiated-tomb-types",
+        "value": "differentiated tomb types"
+      },
+      {
+        "id": "distinctive-funerary-habit",
+        "value": "distinctive funerary habit"
+      },
+      {
+        "id": "distinctive-funerary-assemblage",
+        "value": "distinctive funerary assemblage"
+      },
+      {
+        "id": "exotic-good",
+        "value": "exotic good"
+      },
+      {
+        "id": "jewelry",
+        "value": "jewelry"
+      },
+      {
+        "id": "metal-objects",
+        "value": "metal objects"
+      }
+    ]
+  },
+  {
     "id": "site-resource-features_site-prod@en",
     "entries": [
       {
@@ -2512,16 +2420,48 @@
         "value": "workshop installations"
       },
       {
-        "id": "household-scale",
-        "value": "household scale"
+        "id": "material",
+        "value": "material"
       },
       {
-        "id": "workshop-scale",
-        "value": "workshop scale"
+        "id": "material.bronze",
+        "value": "material: bronze"
       },
       {
-        "id": "uncertain",
-        "value": "uncertain"
+        "id": "material.clay",
+        "value": "material: clay"
+      },
+      {
+        "id": "material.glass",
+        "value": "material: glass"
+      },
+      {
+        "id": "material.gold",
+        "value": "material: gold"
+      },
+      {
+        "id": "material.iron",
+        "value": "material: iron"
+      },
+      {
+        "id": "material.lead",
+        "value": "material: lead"
+      },
+      {
+        "id": "material.organic",
+        "value": "material: organic"
+      },
+      {
+        "id": "material.silver",
+        "value": "material: silver"
+      },
+      {
+        "id": "material.stone",
+        "value": "material: stone"
+      },
+      {
+        "id": "material.textile",
+        "value": "material: textile"
       }
     ]
   },
@@ -2559,6 +2499,32 @@
       {
         "id": "archaeological-asm",
         "value": "archaeological assemblage"
+      },
+      {
+        "id": "processing-evidence",
+        "value": "evidence of processing"
+      }
+    ]
+  },
+  {
+    "id": "site-resource-features_site-store@en",
+    "entries": [
+      {
+        "id": "architectural",
+        "value": "architectural"
+      },
+      {
+        "id": "movable",
+        "value": "movable"
+      }
+    ]
+  },
+  {
+    "id": "site-resource-types_site-mark@en",
+    "entries": [
+      {
+        "id": "funerary-evidence",
+        "value": "funerary evidence"
       }
     ]
   },
@@ -2596,6 +2562,10 @@
       {
         "id": "glassworking",
         "value": "glassworking"
+      },
+      {
+        "id": "bone-ivory-working",
+        "value": "bone/ivory working"
       }
     ]
   },
@@ -2623,5 +2593,42 @@
         "value": "water source"
       }
     ]
+  },
+  {
+    "id": "site-resource-types_site-store@en",
+    "entries": [
+      {
+        "id": "amphora-transport-container",
+        "value": "amphora/transport container"
+      },
+      {
+        "id": "magazine-storeroom",
+        "value": "magazine/storeroom"
+      },
+      {
+        "id": "pithos-dolium",
+        "value": "pithos/dolium"
+      },
+      {
+        "id": "silo-pit",
+        "value": "silo/pit"
+      }
+    ]
+  },
+  {
+    "id": "site-resource-tags_site-res@en",
+    "targetId": "categories_evidence"
+  },
+  {
+    "id": "site-resource-tags_site-prod@en",
+    "targetId": "categories_evidence"
+  },
+  {
+    "id": "site-resource-tags_site-mark@en",
+    "targetId": "categories_evidence"
+  },
+  {
+    "id": "site-resource-tags_site-store@en",
+    "targetId": "categories_evidence"
   }
-]
+],
