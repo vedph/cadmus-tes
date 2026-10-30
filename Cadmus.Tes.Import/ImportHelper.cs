@@ -1,5 +1,7 @@
 ﻿using Cadmus.Core.Config;
+using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using System;
@@ -234,10 +236,53 @@ public static partial class ImportHelper
             case "medium": return 2;
             case "low": return 3;
             default:
-                logger?.LogError("Unable to parse rank from label: \"{Value}\"", value);
+                logger?.LogError("Unable to parse rank from label: \"{Value}\"",
+                    value);
                 break;
         }
 
         return 0;
+    }
+
+    /// <summary>
+    /// Add an internal link to the specified <see cref="PinLinksPart"/>.
+    /// </summary>
+    /// <param name="part">The <see cref="PinLinksPart"/> to add the link to.
+    /// </param>
+    /// <param name="eid">The EID of the target item.</param>
+    /// <param name="idSet">The set of exported item IDs.</param>
+    /// <param name="logger">The optional logger.</param>
+    /// <returns>True if the link was added successfully; otherwise, false.
+    /// </returns>
+    public static bool AddInternalLink(PinLinksPart part, string eid,
+        ExportedItemIdSet idSet, ILogger? logger = null)
+    {
+        ArgumentNullException.ThrowIfNull(part);
+        ArgumentNullException.ThrowIfNull(eid);
+        ArgumentNullException.ThrowIfNull(idSet);
+
+        // find target item from EID (error if not found)
+        ExportedItemId? id = idSet.Get(eid);
+        if (id == null)
+        {
+            logger?.LogError("Target ID {eid} not found in item IDs set",
+                eid);
+            return false;
+        }
+
+        part.Links.Add(new AssertedCompositeId
+        {
+            Target = new PinTarget
+            {
+                Gid = "P" + id.MetadataPartId,
+                Label = $"{eid}|{id.Id} (metadata)",
+                ItemId = id.Id,
+                PartId = id.MetadataPartId,
+                Name = "eid",
+                Value = eid
+            }
+        });
+
+        return true;
     }
 }
