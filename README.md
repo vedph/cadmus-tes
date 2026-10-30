@@ -246,7 +246,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-res.resources[].tag` via 📚 `site-resource-tags@en`.
 
-(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en` (single type, map label to value).
 
 (6) **F** (`resourcetype_certainty`): ❌
 
@@ -293,7 +293,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-prod.resources[].tag` via 📚 `site-resource-tags@en`.
 
-(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en` (single type, map label to value).
 
 (6) **F** (`activity_type_certainty`): ❌
 
@@ -385,7 +385,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-store.resources[].tag` via 📚 `site-resource-tags@en`.
 
-(5) **E** (`storage_type`): ▶️ `SiteResourcesPart:site-store.resources[].type` via 📚 `site-resource-types_site-store@en`: split on `;` and map thesauri labels (from cells) to the corresponding IDs.
+(5) **E** (`storage_type`): ▶️ `SiteResourcesPart:site-store.resources[].type` via 📚 `site-resource-types_site-store@en` (single type, map label to value).
 
 (6) **F** (`storage_type_certainty`): ❌
 
@@ -485,17 +485,17 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (7) **G** (`artefact_type`): ▶️ `CategoriesPart.categories:art-type` via 📚 `categories_art-type@en`.
 
-(8) **H** (`iconography`): ??
+(8) **H** (`iconography`): ❌
 
-(9) **I** (`iconography_certainty`): see K??.
+(9) **I** (`iconography_certainty`): ▶️ append to `NotePart:ico` text under heading `Certainty`.
 
-(10) **J** (`iconography_representation`): ▶️ `NotePart:ico`: free text description of iconography representation.
+(10) **J** (`iconography_representation`): ▶️ append to `NotePart:ico` text under heading `Representation`.
 
-(11) **K** (`iconography_descriptors`): Together with `iconography_certainty`: ▶️ `PinLinksPart.links[]`, taxonomy link (tree=descriptors) whose GID=`@TX` + value derived from the corresponding label found in `iconography` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3). Multiple items are separated by `;` in the cell; create 1 link per item. All items share the same certainty, which is the value of `iconography_certainty`.
+(11) **K** (`iconography_descriptors`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=descriptors) whose GID=`@TX` + value derived from the corresponding label found in `iconography_descriptors` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_descriptors`. Multiple items are separated by `;` in the cell; create 1 link per item.
 
-(12) **L** (`iconography_subject`): Together with `iconography_subject_certainty`: ▶️ `PinLinksPart.links[]`, taxonomy link (tree=subjects) whose GID=`@TX` + value derived from the corresponding label found in `iconography_subject` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_subject`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3). Multiple items are separated by `;` in the cell; create 1 link per item. All items share the same certainty, which is the value of `iconography_subject_certainty`.
+(12) **L** (`iconography_subject`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=subjects) whose GID=`@TX` + value derived from the corresponding label found in `iconography_subject` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_subject`. Multiple items are separated by `;` in the cell; create 1 link per item.
 
-(13) **M** (`iconography_subject_certainty`): See L.
+(13) **M** (`iconography_subject_certainty`): ▶️ append to `NotePart:ico` text under heading `Subject`.
 
 (14) **N** (`context_type`): ▶️ `CategoriesPart.categories:art-ctx` via 📚 `categories_art-ctx@en`.
 
@@ -509,7 +509,7 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (19) **S** (`evidence_type`): ▶️ `MetadataPart.metadata`: `type="string"`, `name="evidence_type"`, `value` = the supplied value.
 
-(20-41) **T-AO** (`period_1` … `period_22`): ▶️ `resources[].date.a.value/b.value`: as above for site periods.
+(20-41) **T-AO** (`period_1` … `period_22`): ▶️ `AssertedHistoricalDatesPart.dates[]`: as above for site periods.
 
 (42) **AP** (`chronology_certainty`): ▶️ `AssertedHistoricalDatesPart.dates[].assertion.rank`, applied to each derived range.
 
