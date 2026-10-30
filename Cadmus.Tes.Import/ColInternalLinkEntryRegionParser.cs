@@ -1,26 +1,23 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.General.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Proteus.Core;
-
 
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES parent item link column entry region parser.
+/// TES internal link column entry region parser. The column contains the
+/// EID of the target item, which is resolved via the loaded item IDs set
+/// into an internal link added to the item's <see cref="PinLinksPart"/>.
+/// <para>Tag: <c>entry-region-parser.tes.col-internal-link</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-internal-link")]
-public sealed class ColInternalLinkEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser,
-    IConfigurable<ColInternalLinkEntryRegionParserOptions>
+public sealed class ColInternalLinkEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser, IConfigurable<ColInternalLinkEntryRegionParserOptions>
 {
     private ColInternalLinkEntryRegionParserOptions? _options;
 
@@ -32,76 +29,64 @@ public sealed class ColInternalLinkEntryRegionParser :
     /// <summary>
     /// Applies the parser options for internal link entry regions.
     /// </summary>
-    /// <remarks>Throws <see cref="ArgumentNullException"/> when <paramref name="options"/> is <see
-    /// langword="null"/>.</remarks>
     /// <param name="options">Options used to configure parser behavior.</param>
+    /// <exception cref="ArgumentNullException">Null options.</exception>
     public void Configure(ColInternalLinkEntryRegionParserOptions options)
     {
-        ArgumentNullException.ThrowIfNull(options);
-        _options = options;
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+        ConfigureBaseOptions(options);
     }
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Parses the specified column value.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        if (_options!.IsRequired && !CheckRequired(region, value)) return;
+        if (value == null) return;
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        ExportedItemIdSet? set = ImportHelper.TryGetItemIdsSet(context,
+            _options.ItemIdsSet);
+        if (set == null)
         {
-            Logger?.LogError(
-                "{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
+            Logger?.LogError("No item IDs set {SetName} to resolve {Eid} " +
+                "at region {Region}", _options.ItemIdsSet ?? "*", value, region);
+            return;
         }
 
-        // read the value (required, as it is the parent item EID)
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (value == null)
+        PinLinksPart part = context.EnsurePartForCurrentItem<PinLinksPart>();
+        if (ImportHelper.AddInternalLink(part, value, set, Logger,
+            _options.Scope) == null)
         {
-            Logger?.LogError(
-                "{Tag} column with no value at region {Region}",
-                region.Tag, region);
+            Logger?.LogError("Unresolved link target {Eid} at region {Region}",
+                value, region);
         }
-        else
-        {
-            // get the item IDs set
-            ExportedItemIdSet set = ImportHelper.GetItemIdsSet(ctx);
-
-            // add link to the item
-            PinLinksPart part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
-            ImportHelper.AddInternalLink(part, value, set, Logger);
-        }
-
-        return Task.FromResult(entryIndex + 3);
     }
 }
 
 /// <summary>
 /// Options for <see cref="ColInternalLinkEntryRegionParser"/>.
 /// </summary>
-public class ColInternalLinkEntryRegionParserOptions : DisabledOptions
+public class ColInternalLinkEntryRegionParserOptions : ColEntryRegionParserOptions
 {
     /// <summary>
-    /// Gets or sets the region tag to be handled by parser.
+    /// Gets or sets the name of the item IDs set to look up, i.e. the name of
+    /// the file it was loaded from without extension (e.g. <c>item-ids-s</c>).
+    /// When null, the merged set of all the loaded sets is used.
     /// </summary>
-    public string? Tag { get; set; }
+    public string? ItemIdsSet { get; set; }
+
+    /// <summary>
+    /// Gets or sets the optional scope of the link (e.g. <c>site</c>).
+    /// </summary>
+    public string? Scope { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the column is required.
+    /// </summary>
+    public bool IsRequired { get; set; }
 }

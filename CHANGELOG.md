@@ -1,5 +1,13 @@
 # History
 
+- 2026-10-30:
+  - added base `ColEntryRegionParser` and generic configurable parsers (`row-item`, `col-metadata`, `col-flags`, `col-note`, `col-periods`, `col-link-attr`, `col-taxo-link`, `col-res-property`), replacing facet-specific duplicates.
+  - fixed site import: thesauri IDs (`@en`), periods region tags, site features, evidence/certainty notes overwriting each other.
+  - fixed resources import: missing resource for each row, part item IDs, accumulation of multiple resources of the same site, rows with unknown site skipped.
+  - fixed inscription import: duplicate `col-coords` tag (now `col-ins-coords`), culture-dependent coordinates parsing, Pleiades links as documented, text lines splitting.
+  - added pipelines for site productions, markers, storages, cults, and artifacts.
+  - CLI: load all the `item-ids*.json` files in the pipeline folder; items reuse IDs from their own item IDs file.
+  - fixed trailing comma in `Thesauri.json`.
 - 2026-10-27:
   -	removed iconography item from profile.
   - removed gods categories from cult item (will be replaced by taxonomies via links).

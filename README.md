@@ -104,13 +104,34 @@ To import:
 
 ▶️ (1) fire the API without seeding any items (set item seed count=0 in `appsettings.json`) to create an empty TES MongoDB database.
 
-▶️ (2) run the import commands, once per item type (change the path to your import file), e.g. for inscriptions:
+▶️ (2) run the import commands, once per pipeline (change the path to your pipeline file), e.g. for inscriptions:
 
 ```sh
-./tes-tool import-i c:/users/dfusi/desktop/tes/import-i.json
+./tes-tool import-i c:/users/dfusi/desktop/tes/Import-i.json
 ```
 
-> ⚠️ Note that dump importers will save an `item-ids.json` file with the item GUIDs and their EIDs, which is used to resolve internal links in the next import passes. Be sure to copy it in the pipeline folder before running the next import command.
+Pipelines are in `tes-tool/Assets`, named `Dump-X-md.json` (Markdown dump for diagnostics) and `Import-X.json` (MongoDB), where `X` is:
+
+| X    | source file            | target                                     | item IDs file     |
+| ---- | ---------------------- | ------------------------------------------ | ----------------- |
+| `i`  | `tes.xlsx`             | inscription items                          | `item-ids-i.json` |
+| `s`  | `tes-sites.xlsx`       | site items                                 | `item-ids-s.json` |
+| `r`  | `tes-resources.xlsx`   | `SiteResourcesPart:site-res` of sites      | -                 |
+| `rp` | `tes-productions.xlsx` | `SiteResourcesPart:site-prod` of sites     | -                 |
+| `rm` | `tes-markers.xlsx`     | `SiteResourcesPart:site-mark` of sites     | -                 |
+| `rs` | `tes-storages.xlsx`    | `SiteResourcesPart:site-store` of sites    | -                 |
+| `c`  | `tes-cults.xlsx`       | cult items                                 | `item-ids-c.json` |
+| `a`  | `tes-artifacts.xlsx`   | artifact items                             | `item-ids-a.json` |
+
+> ⚠️ Item pipelines save an `item-ids-X.json` file (in the dump folder) with the item GUIDs and their EIDs, which is used to resolve internal links in the next passes. Before running a pipeline, copy the item IDs files it needs into the pipeline folder: the CLI loads all the `item-ids*.json` files found there.
+
+Item IDs are reused: when an item's EID is found in its own item IDs file (e.g. `item-ids-c.json` for cults), the item and its metadata part get the GUIDs from that file. So, if you run a dump before the corresponding import, and copy its item IDs file into the pipeline folder, the import will produce exactly the same GUIDs. This is required for cults, which link to other cults possibly coming later in the same file. So the recommended order is:
+
+1. `Dump-s-md` → copy `item-ids-s.json`; `Import-s`.
+2. `Import-r`, `Import-rp`, `Import-rm`, `Import-rs` (they need `item-ids-s.json` and merge their part into the existing site item).
+3. `Dump-c-md` → copy `item-ids-c.json`; `Import-c` (needs `item-ids-s.json` and `item-ids-c.json`).
+4. `Dump-a-md` → copy `item-ids-a.json`; `Import-a` (needs `item-ids-s.json`).
+5. `Dump-i-md` → copy `item-ids-i.json`; `Import-i`.
 
 ▶️ (3) finally, index the imported database:
 
@@ -152,7 +173,27 @@ As for naming, note that (this is relevant to validate JSON pipeline configurati
 - the component `Tag` attribute value is built from the region tag but can be shortened or renamed when the component is more generic. It uses only dash as separator. Each component must have its own distinct `Tag`.
 - the corresponding thesauri IDs are suffixed with `_` + part role ID when present.
 
-Finally, an exporter in the Proteus pipeline exports the item either in a Markdown file for diagnostic purposes, or into a MongoDB database. Here the import covers multiple items, so each item type has its own pipeline profile. Right now the importers defined are inscription importer and site importer. Their pipeline profiles are in `tes-tool/Assets` (`Dump*` for those exporting Markdown, `Import*` for those exporting into a database).
+Finally, an exporter in the Proteus pipeline exports the item either in a Markdown file for diagnostic purposes, or into a MongoDB database. Here the import covers multiple items, so each item type has its own pipeline profile. Their pipeline profiles are in `tes-tool/Assets` (`Dump*` for those exporting Markdown, `Import*` for those exporting into a database).
+
+Most columns are handled by generic configurable parsers (namespace `Cadmus.Tes.Import`), each configured with the region tag it handles (`tag`) and its target:
+
+| parser ID (`entry-region-parser.tes.`) | purpose                                                                                                                          |
+| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `row-item`                             | create an item with the specified facet (`facetId`) for each row.                                                                |
+| `col-metadata`                         | add a metadatum (`name`) and/or set the item's title (`setTitle`); for `eid`, optionally reuse IDs (`reuseIdsFrom`).             |
+| `col-categories`                       | map labels (single or multiple) via a thesaurus to `CategoriesPart` with a role.                                                 |
+| `col-flags`                            | map boolean (`YES`) columns to thesaurus entry IDs, into `CategoriesPart` or resource features (`resourceRoleId`).               |
+| `col-note`                             | append text, optionally under a heading, to `NotePart` with a role or to the resource note (`resourceRoleId`).                   |
+| `col-coords`                           | `ycoord`, `xcoord`, `coord_certainty` into `AssertedLocationsPart` or the resource location (`resourceRoleId`).                  |
+| `col-periods`                          | `period_1`-`period_22` into `AssertedHistoricalDatesPart`, resource dates (`resourceRoleId`), or `CommentPart` (`target`).       |
+| `col-internal-link`                    | internal link to the item with the EID in the cell, looked up in an item IDs set (`itemIdsSet`).                                 |
+| `col-link-attr`                        | set the rank, note or tag of the links with the specified scope added by a previous column.                                      |
+| `col-taxo-link`                        | taxonomy links (`@TX:TREEID/NODEKEY`), resolving labels via `trees.csv` and `nodes.csv` in `taxonomyDir`.                        |
+| `col-parent-item-id`                   | merge the row into the item imported in a previous pass, whose EID is in the cell; rows with an unknown EID are skipped.          |
+| `row-resource`                         | (namespace `Resource`) create an item with a `SiteResourcesPart` with a role and a new resource for each row.                    |
+| `col-res-property`                     | (namespace `Resource`) set the EID, type, tag, or features of the resource of the row.                                           |
+
+Facet-specific parsers are in the namespaces `Inscription` and `Site`.
 
 ---
 
@@ -168,7 +209,7 @@ Finally, an exporter in the Proteus pipeline exports the item either in a Markdo
 
 (5) **E** (`Site of origin (modern name)`)\*: the modern name of the site of origin (e.g. `Siracusa`). This is imported together with D and F.
 
-(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `PinLinksPart.links`: add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID.
+(6) **F** (`Pleiades ID`): the Pleiades ID of the site of origin (e.g. `places/579570`) ▶️ `PinLinksPart.links`: add an external metadata link for the ancient name and another one for the modern name, both referring to the same Pleiades ID. If there is no Pleiades ID, the names are preserved as links with scope `toponym-ancient` and `toponym-modern`, whose GID is the name itself, and a warning is logged.
 
 (7) **G** (`Origin latitude`)\*: latitude. This is imported together with H.
 
@@ -250,7 +291,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 (45) **AS** (`cadmus_mapping`): ❌
 
-> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each of these additional parts will link to the parent site via an internal link in a `PinLinksPart` part, as illustrated above. All data required to build this link are provided in `ExportedItemIdSet`. Important: ensure that for those files you configure the MongoDB exporter in pipeline to enable merging (`IsMergeEnabled`=`true`) so that the site item is not overwritten by the import of its parts.
+> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each row of these spreadsheets is a resource, which is added to the `SiteResourcesPart` (with the role of its spreadsheet) of the site whose EID is in `site_id`: the row's item gets the GUID of that site, so that when exported into the database it is merged into the site item. All the resources of the same site are accumulated into a single part. Important: ensure that for those files you configure the MongoDB exporter in pipeline to enable merging (`IsMergeEnabled`=`true`) so that the site item is not overwritten by the import of its parts. Note that merging replaces a part with the same type and role: so each of these spreadsheets must be imported in a single pass.
 
 #### 🟩 Site Resources
 
@@ -258,11 +299,11 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID: the row is merged into the site item having this EID, which must be resolved from the loaded item IDs set (otherwise it's an error and the row is skipped).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-res.resources[].tag` via 📚 `site-resource-tags@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-res.resources[].tag` via 📚 `site-resource-tags_site-res@en` (alias of `categories_evidence@en`).
 
 (5) **E** (`resource_type`): ▶️ `SiteResourcesPart:site-res.resources[].type` via 📚 `site-resource-types_site-res@en` (single type, map label to value).
 
@@ -305,11 +346,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID: the row is merged into the site item having this EID, which must be resolved from the loaded item IDs set (otherwise it's an error and the row is skipped).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-prod.resources[].tag` via 📚 `site-resource-tags@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-prod.resources[].tag` via 📚 `site-resource-tags_site-prod@en` (alias of `categories_evidence@en`).
 
 (5) **E** (`activity_type`): ▶️ `SiteResourcesPart:site-prod.resources[].type` via 📚 `site-resource-types_site-prod@en` (single type, map label to value).
 
@@ -352,13 +393,13 @@ The type of this resource is always `funerary-evidence`.
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID: the row is merged into the site item having this EID, which must be resolved from the loaded item IDs set (otherwise it's an error and the row is skipped).
 
 (3) **C** (`site_name`): ❌
 
 (4) **D** (`area_name`): ❌
 
-(5) **E** (`data_accuracy`): ▶️ `SiteResourcesPart:site-mark.resources[].tag` via 📚 `site-resource-tags@en`.
+(5) **E** (`data_accuracy`): ▶️ `SiteResourcesPart:site-mark.resources[].tag` via 📚 `site-resource-tags_site-mark@en` (alias of `categories_evidence@en`).
 
 (6-8) **F-H** (`ycoord`, `xcoord`, `coord_certainty`): as above for site coordinates, targeting `resources[].location`.
 
@@ -399,11 +440,11 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (1) **A** (`id`): ❌
 
-(2) **B** (`site_id`)\*: ▶️ the target site EID, stored in `item.groupId`. The EID must be resolved from the loaded item IDs set (otherwise it's an error).
+(2) **B** (`site_id`)\*: ▶️ the target site EID: the row is merged into the site item having this EID, which must be resolved from the loaded item IDs set (otherwise it's an error and the row is skipped).
 
 (3) **C** (`site_name`): ❌
 
-(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-store.resources[].tag` via 📚 `site-resource-tags@en`.
+(4) **D** (`data_accuracy`): ▶️ `SiteResourcesPart:site-store.resources[].tag` via 📚 `site-resource-tags_site-store@en` (alias of `categories_evidence@en`).
 
 (5) **E** (`storage_type`): ▶️ `SiteResourcesPart:site-store.resources[].type` via 📚 `site-resource-types_site-store@en` (single type, map label to value).
 
@@ -453,7 +494,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (13) **M** (`relation_certainty`): ▶️ See K.
 
-(14) **N** (`divinity`): ▶️ Together with `divinity_certainty`: `PinLinksPart.links[]`, taxonomy link (tree=gods) whose GID=`@TX` + value derived from the corresponding label found in `divinity` (the divinity ID in a taxonomy, e.g. `zeus`); label=value of `divinity`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
+(14) **N** (`divinity`): ▶️ Together with `divinity_certainty`: `PinLinksPart.links[]`, taxonomy link (tree=gods) whose GID=`@TX:TREEID/` + node key derived from the corresponding label found in `divinity` (the divinity ID in a taxonomy, e.g. `zeus`); label=value of `divinity`. Keep the certainty in `links[].assertion.rank` (`high`=1, `medium`=2, `low`=3).
 
 (15) **O** (`divinity_certainty`): ▶️ See N.
 
@@ -511,9 +552,9 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 (10) **J** (`iconography_representation`): ▶️ append to `NotePart:ico` text under heading `Representation`.
 
-(11) **K** (`iconography_descriptors`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=descriptors) whose GID=`@TX` + value derived from the corresponding label found in `iconography_descriptors` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_descriptors`. Multiple items are separated by `;` in the cell; create 1 link per item.
+(11) **K** (`iconography_descriptors`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=descriptors) whose GID=`@TX:TREEID/` + node key derived from the corresponding label found in `iconography_descriptors` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_descriptors`. Multiple items are separated by `;` in the cell; create 1 link per item.
 
-(12) **L** (`iconography_subject`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=subjects) whose GID=`@TX` + value derived from the corresponding label found in `iconography_subject` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_subject`. Multiple items are separated by `;` in the cell; create 1 link per item.
+(12) **L** (`iconography_subject`): ▶️ `PinLinksPart.links[]`, taxonomy link (tree=subjects) whose GID=`@TX:TREEID/` + node key derived from the corresponding label found in `iconography_subject` (the iconography ID in a taxonomy, e.g. `warrior`); label=value of `iconography_subject`. Multiple items are separated by `;` in the cell; create 1 link per item.
 
 (13) **M** (`iconography_subject_certainty`): ▶️ append to `NotePart:ico` text under heading `Subject`.
 
@@ -547,31 +588,26 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 ### Code Template
 
-Template for region parser:
+Template for a column region parser. Prefer the generic configurable parsers listed above when possible; when a new parser is required, derive it from `ColEntryRegionParser`, which checks for the current item, gets the filtered cell value, and skips rows marked as skipped. Use `ImportHelper` for thesauri, ranks, coordinates, notes, and item IDs.
 
 - `__TAG__`: the region tag.
 
 ```cs
 using Cadmus.Import.Proteus;
-using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
-using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column categories entry region parser.
+/// TES column __TAG__ entry region parser.
+/// <para>Tag: <c>entry-region-parser.tes.col-__TAG__</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-__TAG__")]
-public sealed class Col__TAG__EntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed class Col__TAG__EntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -579,41 +615,18 @@ public sealed class Col__TAG__EntryRegionParser :
     public string[] RegionTags => ["col-__TAG__"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Parses the specified column value.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="context">The context, having a current item.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
-
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
-        {
-            Logger?.LogError(
-                "{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
+        // use CheckRequired(region, value) for required columns
+        if (value == null) return;
 
         // TODO
-
-        return Task.FromResult(entryIndex + 3);
     }
 }
 ```

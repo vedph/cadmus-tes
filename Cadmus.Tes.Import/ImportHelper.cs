@@ -1,33 +1,59 @@
-﻿using Cadmus.Core.Config;
+﻿using Cadmus.Core;
+using Cadmus.Core.Config;
 using Cadmus.General.Parts;
 using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
+using Cadmus.Tes.Parts;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Cadmus.Tes.Import;
 
 public static partial class ImportHelper
 {
-    private static readonly HashSet<string> _emptyValues = [];
+    // values representing an empty cell
+    private static readonly HashSet<string> _emptyValues =
+        new(StringComparer.OrdinalIgnoreCase) { "n/a" };
 
     [GeneratedRegex(@"\s+")]
     private static partial Regex WsRegex();
 
     /// <summary>
     /// The key used to get the item IDs set loaded in the pipeline data context
-    /// when present. This is used to lookup target items to link to.
+    /// when present. This is used to lookup target items to link to. When
+    /// several item ID files are loaded, this is the merge of all of them,
+    /// while each of them is also available under its own key (see
+    /// <see cref="GetItemIdsKey(string?)"/>).
     /// </summary>
     public const string ITEM_IDS_KEY = "*item-ids";
 
     /// <summary>
+    /// The key of the context data flag set when the current row must be
+    /// skipped. This is not global, so it is automatically removed when the
+    /// context is reset for the next row.
+    /// </summary>
+    public const string SKIP_ROW_KEY = "skip-row";
+
+    /// <summary>
+    /// Gets the context data key for the item IDs set with the specified name.
+    /// </summary>
+    /// <param name="name">The set name, i.e. the name of the file it was
+    /// loaded from without its extension (e.g. <c>item-ids-s</c>), or null
+    /// to get the key of the merged set.</param>
+    /// <returns>Key.</returns>
+    public static string GetItemIdsKey(string? name) =>
+        string.IsNullOrEmpty(name) ? ITEM_IDS_KEY : ITEM_IDS_KEY + ":" + name;
+
+    /// <summary>
     /// Filters a cell value. This trims it, normalizes whitespaces to a single
     /// space, and optionally lowercases it. If the resulting value represents
-    /// an empty value, null is returned.
+    /// an empty value (e.g. <c>N/A</c>), null is returned.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="lowercase">True to lowercase the result.</param>
@@ -144,10 +170,37 @@ public static partial class ImportHelper
     }
 
     /// <summary>
+    /// Returns true if the specified cell value is <c>YES</c> (case-insensitive).
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>True if yes.</returns>
+    public static bool IsYes(string? value) =>
+        string.Equals(value?.Trim(), "yes", StringComparison.OrdinalIgnoreCase);
+
+    /// <summary>
+    /// Tries to parse a decimal number like a coordinate. Cell values may come
+    /// formatted according to the current culture, so both comma and dot are
+    /// accepted as decimal separators. Thousands separators are not allowed.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="result">The result.</param>
+    /// <returns>True if parsed.</returns>
+    public static bool TryParseDecimal(string? value, out double result)
+    {
+        result = 0;
+        if (string.IsNullOrWhiteSpace(value)) return false;
+
+        return double.TryParse(value.Trim().Replace(',', '.'),
+            NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint,
+            CultureInfo.InvariantCulture, out result);
+    }
+
+    /// <summary>
     /// Gets the thesaurus identifier for the specified entry value in the
-    /// specified thesaurus. In case the ID is not found, an error is logged
+    /// specified thesaurus. Values are matched exactly first, and then
+    /// case-insensitively. In case the ID is not found, an error is logged
     /// if <paramref name="logger"/> is not null, and the value itself is
-    /// returned.
+    /// returned, so that the data is not lost.
     /// </summary>
     /// <param name="context">The data context.</param>
     /// <param name="region">The current region.</param>
@@ -164,15 +217,38 @@ public static partial class ImportHelper
         ArgumentNullException.ThrowIfNull(thesaurusId);
         ArgumentNullException.ThrowIfNull(value);
 
+        if (context.ThesaurusEntryMap == null)
+        {
+            logger?.LogError("No thesaurus map available for {Tag} " +
+                "at region {Region}", region.Tag, region);
+            return value;
+        }
+
         // adjust value: _ -> space, \ -> /
         value = value.Replace('_', ' ').Replace('\\', '/');
 
-        string? id = context.ThesaurusEntryMap!.GetEntryId(thesaurusId, value);
+        string? id = context.ThesaurusEntryMap.GetEntryId(thesaurusId, value);
 
         if (id == null)
         {
-            logger?.LogError("Unknown value for {Tag}: \"{Value}\" " +
-                "at region {Region}", region.Tag, value, region);
+            Thesaurus? thesaurus =
+                context.ThesaurusEntryMap.GetThesaurus(thesaurusId);
+            if (thesaurus == null)
+            {
+                logger?.LogError("Unknown thesaurus {ThesaurusId} for {Tag} " +
+                    "at region {Region}", thesaurusId, region.Tag, region);
+                return value;
+            }
+
+            id = thesaurus.Entries.FirstOrDefault(e => string.Equals(
+                e.Value, value, StringComparison.OrdinalIgnoreCase))?.Id;
+        }
+
+        if (id == null)
+        {
+            logger?.LogError("Unknown value for {Tag} in {ThesaurusId}: " +
+                "\"{Value}\" at region {Region}",
+                region.Tag, thesaurusId, value, region);
             id = value;
         }
 
@@ -196,10 +272,10 @@ public static partial class ImportHelper
         ArgumentNullException.ThrowIfNull(entryId);
 
         // get thesaurus
-        Thesaurus? thesaurus = context.ThesaurusEntryMap!.GetThesaurus(thesaurusId);
+        Thesaurus? thesaurus = context.ThesaurusEntryMap?.GetThesaurus(thesaurusId);
         if (thesaurus == null)
         {
-            logger?.LogError("Unknown value for thesaurus {ThesaurusId}: " +
+            logger?.LogError("Unknown thesaurus {ThesaurusId} for entry " +
                 "\"{EntryId}\"", thesaurusId, entryId);
             return false;
         }
@@ -245,19 +321,142 @@ public static partial class ImportHelper
     }
 
     /// <summary>
+    /// Sets the rank of the specified assertion owner, creating its assertion
+    /// if required.
+    /// </summary>
+    /// <param name="target">The target.</param>
+    /// <param name="rank">The rank.</param>
+    public static void SetRank(IHasAssertion target, short rank)
+    {
+        ArgumentNullException.ThrowIfNull(target);
+
+        target.Assertion ??= new Assertion();
+        target.Assertion.Rank = rank;
+    }
+
+    /// <summary>
+    /// Appends the specified text to a note, optionally under a Markdown
+    /// heading. Different texts are separated by a blank line.
+    /// </summary>
+    /// <param name="note">The note to append to, or null.</param>
+    /// <param name="text">The text to append.</param>
+    /// <param name="heading">The optional heading.</param>
+    /// <returns>The resulting note.</returns>
+    public static string AppendToNote(string? note, string text,
+        string? heading = null)
+    {
+        ArgumentNullException.ThrowIfNull(text);
+
+        StringBuilder sb = new(note ?? "");
+        if (sb.Length > 0) sb.Append("\n\n");
+        if (!string.IsNullOrEmpty(heading))
+            sb.Append("### ").Append(heading).Append("\n\n");
+        sb.Append(text);
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Marks the current row as skipped, removing its item from the context
+    /// so that nothing gets exported for it. Column parsers derived from
+    /// <see cref="ColEntryRegionParser"/> ignore all the columns of a
+    /// skipped row.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public static void SkipRow(CadmusEntrySetContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        context.Items.Clear();
+        context.Data[SKIP_ROW_KEY] = true;
+    }
+
+    /// <summary>
+    /// Determines whether the current row was marked as skipped.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <returns>True if skipped.</returns>
+    public static bool IsRowSkipped(CadmusEntrySetContext context) =>
+        context.Data.ContainsKey(SKIP_ROW_KEY);
+
+    /// <summary>
+    /// Changes the ID of the specified item, updating the item ID of all
+    /// its parts accordingly.
+    /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="id">The new ID.</param>
+    public static void SetItemId(IItem item, string id)
+    {
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentNullException.ThrowIfNull(id);
+
+        item.Id = id;
+        foreach (IPart part in item.Parts) part.ItemId = id;
+    }
+
+    /// <summary>
     /// Gets the exported item ID set from the context data.
     /// </summary>
-    /// <param name="context">The entry set context containing the data collection.</param>
+    /// <param name="context">The entry set context containing the data
+    /// collection.</param>
+    /// <param name="name">The optional name of the set to get, i.e. the name
+    /// of the file it was loaded from without its extension. When null,
+    /// the merged set of all the loaded sets is returned.</param>
     /// <returns>The exported item ID set stored in the context data.</returns>
     /// <exception cref="InvalidOperationException">Thrown when the context data
     /// does not contain an exported item ID set at the expected key.</exception>
-    public static ExportedItemIdSet GetItemIdsSet(CadmusEntrySetContext context)
+    public static ExportedItemIdSet GetItemIdsSet(CadmusEntrySetContext context,
+        string? name = null)
     {
         ArgumentNullException.ThrowIfNull(context);
-        ExportedItemIdSet? set = context.Data[ITEM_IDS_KEY] as ExportedItemIdSet
-            ?? throw new InvalidOperationException(
-                "No item IDs set found in the data context");
-        return set;
+
+        string key = GetItemIdsKey(name);
+        return context.Data.TryGetValue(key, out object? value) &&
+            value is ExportedItemIdSet set
+            ? set
+            : throw new InvalidOperationException(
+                $"No item IDs set \"{name ?? "*"}\" found in the data context");
+    }
+
+    /// <summary>
+    /// Tries to get the exported item ID set from the context data.
+    /// </summary>
+    /// <param name="context">The entry set context containing the data
+    /// collection.</param>
+    /// <param name="name">The optional name of the set to get.</param>
+    /// <returns>The set or null if not found.</returns>
+    public static ExportedItemIdSet? TryGetItemIdsSet(
+        CadmusEntrySetContext context, string? name = null)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        return context.Data.TryGetValue(GetItemIdsKey(name), out object? value)
+            ? value as ExportedItemIdSet
+            : null;
+    }
+
+    /// <summary>
+    /// Finds the item with the specified EID in the specified set. If more
+    /// than a single item has the same EID, a warning is logged and the first
+    /// one is returned.
+    /// </summary>
+    /// <param name="idSet">The set of exported item IDs.</param>
+    /// <param name="eid">The EID to find.</param>
+    /// <param name="logger">The optional logger.</param>
+    /// <returns>The item IDs or null if not found.</returns>
+    public static ExportedItemId? FindItemId(ExportedItemIdSet idSet, string eid,
+        ILogger? logger = null)
+    {
+        ArgumentNullException.ThrowIfNull(idSet);
+        ArgumentNullException.ThrowIfNull(eid);
+
+        IReadOnlyList<ExportedItemId> ids = idSet.GetAll(eid);
+        if (ids.Count > 1)
+        {
+            logger?.LogWarning("EID {Eid} is ambiguous: found in {Count} items " +
+                "({Items}); using the first one", eid, ids.Count,
+                string.Join(", ", ids.Select(i => i.Id)));
+        }
+        return ids.Count > 0 ? ids[0] : null;
     }
 
     /// <summary>
@@ -268,37 +467,78 @@ public static partial class ImportHelper
     /// <param name="eid">The EID of the target item.</param>
     /// <param name="idSet">The set of exported item IDs.</param>
     /// <param name="logger">The optional logger.</param>
-    /// <returns>True if the link was added successfully; otherwise, false.
+    /// <param name="scope">The optional scope of the link.</param>
+    /// <returns>The added link, or null if the target was not found.
     /// </returns>
-    public static bool AddInternalLink(PinLinksPart part, string eid,
-        ExportedItemIdSet idSet, ILogger? logger = null)
+    public static AssertedCompositeId? AddInternalLink(PinLinksPart part,
+        string eid, ExportedItemIdSet idSet, ILogger? logger = null,
+        string? scope = null)
     {
         ArgumentNullException.ThrowIfNull(part);
         ArgumentNullException.ThrowIfNull(eid);
         ArgumentNullException.ThrowIfNull(idSet);
 
         // find target item from EID (error if not found)
-        ExportedItemId? id = idSet.Get(eid);
+        ExportedItemId? id = FindItemId(idSet, eid, logger);
         if (id == null)
         {
-            logger?.LogError("Target ID {eid} not found in item IDs set",
+            logger?.LogError("Target ID {Eid} not found in item IDs set",
                 eid);
-            return false;
+            return null;
+        }
+        if (id.MetadataPartId == null)
+        {
+            logger?.LogError("Target ID {Eid} has no metadata part in item " +
+                "IDs set", eid);
+            return null;
         }
 
-        part.Links.Add(new AssertedCompositeId
+        AssertedCompositeId link = new()
         {
+            Scope = scope,
             Target = new PinTarget
             {
                 Gid = "P" + id.MetadataPartId,
                 Label = $"{eid}|{id.Id} (metadata)",
                 ItemId = id.Id,
                 PartId = id.MetadataPartId,
+                PartTypeId = "it.vedph.metadata",
                 Name = "eid",
                 Value = eid
             }
-        });
+        };
+        part.Links.Add(link);
 
-        return true;
+        return link;
+    }
+
+    /// <summary>
+    /// Gets the resource being built for the current row, i.e. the last
+    /// resource in the <see cref="SiteResourcesPart"/> with the specified role
+    /// in the current item. This resource is added by the row parser
+    /// (<see cref="Resource.ResourceRowEntryRegionParser"/>).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="roleId">The role ID of the resources part.</param>
+    /// <param name="region">The region being parsed.</param>
+    /// <param name="logger">The optional logger.</param>
+    /// <returns>Resource or null if not found.</returns>
+    public static SiteResource? GetCurrentResource(CadmusEntrySetContext context,
+        string? roleId, EntryRegion region, ILogger? logger)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(region);
+
+        SiteResourcesPart? part = context.CurrentItem?.Parts
+            .OfType<SiteResourcesPart>()
+            .FirstOrDefault(p => roleId == null || p.RoleId == roleId);
+
+        if (part == null || part.Resources.Count == 0)
+        {
+            logger?.LogError("No resource for {Tag} in resources part " +
+                "{RoleId} at region {Region}", region.Tag, roleId, region);
+            return null;
+        }
+        return part.Resources[^1];
     }
 }

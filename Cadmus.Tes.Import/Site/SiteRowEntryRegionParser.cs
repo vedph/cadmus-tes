@@ -1,5 +1,4 @@
-﻿using Cadmus.Tes.Import.Inscription;
-using Fusi.Tools.Configuration;
+﻿using Fusi.Tools.Configuration;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace Cadmus.Tes.Import.Site;
 /// Initializes a new instance of the <see cref="SiteRowEntryRegionParser"/>
 /// class.
 /// </remarks>
-/// <param name="logger">The logger.</param>
+
 [Tag("entry-region-parser.tes.row-site")]
 public sealed class SiteRowEntryRegionParser :
     RowEntryRegionParser, IEntryRegionParser

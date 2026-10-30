@@ -7,9 +7,11 @@ using Proteus.Entries.Pipeline;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Tes.Cli.Services;
@@ -41,16 +43,41 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
         return map;
     }
 
-    private static ExportedItemIdSet? Load(string path)
+    /// <summary>
+    /// Loads all the item IDs sets (<c>item-ids*.json</c>) found in the
+    /// specified directory. Each set is keyed under its file name without
+    /// extension; the merged set of all of them is keyed under null.
+    /// </summary>
+    private static Dictionary<string, ExportedItemIdSet> LoadItemIdSets(
+        string dir, out ExportedItemIdSet? merged)
     {
-        if (!File.Exists(path)) return null;
+        Dictionary<string, ExportedItemIdSet> sets = [];
+        merged = null;
+        if (!Directory.Exists(dir)) return sets;
 
-        AnsiConsole.MarkupLine(
-            $"Loading exported item IDs set from [cyan]{path}[/]...");
+        List<ExportedItemId> all = [];
+        HashSet<string> ids = [];
+        foreach (string path in Directory.EnumerateFiles(dir, "item-ids*.json")
+            .OrderBy(p => p, StringComparer.OrdinalIgnoreCase))
+        {
+            AnsiConsole.MarkupLine(
+                $"Loading exported item IDs set from [cyan]{path}[/]...");
+            ExportedItemIdSet set = ExportedItemIdSet.Load(path);
+            sets[Path.GetFileNameWithoutExtension(path)] = set;
 
-        return ExportedItemIdSet.Load(
-            Path.Combine(Path.GetDirectoryName(path!)!,
-            "item-ids.json"));
+            foreach (ExportedItemId id in set)
+            {
+                if (ids.Add(id.Id)) all.Add(id);
+                else
+                {
+                    AnsiConsole.MarkupLine(
+                        $"[yellow]Duplicate item ID {id.Id} in {path}[/]");
+                }
+            }
+        }
+
+        if (sets.Count > 0) merged = new ExportedItemIdSet(all);
+        return sets;
     }
 
     public override async Task<int> ExecuteAsync(CommandContext context,
@@ -63,11 +90,10 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
             // load thesaurus map
             ThesaurusEntryMap map = LoadThesaurusMap();
 
-            // load item IDs set if present
-            string itemIdsPath = Path.Combine(
-                Path.GetDirectoryName(settings.PipelinePath!) ?? "",
-                "item-ids.json");
-            ExportedItemIdSet? set = Load(itemIdsPath);
+            // load item IDs sets if present
+            Dictionary<string, ExportedItemIdSet> sets = LoadItemIdSets(
+                Path.GetDirectoryName(Path.GetFullPath(settings.PipelinePath!))
+                    ?? "", out ExportedItemIdSet? set);
 
             // load pipeline config
             AnsiConsole.WriteLine("Building pipeline...");
@@ -115,6 +141,8 @@ internal sealed class ImportCommand : AsyncCommand<ImportCommandSettings>
                         (CadmusEntrySetContext)setReader.Set.Context;
                     c.ThesaurusEntryMap = map;
                     if (set != null) c.Data[ImportHelper.ITEM_IDS_KEY] = set;
+                    foreach (KeyValuePair<string, ExportedItemIdSet> p in sets)
+                        c.Data[ImportHelper.GetItemIdsKey(p.Key)] = p.Value;
 
                     count++;
                     AnsiConsole.Write('.');

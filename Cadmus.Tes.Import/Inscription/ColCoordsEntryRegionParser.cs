@@ -2,22 +2,23 @@
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column categories entry region parser.
+/// TES inscription coordinates entry region parser. This handles the origin
+/// and provenance latitude/longitude pairs, each building a location in the
+/// item's <see cref="AssertedLocationsPart"/>, tagged with <c>origin</c> or
+/// <c>provenance</c>. The origin location is labelled with the ancient name
+/// of the site of origin when available.
+/// <para>Tag: <c>entry-region-parser.tes.col-ins-coords</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-coords")]
-public sealed class ColCoordsEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+[Tag("entry-region-parser.tes.col-ins-coords")]
+public sealed class ColCoordsEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -30,108 +31,93 @@ public sealed class ColCoordsEntryRegionParser :
         "col-provenance_longitude"
     ];
 
-    /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
-    /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    private void AddLocation(CadmusEntrySetContext context, EntryRegion region,
+        string? value, string tag, string label)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        string latKey = tag + "_latitude";
+        bool hasLat = context.Data.TryGetValue(latKey, out object? lat);
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        if (value == null)
         {
-            Logger?.LogError("coords column without any item at region {Region}",
-                region);
-            throw new InvalidOperationException(
-                "coords column without any item at region " + region);
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
-        {
-            AssertedLocationsPart part;
-            double? lat;
-
-            switch (region.Tag)
+            if (hasLat)
             {
-                // keep latitude for later
-                case "col-origin_latitude":
-                    ctx.Data["origin_latitude"] = value;
-                    break;
-
-                // use latitude and longitude to create a location
-                case "col-origin_longitude":
-                    lat = ctx.GetData<double>("origin_latitude");
-                    if (lat == null)
-                    {
-                        Logger?.LogError(
-                            "coords column without origin latitude at region {Region}",
-                            region);
-                    }
-                    else
-                    {
-                        part = ctx.EnsurePartForCurrentItem<AssertedLocationsPart>();
-                        part.Locations.Add(new AssertedLocation
-                        {
-                            Tag = "origin",
-                            Value = new GeoLocation
-                            {
-                                Label = ctx.GetData<string>("place-origin-a") ?? "",
-                                Latitude = lat.Value,
-                                Longitude = double.Parse(value),
-                            }
-                        });
-                    }
-                    break;
-
-                // keep latitude for later
-                case "col-provenance_latitude":
-                    ctx.Data["provenance_latitude"] = value;
-                    break;
-
-                // use latitude and longitude to create a location
-                case "col-provenance_longitude":
-                    lat = ctx.GetData<double>("provenance_latitude");
-                    if (lat == null)
-                    {
-                        Logger?.LogError(
-                            "coords column without provenance latitude at region {Region}",
-                            region);
-
-                    }
-                    else
-                    {
-                        part = ctx.EnsurePartForCurrentItem<AssertedLocationsPart>();
-                        part.Locations.Add(new AssertedLocation
-                        {
-                            Tag = "provenance",
-                            Value = new GeoLocation
-                            {
-                                Label = "provenance",
-                                Latitude = lat.Value,
-                                Longitude = double.Parse(value),
-                            }
-                        });
-                    }
-                    break;
+                Logger?.LogError("Missing {Tag} longitude for latitude " +
+                    "{Latitude} at region {Region}", tag, lat, region);
             }
+            return;
+        }
+        if (!hasLat)
+        {
+            Logger?.LogError("Missing {Tag} latitude for longitude " +
+                "{Longitude} at region {Region}", tag, value, region);
+            return;
+        }
+        if (!ImportHelper.TryParseDecimal(value, out double lng))
+        {
+            Logger?.LogError("Invalid {Tag} longitude \"{Value}\" at region " +
+                "{Region}", tag, value, region);
+            return;
         }
 
-        return Task.FromResult(entryIndex + 3);
+        context.EnsurePartForCurrentItem<AssertedLocationsPart>().Locations.Add(
+            new AssertedLocation
+            {
+                Tag = tag,
+                Value = new GeoLocation
+                {
+                    Label = label,
+                    Latitude = (double)lat!,
+                    Longitude = lng,
+                }
+            });
+    }
+
+    private void StoreLatitude(CadmusEntrySetContext context, EntryRegion region,
+        string? value, string tag)
+    {
+        if (value == null) return;
+
+        if (ImportHelper.TryParseDecimal(value, out double lat))
+        {
+            context.Data[tag + "_latitude"] = lat;
+        }
+        else
+        {
+            Logger?.LogError("Invalid {Tag} latitude \"{Value}\" at region " +
+                "{Region}", tag, value, region);
+        }
+    }
+
+    /// <summary>
+    /// Parses the specified column value.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
+    {
+        switch (region.Tag)
+        {
+            case "col-origin_latitude":
+                if (CheckRequired(region, value))
+                    StoreLatitude(context, region, value, "origin");
+                break;
+
+            case "col-origin_longitude":
+                CheckRequired(region, value);
+                AddLocation(context, region, value, "origin",
+                    context.GetData(ColPlaceLinksEntryRegionParser.ANCIENT_KEY)
+                        as string ?? "origin");
+                break;
+
+            case "col-provenance_latitude":
+                StoreLatitude(context, region, value, "provenance");
+                break;
+
+            case "col-provenance_longitude":
+                AddLocation(context, region, value, "provenance", "provenance");
+                break;
+        }
     }
 }

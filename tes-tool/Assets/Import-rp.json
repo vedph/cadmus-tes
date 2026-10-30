@@ -1,0 +1,142 @@
+{
+  "context": {
+    "id": "it.vedph.entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-productions.xlsx",
+      "hasHeaderRow": true,
+      "columnNameFiltering": true,
+      "eofCheckColumn": 2,
+      "lastSheetIndex": 0
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "type": 2,
+      "name": "row-end"
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "col"
+        ],
+        "tagSuffixArgName": "n",
+        "tagSuffixSeparator": "-"
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.tes.row-resource",
+      "options": {
+        "partRoleId": "site-prod"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-parent-item-id",
+      "options": {
+        "tag": "col-site_id",
+        "itemIdsSet": "item-ids-s"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-data_accuracy",
+        "resourceRoleId": "site-prod",
+        "property": "Tag",
+        "thesaurusId": "site-resource-tags_site-prod@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-activity_type",
+        "resourceRoleId": "site-prod",
+        "property": "Type",
+        "thesaurusId": "site-resource-types_site-prod@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-production_feature_id",
+        "resourceRoleId": "site-prod",
+        "property": "Eid"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-coords",
+      "options": {
+        "resourceRoleId": "site-prod"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-material_focus",
+        "resourceRoleId": "site-prod",
+        "property": "Features",
+        "thesaurusId": "site-resource-features_site-prod@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-evidence_type",
+        "resourceRoleId": "site-prod",
+        "property": "Features",
+        "thesaurusId": "site-resource-features_site-prod@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-periods",
+      "options": {
+        "resourceRoleId": "site-prod"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-evidence_note",
+        "resourceRoleId": "site-prod",
+        "heading": "Evidence Note"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-certainty_note",
+        "resourceRoleId": "site-prod",
+        "heading": "Certainty Note"
+      }
+    }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
+    }
+  ],
+  "entrySetExporters": [
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.mongo",
+      "options": {
+        "isMergeEnabled": true
+      }
+    }
+  ]
+}

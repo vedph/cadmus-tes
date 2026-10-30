@@ -8,7 +8,8 @@
       "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes.xlsx",
       "hasHeaderRow": true,
       "columnNameFiltering": true,
-      "eofCheckColumn": 1
+      "eofCheckColumn": 1,
+      "lastSheetIndex": 0
     }
   },
   "entrySetBoundaryDetector": {
@@ -43,7 +44,14 @@
       "id": "entry-region-parser.tes.row-inscription"
     },
     {
-      "id": "entry-region-parser.tes.col-id"
+      "id": "entry-region-parser.tes.col-metadata",
+      "options": {
+        "tag": "col-id",
+        "name": "eid",
+        "setTitle": true,
+        "isRequired": true,
+        "reuseIdsFrom": "item-ids-i"
+      }
     },
     {
       "id": "entry-region-parser.tes.col-date"
@@ -52,22 +60,48 @@
       "id": "entry-region-parser.tes.col-place-links"
     },
     {
-      "id": "entry-region-parser.tes.col-coords"
+      "id": "entry-region-parser.tes.col-ins-coords"
     },
     {
       "id": "entry-region-parser.tes.col-support"
     },
     {
-      "id": "entry-region-parser.tes.col-type"
+      "id": "entry-region-parser.tes.col-categories",
+      "options": {
+        "tag": "col-type",
+        "thesaurusId": "categories_ins-fn@en",
+        "partRoleId": "ins-fn",
+        "allowMultipleValues": true,
+        "separator": "|"
+      }
     },
     {
       "id": "entry-region-parser.tes.col-technique"
     },
     {
-      "id": "entry-region-parser.tes.col-lng"
+      "id": "entry-region-parser.tes.col-categories",
+      "options": {
+        "tag": "col-language",
+        "thesaurusId": "categories_ins-lng@en",
+        "partRoleId": "ins-lng",
+        "allowMultipleValues": true,
+        "separator": "|",
+        "isRequired": true
+      }
     },
     {
-      "id": "entry-region-parser.tes.col-repository"
+      "id": "entry-region-parser.tes.col-metadata",
+      "options": {
+        "tag": "col-repository_name",
+        "name": "preservation-place"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-metadata",
+      "options": {
+        "tag": "col-inventory_number",
+        "name": "inventory-nr"
+      }
     },
     {
       "id": "entry-region-parser.tes.col-text"
@@ -90,7 +124,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.item-id",
       "options": {
-        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids.json"
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids-i.json"
       }
     }
   ]

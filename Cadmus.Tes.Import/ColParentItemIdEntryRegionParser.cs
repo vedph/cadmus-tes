@@ -1,30 +1,40 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.Core;
+using Cadmus.Import.Proteus;
+using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
 /// <summary>
 /// TES column parent item ID entry region parser. This column contains the EID
-/// of the parent item of the resource item being imported. This EID is
-/// used to fetch the corresponding item ID so that the item being created
-/// for this row has the same ID of the parent item. When exporting items
-/// into database, this will merge parts of the resource item into the parent
-/// item.
+/// of the parent item of the row being imported, which was imported in a
+/// previous pass. This EID is used to fetch the corresponding item ID from the
+/// loaded item IDs set, so that the item being created for this row (and all
+/// its parts) gets the same ID of the parent item. When exporting items into
+/// the database with merging enabled, this will merge the parts of the row
+/// item into the parent item.
+/// <para>As merging replaces parts with the same type and role, when several
+/// rows target the same parent, their <see cref="SiteResourcesPart"/>'s are
+/// accumulated into a single part, so that each row adds its resource to the
+/// resources of the previous rows.</para>
+/// <para>If the parent is not found, an error is logged and the row is
+/// skipped.</para>
+/// <para>Tag: <c>entry-region-parser.tes.col-parent-item-id</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-parent-item-id")]
-public sealed class ColParentItemIdEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser,
-    IConfigurable<ColParentItemIdEntryRegionParserOptions>
+public sealed class ColParentItemIdEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser, IConfigurable<ColParentItemIdEntryRegionParserOptions>
 {
+    // resources parts accumulated across rows, keyed by item ID + role ID
+    private readonly Dictionary<string, SiteResourcesPart> _resParts = [];
     private ColParentItemIdEntryRegionParserOptions? _options;
 
     /// <summary>
@@ -40,81 +50,84 @@ public sealed class ColParentItemIdEntryRegionParser :
     public void Configure(ColParentItemIdEntryRegionParserOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
+        ConfigureBaseOptions(options);
     }
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="entryRegionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Starts the parser.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    public override Task StartAsync()
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        _resParts.Clear();
+        return base.StartAsync();
+    }
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+    private void AccumulateResources(IItem item)
+    {
+        for (int i = 0; i < item.Parts.Count; i++)
         {
-            Logger?.LogError(
-                "{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
-        }
+            if (item.Parts[i] is not SiteResourcesPart part) continue;
 
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        // there must be a value, else it's an error
-        if (string.IsNullOrEmpty(value))
-        {
-            Logger?.LogError(
-                "{Tag} column without any value at region {Region}",
-                region.Tag, region);
-        }
-        else
-        {
-            // get the item IDs set
-            ExportedItemIdSet set = ImportHelper.GetItemIdsSet(ctx);
-
-            // get the parent item ID from EID
-            ExportedItemId? id = set.Get(value);
-            if (id == null)
+            string key = item.Id + "|" + part.RoleId;
+            if (_resParts.TryGetValue(key, out SiteResourcesPart? previous))
             {
-                Logger?.LogError(
-                    "{Tag} column with unknown EID {Eid} at region {Region}",
-                    region.Tag, value, region);
-
+                previous.Resources.AddRange(part.Resources);
+                item.Parts[i] = previous;
             }
             else
             {
-                // set the parent item in the context
-                ctx.CurrentItem.Id = id.Id;
-                ctx.CurrentItem.Title = id.Title;
+                _resParts[key] = part;
             }
         }
+    }
 
-        return Task.FromResult(entryIndex + 3);
+    /// <summary>
+    /// Parses the specified column value.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
+    {
+        // there must be a value, else it's an error
+        if (!CheckRequired(region, value))
+        {
+            ImportHelper.SkipRow(context);
+            return;
+        }
+
+        ExportedItemIdSet? set = ImportHelper.TryGetItemIdsSet(context,
+            _options!.ItemIdsSet);
+        ExportedItemId? id = set != null
+            ? ImportHelper.FindItemId(set, value!, Logger)
+            : null;
+
+        if (id == null)
+        {
+            Logger?.LogError("{Tag} column with unknown EID {Eid} at region " +
+                "{Region}: row skipped", region.Tag, value, region);
+            ImportHelper.SkipRow(context);
+            return;
+        }
+
+        // set the parent item ID and title
+        IItem item = context.CurrentItem!;
+        ImportHelper.SetItemId(item, id.Id);
+        item.Title = id.Title;
+        AccumulateResources(item);
     }
 }
 
 /// <summary>
 /// Options for <see cref="ColParentItemIdEntryRegionParser"/>.
 /// </summary>
-public class ColParentItemIdEntryRegionParserOptions : DisabledOptions
+public class ColParentItemIdEntryRegionParserOptions : ColEntryRegionParserOptions
 {
     /// <summary>
-    /// Gets or sets the tag of the column to be parsed.
+    /// Gets or sets the name of the item IDs set to look up, i.e. the name of
+    /// the file it was loaded from without extension (e.g. <c>item-ids-s</c>).
+    /// When null, the merged set of all the loaded sets is used.
     /// </summary>
-    public string? Tag { get; set; }
+    public string? ItemIdsSet { get; set; }
 }

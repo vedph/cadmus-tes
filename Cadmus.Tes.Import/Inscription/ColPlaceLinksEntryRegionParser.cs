@@ -1,28 +1,40 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
-using Cadmus.General.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// Place column links entry region parser. This targets PinLinksPart.
+/// Place column links entry region parser. This targets the item's
+/// <see cref="PinLinksPart"/> with the ancient and modern names of the site
+/// of origin, and its Pleiades ID. Names are collected, and when the Pleiades
+/// ID column is reached, an external link with the Pleiades ID is added for
+/// each of them, labelled with the name. If there is no Pleiades ID, the
+/// names are preserved as toponym links, whose GID is the name itself.
+/// <para>Tag: <c>entry-region-parser.tes.col-place-links</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-place-links")]
-public sealed class ColPlaceLinksEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed class ColPlaceLinksEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
+    /// <summary>
+    /// The context data key for the ancient name of the site of origin.
+    /// </summary>
+    public const string ANCIENT_KEY = "place-origin-a";
+
+    /// <summary>
+    /// The context data key for the modern name of the site of origin.
+    /// </summary>
+    public const string MODERN_KEY = "place-origin-m";
+
     private const string ORIGIN_ANCIENT_TAG = "col-site_of_origin_(ancient_name)";
     private const string ORIGIN_MODERN_TAG = "col-site_of_origin_(modern_name)";
-    private const string ORIGIN_PLEIADES = "col-pleiades_id";
+    private const string ORIGIN_PLEIADES_TAG = "col-pleiades_id";
 
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -31,70 +43,66 @@ public sealed class ColPlaceLinksEntryRegionParser :
     [
         ORIGIN_ANCIENT_TAG,
         ORIGIN_MODERN_TAG,
-        ORIGIN_PLEIADES,
+        ORIGIN_PLEIADES_TAG,
     ];
 
-    /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="regions" />.
-    /// </summary>
-    /// <param name="set">The entries set.</param>
-    /// <param name="regions">The regions.</param>
-    /// <param name="regionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    private static void AddLink(PinLinksPart part, string scope, string gid,
+        string label)
     {
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        part.Links.Add(new AssertedCompositeId
         {
-            Logger?.LogError("ID column without any item at region {Region}",
-                region);
-            throw new InvalidOperationException(
-                "ID column without any item at region " + region);
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
-        {
-            // if ancient/modern names, store them for later use
-            if (region.Tag == ORIGIN_ANCIENT_TAG)
-                ctx.Data["place-origin-a"] = value;
-            else if (region.Tag == ORIGIN_MODERN_TAG)
-                ctx.Data["place-origin-m"] = value;
-
-            // add link
-            PinLinksPart part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
-            part.Links.Add(new AssertedCompositeId
+            Tag = "origin",
+            Scope = scope,
+            Target = new PinTarget
             {
-                Tag = "origin",
-                Scope = region.Tag == ORIGIN_PLEIADES
-                    ? "pleiades"
-                    : region.Tag == ORIGIN_ANCIENT_TAG?
-                        "toponym-ancient" : "toponym-modern",
-                
-                Target = new PinTarget
-                {
-                    Gid = value,
-                    // for Pleiades ID use the ancient/modern name as label,
-                    // if any
-                    Label = region.Tag == ORIGIN_PLEIADES
-                            ? ctx.GetData<string>("place-origin-a")
-                            ?? ctx.GetData<string>("place-origin-m")
-                            ?? value
-                            : value
-                }
-            });
+                Gid = gid,
+                Label = label
+            }
+        });
+    }
+
+    /// <summary>
+    /// Parses the specified column value.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
+    {
+        switch (region.Tag)
+        {
+            // names: store them for the Pleiades ID column
+            case ORIGIN_ANCIENT_TAG:
+                if (CheckRequired(region, value)) context.Data[ANCIENT_KEY] = value!;
+                return;
+            case ORIGIN_MODERN_TAG:
+                if (CheckRequired(region, value)) context.Data[MODERN_KEY] = value!;
+                return;
         }
 
-        return Task.FromResult(entryIndex + 3);
+        // Pleiades ID: add links
+        string? ancient = context.GetData(ANCIENT_KEY) as string;
+        string? modern = context.GetData(MODERN_KEY) as string;
+        if (value == null && ancient == null && modern == null) return;
+
+        PinLinksPart part = context.EnsurePartForCurrentItem<PinLinksPart>();
+
+        if (value == null)
+        {
+            Logger?.LogWarning("No Pleiades ID for site of origin at region " +
+                "{Region}: names stored as toponyms", region);
+            if (ancient != null) AddLink(part, "toponym-ancient", ancient, ancient);
+            if (modern != null) AddLink(part, "toponym-modern", modern, modern);
+            return;
+        }
+
+        if (ancient == null && modern == null)
+        {
+            AddLink(part, "pleiades", value, value);
+            return;
+        }
+        if (ancient != null) AddLink(part, "pleiades", value, ancient);
+        if (modern != null) AddLink(part, "pleiades", value, modern);
     }
 }

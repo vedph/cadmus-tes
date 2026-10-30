@@ -17,7 +17,7 @@ namespace Cadmus.Tes.Import.Inscription;
 /// Initializes a new instance of the <see cref="InscriptionRowEntryRegionParser"/>
 /// class.
 /// </remarks>
-/// <param name="logger">The logger.</param>
+
 [Tag("entry-region-parser.tes.row-inscription")]
 public sealed class InscriptionRowEntryRegionParser :
     RowEntryRegionParser, IEntryRegionParser

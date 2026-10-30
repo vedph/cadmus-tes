@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 
-namespace Cadmus.Tes.Import.Inscription;
+namespace Cadmus.Tes.Import;
 
 /// <summary>
 /// Represents an abstract parser for entry regions tagged "row" that
@@ -32,7 +32,7 @@ public abstract class RowEntryRegionParser : EntryRegionParser
     /// <summary>
     /// The target item facet ID. Set once by implementors.
     /// </summary>
-    protected string FacetId { get; init; }= "";
+    protected string FacetId { get; set; } = "";
 
     public override async Task RegionChangedAsync(string tag, int index,
         bool entered, IEntrySetContext context)

@@ -1,0 +1,131 @@
+{
+  "context": {
+    "id": "it.vedph.entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-markers.xlsx",
+      "hasHeaderRow": true,
+      "columnNameFiltering": true,
+      "eofCheckColumn": 2,
+      "lastSheetIndex": 0
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "type": 2,
+      "name": "row-end"
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "col"
+        ],
+        "tagSuffixArgName": "n",
+        "tagSuffixSeparator": "-"
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.tes.row-resource",
+      "options": {
+        "partRoleId": "site-mark",
+        "resourceType": "funerary-evidence"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-parent-item-id",
+      "options": {
+        "tag": "col-site_id",
+        "itemIdsSet": "item-ids-s"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-data_accuracy",
+        "resourceRoleId": "site-mark",
+        "property": "Tag",
+        "thesaurusId": "site-resource-tags_site-mark@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-marker_feature_id",
+        "resourceRoleId": "site-mark",
+        "property": "Eid"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-coords",
+      "options": {
+        "resourceRoleId": "site-mark"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-flags",
+      "options": {
+        "thesaurusId": "site-resource-features_site-mark@en",
+        "resourceRoleId": "site-mark",
+        "flags": {
+          "col-differentiated_tomb_types": "differentiated-tomb-types",
+          "col-distinctive_funerary_habit": "distinctive-funerary-habit",
+          "col-distinctive_funerary_assemblage": "distinctive-funerary-assemblage",
+          "col-exotic_good": "exotic-good",
+          "col-jewelry": "jewelry",
+          "col-metal_objects": "metal-objects"
+        }
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-periods",
+      "options": {
+        "resourceRoleId": "site-mark"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-evidence_note",
+        "resourceRoleId": "site-mark",
+        "heading": "Evidence Note"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-certainty_note",
+        "resourceRoleId": "site-mark",
+        "heading": "Certainty Note"
+      }
+    }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
+    }
+  ],
+  "entrySetExporters": [
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.mongo",
+      "options": {
+        "isMergeEnabled": true
+      }
+    }
+  ]
+}

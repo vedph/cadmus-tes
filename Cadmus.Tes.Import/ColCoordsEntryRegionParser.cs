@@ -1,27 +1,37 @@
 ﻿using Cadmus.Geo.Parts;
 using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
+using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
+using Proteus.Core;
 using Proteus.Core.Regions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import;
 
 /// <summary>
-/// TES column categories entry region parser. This targets ycoord, xcoord,
-/// coord_certainty.
+/// TES coordinates entry region parser. This targets <c>ycoord</c>,
+/// <c>xcoord</c> and <c>coord_certainty</c> (in this order), building a
+/// location labelled with the item's title, which is added to the item's
+/// <see cref="AssertedLocationsPart"/>; or, when
+/// <see cref="ColCoordsEntryRegionParserOptions.ResourceRoleId"/> is set, is
+/// assigned to the current resource in the <see cref="SiteResourcesPart"/>
+/// with that role (labelled with the resource EID if any, else with the
+/// item's title). The certainty becomes the location's assertion rank.
+/// <para>Tag: <c>entry-region-parser.tes.col-coords</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-coords")]
-public sealed class ColCoordsEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed class ColCoordsEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser, IConfigurable<ColCoordsEntryRegionParserOptions>
 {
+    private const string Y_KEY = "ycoord";
+    private const string LOCATION_KEY = "coords-location";
+
+    private ColCoordsEntryRegionParserOptions _options = new();
+
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
@@ -31,96 +41,138 @@ public sealed class ColCoordsEntryRegionParser :
     ];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Configures this parser.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="options">The options.</param>
+    /// <exception cref="ArgumentNullException">Null options.</exception>
+    public void Configure(ColCoordsEntryRegionParserOptions options)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
-
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
-        {
-            Logger?.LogError(
-                "{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                region.Tag + " column without any item at region " + region);
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
-        {
-            switch (region.Tag)
-            {
-                // store y for later (y comes first)
-                case "col-ycoord":
-                    ctx.Data["ycoord"] = value;
-                    break;
-
-                // create the location from y + x (get label from item's title)
-                case "col-xcoord":
-                    // if y is missing it's an error
-                    if (!ctx.Data.TryGetValue("ycoord", out object? y) ||
-                        y is not string)
-                    {
-                        Logger?.LogError(
-                            "Missing y coordinate for x coordinate " +
-                            "{XCoord} at region {Region}",
-                            value, region);
-                    }
-                    else
-                    {
-                        AssertedLocationsPart part =
-                            ctx.EnsurePartForCurrentItem<AssertedLocationsPart>();
-                        part.Locations.Add(new AssertedLocation
-                        {
-                            Value = new GeoLocation
-                            {
-                                Latitude = double.Parse((string)y),
-                                Longitude = double.Parse(value),
-                                Label = ctx.CurrentItem.Title
-                            }
-                        });
-                    }
-                    break;
-
-                // add rank to existing location part (error if not found)
-                case "col-coord_certainty":
-                    AssertedLocationsPart? existingPart = ctx.CurrentItem.Parts
-                        .OfType<AssertedLocationsPart>().FirstOrDefault();
-                    if (existingPart == null)
-                    {
-                        Logger?.LogError(
-                            "Missing location part for coordinate certainty " +
-                            "{Certainty} at region {Region}",
-                            value, region);
-                    }
-                    else
-                    {
-                        existingPart.Locations.Last().Assertion = new Assertion
-                        {
-                            Rank = ImportHelper.LabelToRank(value, Logger)
-                        };
-                    }
-                    break;
-            }
-        }
-
-        return Task.FromResult(entryIndex + 3);
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+        ConfigureBaseOptions(options);
     }
+
+    private void AddLocation(CadmusEntrySetContext context, EntryRegion region,
+        double latitude, double longitude)
+    {
+        AssertedLocation location;
+
+        if (_options.ResourceRoleId != null)
+        {
+            SiteResource? resource = ImportHelper.GetCurrentResource(context,
+                _options.ResourceRoleId, region, Logger);
+            if (resource == null) return;
+
+            location = new AssertedLocation
+            {
+                Value = new GeoLocation
+                {
+                    Label = resource.Eid ?? context.CurrentItem!.Title,
+                    Latitude = latitude,
+                    Longitude = longitude
+                }
+            };
+            resource.Location = location;
+        }
+        else
+        {
+            location = new AssertedLocation
+            {
+                Value = new GeoLocation
+                {
+                    Label = context.CurrentItem!.Title,
+                    Latitude = latitude,
+                    Longitude = longitude
+                }
+            };
+            context.EnsurePartForCurrentItem<AssertedLocationsPart>()
+                .Locations.Add(location);
+        }
+
+        // keep the location created for this row for its certainty
+        context.Data[LOCATION_KEY] = location;
+    }
+
+    /// <summary>
+    /// Parses the specified column value.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
+    {
+        switch (region.Tag)
+        {
+            // store y for later (y comes first)
+            case "col-ycoord":
+                if (value == null) break;
+                if (ImportHelper.TryParseDecimal(value, out double y))
+                {
+                    context.Data[Y_KEY] = y;
+                }
+                else
+                {
+                    Logger?.LogError("Invalid y coordinate \"{Value}\" " +
+                        "at region {Region}", value, region);
+                }
+                break;
+
+            // create the location from y + x
+            case "col-xcoord":
+                bool hasY = context.Data.TryGetValue(Y_KEY, out object? yv);
+                if (value == null)
+                {
+                    if (hasY)
+                    {
+                        Logger?.LogError("Missing x coordinate for y " +
+                            "coordinate {YCoord} at region {Region}", yv, region);
+                    }
+                    break;
+                }
+                if (!hasY)
+                {
+                    Logger?.LogError("Missing y coordinate for x coordinate " +
+                        "{XCoord} at region {Region}", value, region);
+                    break;
+                }
+                if (!ImportHelper.TryParseDecimal(value, out double x))
+                {
+                    Logger?.LogError("Invalid x coordinate \"{Value}\" " +
+                        "at region {Region}", value, region);
+                    break;
+                }
+                AddLocation(context, region, (double)yv!, x);
+                break;
+
+            // add rank to the location created for this row
+            case "col-coord_certainty":
+                if (value == null) break;
+                if (context.Data.TryGetValue(LOCATION_KEY, out object? loc) &&
+                    loc is AssertedLocation location)
+                {
+                    ImportHelper.SetRank(location,
+                        ImportHelper.LabelToRank(value, Logger));
+                }
+                else
+                {
+                    Logger?.LogWarning("Coordinate certainty \"{Certainty}\" " +
+                        "without coordinates at region {Region}",
+                        value, region);
+                }
+                break;
+        }
+    }
+}
+
+/// <summary>
+/// Options for <see cref="ColCoordsEntryRegionParser"/>.
+/// </summary>
+public class ColCoordsEntryRegionParserOptions : DisabledOptions
+{
+    /// <summary>
+    /// Gets or sets the role ID of the <see cref="SiteResourcesPart"/> whose
+    /// current resource location is the target. When set, this replaces the
+    /// locations part target.
+    /// </summary>
+    public string? ResourceRoleId { get; set; }
 }

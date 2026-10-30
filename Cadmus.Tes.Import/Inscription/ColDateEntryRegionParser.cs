@@ -3,99 +3,79 @@ using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column date entry region parser.
+/// TES column date entry region parser. This handles the not-before and
+/// not-after columns (in this order), each having a year (negative if BC),
+/// building a date added to the item's <see cref="AssertedHistoricalDatesPart"/>:
+/// a single point when the years are equal, else a range.
+/// <para>Tag: <c>entry-region-parser.tes.col-date</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-date")]
-public sealed class ColDateEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed partial class ColDateEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
+    private const string A_KEY = "col-date-a";
+    private const string A_TAG = "col-date_notbefore";
+
+    [GeneratedRegex(@"-(\d+)")]
+    private static partial Regex BcRegex();
+
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
     /// </summary>
-    public string[] RegionTags => ["col-date_notbefore", "col-date_notafter"];
+    public string[] RegionTags => [A_TAG, "col-date_notafter"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Parses the specified column value.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        CheckRequired(region, value);
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        // not before: store it for later
+        if (region.Tag == A_TAG)
         {
-            Logger?.LogError("col-date-a column without any item at region {Region}",
-                region);
-            throw new InvalidOperationException(
-                "col-date-a column without any item at region " + region);
+            if (value != null) context.Data[A_KEY] = value;
+            return;
         }
 
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
+        // not after: add date if there is any term (A or B)
+        string? a = context.GetData(A_KEY) as string;
+        if (a == null && value == null) return;
 
-        if (!string.IsNullOrEmpty(value))
+        string text;
+        // if A = B then this is a single date
+        if (a == value) text = a!;
+        // if there is B only it's --> B
+        else if (a == null) text = $"-- {value}";
+        // if there is A only it's A -->
+        else if (value == null) text = $"{a} -- ";
+        // if there are both A and B it's A --> B
+        else text = $"{a} -- {value}";
+
+        // replace negative number with number plus BC
+        text = BcRegex().Replace(text, "$1 BC");
+
+        // parse the date and add it to the part
+        AssertedHistoricalDate? date = AssertedHistoricalDate.Parse(text);
+        if (date is null)
         {
-            if (region.Tag == "col-date_notbefore")
-                ctx.Data["col-date-a"] = value;
-            else
-            { 
-                // add date if there is any term (A or B)
-                string? a = ctx.GetData<string>("col-date-a");
-                if (a != null || !string.IsNullOrEmpty(value))
-                {
-                    string text;
-                    // if A = B then this is a single date
-                    if (a == value)
-                    {
-                        text = a!;
-                    }
-                    else
-                    {
-                        // if there is B only it's --> B
-                        if (string.IsNullOrEmpty(a)) text = $"-- {value}";
-                        // if there is A only it's A -->
-                        else if (string.IsNullOrEmpty(value)) text = $"{a} -- ";
-                        // if there are both A and B it's A --> B
-                        else text = $"{a} -- {value}";
-                    }
-
-                    // replace negative number with number plus BC
-                    text = Regex.Replace(text, @"-(\d+)", "$1 BC");
-
-                    // parse the date and add it to the part
-                    AssertedHistoricalDate date = AssertedHistoricalDate.Parse(text)!;
-                    AssertedHistoricalDatesPart part =
-                        ctx.EnsurePartForCurrentItem<AssertedHistoricalDatesPart>();
-                    part.Dates.Add(date);
-                }
-            }
+            Logger?.LogError("Invalid date \"{Date}\" at region {Region}",
+                text, region);
+            return;
         }
-
-        return Task.FromResult(entryIndex + 3);
+        context.EnsurePartForCurrentItem<AssertedHistoricalDatesPart>()
+            .Dates.Add(date);
     }
 }

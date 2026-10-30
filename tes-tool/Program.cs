@@ -35,6 +35,24 @@ public static class Program
 #endif
 
     /// <summary>
+    /// Shows the console cursor, if there is a console to show it in: this
+    /// throws when the output is redirected (e.g. to a file or a pipe), or
+    /// there is no console at all.
+    /// </summary>
+    private static void ShowCursor()
+    {
+        if (Console.IsOutputRedirected) return;
+        try
+        {
+            Console.CursorVisible = true;
+        }
+        catch (IOException ex)
+        {
+            Debug.WriteLine(ex.ToString());
+        }
+    }
+
+    /// <summary>
     /// Entry point.
     /// </summary>
     /// <param name="args">The arguments.</param>
@@ -80,7 +98,7 @@ public static class Program
             int result = await app.RunAsync(args);
 
             Console.ResetColor();
-            Console.CursorVisible = true;
+            ShowCursor();
             Console.WriteLine();
             Console.WriteLine();
 
@@ -95,7 +113,7 @@ public static class Program
         catch (Exception ex)
         {
             Debug.WriteLine(ex.ToString());
-            Console.CursorVisible = true;
+            ShowCursor();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(ex.ToString());
             Console.ResetColor();

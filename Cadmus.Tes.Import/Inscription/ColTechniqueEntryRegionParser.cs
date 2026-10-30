@@ -1,23 +1,20 @@
 ﻿using Cadmus.Epigraphy.Parts;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
-using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column execution type 1 and 2 entry region parser.
+/// TES column execution type 1 and 2 entry region parser. This targets
+/// the item's <see cref="EpiTechniquePart"/>.
+/// <para>Tag: <c>entry-region-parser.tes.col-technique</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-technique")]
-public sealed class ColTechniqueEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed class ColTechniqueEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -25,54 +22,20 @@ public sealed class ColTechniqueEntryRegionParser :
     public string[] RegionTags => ["col-execution_type_1", "col-execution_type_2"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Parses the specified column value.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        if (value == null) return;
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
+        string id = ImportHelper.GetThesaurusEntryId(context, region,
+            "epi-technique-types@en", value, Logger);
 
-        if (ctx.CurrentItem == null)
-        {
-            Logger?.LogError("{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                $"{region.Tag} column without any item at region {region}");
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
-        {
-            string id = ImportHelper.GetThesaurusEntryId(ctx, region,
-                "epi-technique-types@en", value, Logger);
-            if (id == null)
-            {
-                Logger?.LogError("Unknown execution type label for {Tag}: " +
-                    "\"{Label}\" at region {Region}", region.Tag, value, region);
-            }
-            else
-            {
-                EpiTechniquePart part =
-                    ctx.EnsurePartForCurrentItem<EpiTechniquePart>();
-                part.Techniques.Add(id);
-            }
-        }
-
-        return Task.FromResult(entryIndex + 3);
+        EpiTechniquePart part = context.EnsurePartForCurrentItem<EpiTechniquePart>();
+        if (!part.Techniques.Contains(id)) part.Techniques.Add(id);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cadmus.Import.Proteus;
-using Cadmus.Tes.Import.Inscription;
 using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
 using Proteus.Core;
@@ -12,24 +11,26 @@ namespace Cadmus.Tes.Import.Resource;
 
 /// <summary>
 /// TES row entry region parser for site resources. This resets the context and
-/// adds a new item to it, with a <see cref="SiteResourcesPart"/>. This is used
-/// for all resources in the site, each time with a specific part role ID.
-/// <para>Tag: <c>entry-region-parser.tes.row-site</c>.</para>
+/// adds a new item to it, with a <see cref="SiteResourcesPart"/> having
+/// the configured role ID and a new resource for the row. Column parsers then
+/// fill this resource. This is used for all resources in the site, each time
+/// with a specific part role ID. The item will then get the ID of its parent
+/// site (see <see cref="ColParentItemIdEntryRegionParser"/>).
+/// <para>Tag: <c>entry-region-parser.tes.row-resource</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="RowEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-/// <remarks>
-/// Initializes a new instance of the <see cref="ResourceRowEntryRegionParser"/>
-/// class.
-/// </remarks>
-/// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.tes.row-resource")]
 public sealed class ResourceRowEntryRegionParser :
     RowEntryRegionParser, IEntryRegionParser,
     IConfigurable<ResourceRowEntryRegionParserOptions>
 {
-    private string? _partRoleId = null;
+    private ResourceRowEntryRegionParserOptions _options = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ResourceRowEntryRegionParser"/>
+    /// class.
+    /// </summary>
     public ResourceRowEntryRegionParser()
     {
         FacetId = "resource";
@@ -43,9 +44,8 @@ public sealed class ResourceRowEntryRegionParser :
     /// <exception cref="ArgumentNullException">Null options</exception>
     public void Configure(ResourceRowEntryRegionParserOptions options)
     {
-        ArgumentNullException.ThrowIfNull(options);
-
-        _partRoleId = options.PartRoleId;
+        _options = options ?? throw new ArgumentNullException(nameof(options));
+        ConfigureBaseOptions(options);
     }
 
     /// <summary>
@@ -53,6 +53,7 @@ public sealed class ResourceRowEntryRegionParser :
     /// in the specified <paramref name="entryRegions" />.
     /// </summary>
     /// <param name="entrySet">The entries set.</param>
+    /// <param name="entryIndex">The index of the first entry to parse.</param>
     /// <param name="entryRegions">The regions.</param>
     /// <param name="entryRegionIndex">Index of the region in the set.</param>
     /// <returns>
@@ -64,14 +65,22 @@ public sealed class ResourceRowEntryRegionParser :
         int entryRegionIndex)
     {
         // create the new item and set it as current
-        int row = ParseRow(entrySet, entryIndex, entryRegions,
+        int next = ParseRow(entrySet, entryIndex, entryRegions,
             entryRegionIndex);
 
-        // add the resources part with the configured role ID to the item
+        // if a new item was created for the row, add the resources part with
+        // the configured role ID to it, with a new resource for this row
         CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        ctx.EnsurePartForCurrentItem<SiteResourcesPart>(_partRoleId);
+        if (next > entryIndex && ctx.CurrentItem != null)
+        {
+            ctx.EnsurePartForCurrentItem<SiteResourcesPart>(_options.PartRoleId)
+                .Resources.Add(new SiteResource
+                {
+                    Type = _options.ResourceType ?? ""
+                });
+        }
 
-        return Task.FromResult(row);
+        return Task.FromResult(next);
     }
 }
 
@@ -84,4 +93,11 @@ public class ResourceRowEntryRegionParserOptions : DisabledOptions
     /// Gets or sets the optional ID of the part role.
     /// </summary>
     public string? PartRoleId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the optional default type ID of each resource. This is
+    /// used when all the resources have the same type (e.g.
+    /// <c>funerary-evidence</c> for markers), so that there is no type column.
+    /// </summary>
+    public string? ResourceType { get; set; }
 }

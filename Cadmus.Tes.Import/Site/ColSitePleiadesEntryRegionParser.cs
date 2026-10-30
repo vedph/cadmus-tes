@@ -1,27 +1,28 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.General.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
+using Cadmus.Refs.Bricks;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using Cadmus.Refs.Bricks;
 
 namespace Cadmus.Tes.Import.Site;
 
 /// <summary>
-/// TES column site Pleiades entry region parser.
+/// TES column site Pleiades entry region parser. When the value has digits
+/// only, it is a Pleiades ID, added as an external link to the item's
+/// <see cref="PinLinksPart"/>; else it is preserved as a
+/// <c>pleiades_label</c> metadatum, and a warning is logged.
+/// <para>Tag: <c>entry-region-parser.tes.col-site-pleiades</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-site-pleiades")]
-public sealed class ColSitePleiadesEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed partial class ColSitePleiadesEntryRegionParser :
+    ColEntryRegionParser, IEntryRegionParser
 {
-    private readonly Regex _digitsRegex = new(@"^\d+$", RegexOptions.Compiled);
+    [GeneratedRegex(@"^\d+$")]
+    private static partial Regex DigitsRegex();
 
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -29,69 +30,41 @@ public sealed class ColSitePleiadesEntryRegionParser :
     public string[] RegionTags => ["col-pleiades_ref"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Parses the specified column value.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The filtered value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        if (value == null) return;
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        if (DigitsRegex().IsMatch(value))
         {
-            Logger?.LogError(
-                "{Tag} column without any item at region {Region}",
-                region.Tag, region);
-            throw new InvalidOperationException(
-                "__TAG__ column without any item at region " + region);
+            PinLinksPart part = context.EnsurePartForCurrentItem<PinLinksPart>();
+            part.Links.Add(new AssertedCompositeId
+            {
+                Scope = "pleiades",
+                Target = new PinTarget
+                {
+                    Gid = value,
+                    Label = context.CurrentItem!.Title
+                }
+            });
         }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = ImportHelper.FilterValue(txt.Value, false);
-
-        if (!string.IsNullOrEmpty(value))
+        else
         {
-            // if value contains digits only, it's a Pleiades ID to be stored
-            // in external links (PinLinksPart); else it's a label to be
-            // temporarily stored in MetadataPart (warn)
-            if (_digitsRegex.IsMatch(value))
+            MetadataPart part = context.EnsurePartForCurrentItem<MetadataPart>();
+            part.Metadata.Add(new Metadatum
             {
-                PinLinksPart? part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
-                part.Links.Add(new AssertedCompositeId
-                {
-                    Scope = "pleiades",
-                    Target = new PinTarget
-                    {
-                        Gid = value
-                    }
-                });
-            }
-            else
-            {
-                MetadataPart? part = ctx.EnsurePartForCurrentItem<MetadataPart>();
-                part.Metadata.Add(new Metadatum
-                {
-                    Name = "pleiades_label",
-                    Value = value
-                });
-                Logger?.LogWarning(
-                    "{Tag} column with non-numeric value {Value} at region {Region}",
-                    region.Tag, value, region);
-            }
+                Type = "string",
+                Name = "pleiades_label",
+                Value = value
+            });
+            Logger?.LogWarning("Missing Pleiades identifier: {Tag} column " +
+                "with non-numeric value \"{Value}\" at region {Region}",
+                region.Tag, value, region);
         }
-
-        return Task.FromResult(entryIndex + 3);
     }
 }

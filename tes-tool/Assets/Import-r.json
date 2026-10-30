@@ -1,0 +1,133 @@
+{
+  "context": {
+    "id": "it.vedph.entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-resources.xlsx",
+      "hasHeaderRow": true,
+      "columnNameFiltering": true,
+      "eofCheckColumn": 2,
+      "lastSheetIndex": 0
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "type": 2,
+      "name": "row-end"
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "col"
+        ],
+        "tagSuffixArgName": "n",
+        "tagSuffixSeparator": "-"
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.tes.row-resource",
+      "options": {
+        "partRoleId": "site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-parent-item-id",
+      "options": {
+        "tag": "col-site_id",
+        "itemIdsSet": "item-ids-s"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-data_accuracy",
+        "resourceRoleId": "site-res",
+        "property": "Tag",
+        "thesaurusId": "site-resource-tags_site-res@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-resource_type",
+        "resourceRoleId": "site-res",
+        "property": "Type",
+        "thesaurusId": "site-resource-types_site-res@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-resource_feature_id",
+        "resourceRoleId": "site-res",
+        "property": "Eid"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-coords",
+      "options": {
+        "resourceRoleId": "site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-res-property",
+      "options": {
+        "tag": "col-exploitation_evidence",
+        "resourceRoleId": "site-res",
+        "property": "Features",
+        "thesaurusId": "site-resource-features_site-res@en"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-periods",
+      "options": {
+        "resourceRoleId": "site-res"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-evidence_note",
+        "resourceRoleId": "site-res",
+        "heading": "Evidence Note"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-certainty_note",
+        "resourceRoleId": "site-res",
+        "heading": "Certainty Note"
+      }
+    }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
+    }
+  ],
+  "entrySetExporters": [
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.mongo",
+      "options": {
+        "isMergeEnabled": true
+      }
+    }
+  ]
+}

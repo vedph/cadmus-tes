@@ -1,23 +1,20 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.General.Parts;
+﻿using Cadmus.General.Parts;
+using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
-using Microsoft.Extensions.Logging;
-using Proteus.Core.Entries;
 using Proteus.Core.Regions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Inscription;
 
 /// <summary>
-/// TES column text entry region parser.
+/// TES column text entry region parser. This adds each line of the cell's
+/// text to the item's <see cref="TokenTextPart"/>.
+/// <para>Tag: <c>entry-region-parser.tes.col-text</c>.</para>
 /// </summary>
-/// <seealso cref="EntryRegionParser" />
+/// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
 [Tag("entry-region-parser.tes.col-text")]
-public sealed class ColTextEntryRegionParser :
-    EntryRegionParser, IEntryRegionParser
+public sealed class ColTextEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser
 {
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -25,52 +22,33 @@ public sealed class ColTextEntryRegionParser :
     public string[] RegionTags => ["col-edition_(interpretive)"];
 
     /// <summary>
-    /// Parses the region of entries at <paramref name="regionIndex" />
-    /// in the specified <paramref name="entryRegions" />.
+    /// Gets a value indicating whether the value passed to
+    /// <see cref="ParseValue" /> must be just trimmed, rather than filtered.
+    /// This preserves its line breaks and inner whitespaces.
     /// </summary>
-    /// <param name="entrySet">The entries set.</param>
-    /// <param name="entryRegions">The regions.</param>
-    /// <param name="entryRegionIndex">Index of the region in the set.</param>
-    /// <returns>
-    /// The index to the next region to be parsed.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">set or regions</exception>
-    protected override Task<int> DoParseAsync(EntrySet entrySet, int entryIndex,
-        IReadOnlyList<EntryRegion> entryRegions, int entryRegionIndex)
+    protected override bool RawValue => true;
+
+    /// <summary>
+    /// Parses the specified column value.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    /// <param name="region">The column region.</param>
+    /// <param name="value">The value, or null if empty.</param>
+    protected override void ParseValue(CadmusEntrySetContext context,
+        EntryRegion region, string? value)
     {
-        ArgumentNullException.ThrowIfNull(entrySet);
-        ArgumentNullException.ThrowIfNull(entryRegions);
+        if (value == null) return;
 
-        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
-        EntryRegion region = entryRegions[entryRegionIndex];
-
-        if (ctx.CurrentItem == null)
+        TokenTextPart part = context.EnsurePartForCurrentItem<TokenTextPart>(
+            "base-text");
+        short y = 1;
+        foreach (string line in value.Replace("\r\n", "\n").Split('\n'))
         {
-            Logger?.LogError("Text column without any item at region {Region}",
-                region);
-            throw new InvalidOperationException(
-                "Text column without any item at region " + region);
-        }
-
-        DecodedTextEntry txt = entrySet.GetEntryAt<DecodedTextEntry>(
-            entryIndex + 1)!;
-        string? value = txt.Value;
-
-        if (!string.IsNullOrWhiteSpace(value))
-        {
-            TokenTextPart part = ctx.EnsurePartForCurrentItem<TokenTextPart>(
-                "base-text");
-            short n = 1;
-            foreach (string line in value.Trim().Split(['\r', '\n']))
+            part.Lines.Add(new TextLine
             {
-                part.Lines.Add(new TextLine
-                {
-                    Y = n++,
-                    Text = line,
-                });
-            }
+                Y = y++,
+                Text = line.Trim(),
+            });
         }
-
-        return Task.FromResult(entryIndex + 3);
     }
 }

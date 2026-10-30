@@ -24,10 +24,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="ColCertaintyEnrtyRegionParser.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Cadmus.Epigraphy.Parts" />
 		<PackageReference Include="Cadmus.General.Parts" />
 		<PackageReference Include="Cadmus.Geo.Parts" />

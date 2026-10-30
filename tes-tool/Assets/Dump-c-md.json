@@ -1,0 +1,186 @@
+{
+  "context": {
+    "id": "it.vedph.entry-set-context.cadmus"
+  },
+  "entryReader": {
+    "id": "entry-reader.xlsx",
+    "options": {
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-cults.xlsx",
+      "hasHeaderRow": true,
+      "columnNameFiltering": true,
+      "eofCheckColumn": 7,
+      "lastSheetIndex": 0
+    }
+  },
+  "entrySetBoundaryDetector": {
+    "id": "entry-set-detector.cmd",
+    "options": {
+      "type": 2,
+      "name": "row-end"
+    }
+  },
+  "entryRegionDetectors": [
+    {
+      "id": "region-detector.explicit",
+      "options": {
+        "unpairedCommandNames": [
+          "sheet",
+          "row",
+          "col"
+        ],
+        "tagSuffixArgName": "n",
+        "tagSuffixSeparator": "-"
+      }
+    },
+    {
+      "id": "region-detector.unmapped",
+      "options": {
+        "unmappedRegionTag": "x"
+      }
+    }
+  ],
+  "entryRegionParsers": [
+    {
+      "id": "entry-region-parser.tes.row-item",
+      "options": {
+        "facetId": "cult"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-internal-link",
+      "options": {
+        "tag": "col-site_id",
+        "itemIdsSet": "item-ids-s",
+        "scope": "site"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-categories",
+      "options": {
+        "tag": "col-data_accuracy",
+        "thesaurusId": "categories_evidence@en",
+        "partRoleId": "evidence"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-categories",
+      "options": {
+        "tag": "col-cult_element_type",
+        "thesaurusId": "categories_cult-type@en",
+        "partRoleId": "cult-type"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-metadata",
+      "options": {
+        "tag": "col-cult_element_id",
+        "name": "eid",
+        "setTitle": true,
+        "isRequired": true,
+        "reuseIdsFrom": "item-ids-c"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-coords"
+    },
+    {
+      "id": "entry-region-parser.tes.col-internal-link",
+      "options": {
+        "tag": "col-related_cult_element_id",
+        "itemIdsSet": "item-ids-c",
+        "scope": "cult"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-link-attr",
+      "options": {
+        "tag": "col-relation_type",
+        "scope": "cult",
+        "attribute": "Note"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-link-attr",
+      "options": {
+        "tag": "col-relation_certainty",
+        "scope": "cult",
+        "attribute": "Rank"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-taxo-link",
+      "options": {
+        "tag": "col-divinity",
+        "treeId": "gods",
+        "taxonomyDir": "Assets\\taxo"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-link-attr",
+      "options": {
+        "tag": "col-divinity_certainty",
+        "scope": "gods",
+        "attribute": "Rank"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-flags",
+      "options": {
+        "thesaurusId": "categories_cult-feats@en",
+        "partRoleId": "cult-feats",
+        "flags": {
+          "col-animal_sacrifices": "animal-sacrifices",
+          "col-food_consumption": "food-consumption",
+          "col-beverage_consumption": "beverage-consumption",
+          "col-architectural_models": "architectural-models",
+          "col-statuettes": "statuettes",
+          "col-lamps": "lamps",
+          "col-weapons": "weapons",
+          "col-epigraphical_evidence": "epigraphical-evidence"
+        }
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-periods",
+      "options": {
+        "target": "Comment",
+        "heading": "Chronology"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-evidence_note",
+        "partRoleId": "evidence"
+      }
+    },
+    {
+      "id": "entry-region-parser.tes.col-note",
+      "options": {
+        "tag": "col-certainty_note",
+        "partRoleId": "certainty"
+      }
+    }
+  ],
+  "entrySetContextPatchers": [
+    {
+      "id": "it.vedph.entry-set-context-patcher.cadmus"
+    }
+  ],
+  "entrySetExporters": [
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
+      "options": {
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
+        "noEntries": true,
+        "jsonParts": true
+      }
+    },
+    {
+      "id": "it.vedph.entry-set-exporter.cadmus.item-id",
+      "options": {
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids-c.json"
+      }
+    }
+  ]
+}
