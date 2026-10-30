@@ -245,6 +245,22 @@ public static partial class ImportHelper
     }
 
     /// <summary>
+    /// Gets the exported item ID set from the context data.
+    /// </summary>
+    /// <param name="context">The entry set context containing the data collection.</param>
+    /// <returns>The exported item ID set stored in the context data.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when the context data
+    /// does not contain an exported item ID set at the expected key.</exception>
+    public static ExportedItemIdSet GetItemIdsSet(CadmusEntrySetContext context)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+        ExportedItemIdSet? set = context.Data[ITEM_IDS_KEY] as ExportedItemIdSet
+            ?? throw new InvalidOperationException(
+                "No item IDs set found in the data context");
+        return set;
+    }
+
+    /// <summary>
     /// Add an internal link to the specified <see cref="PinLinksPart"/>.
     /// </summary>
     /// <param name="part">The <see cref="PinLinksPart"/> to add the link to.

@@ -232,7 +232,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 (45) **AS** (`cadmus_mapping`): ❌
 
-> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each of these additional parts will link to the parent site via an internal link in a `PinLinksPart` part, as illustrated above. All data required to build this link are provided in `ExportedItemIdSet`.
+> The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each of these additional parts will link to the parent site via an internal link in a `PinLinksPart` part, as illustrated above. All data required to build this link are provided in `ExportedItemIdSet`. Important: ensure that for those files you configure the MongoDB exporter in pipeline to enable merging (`IsMergeEnabled`=`true`) so that the site item is not overwritten by the import of its parts.
 
 #### 🟢 Site Resources
 

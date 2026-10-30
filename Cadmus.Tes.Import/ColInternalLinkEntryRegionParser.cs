@@ -83,10 +83,7 @@ public sealed class ColInternalLinkEntryRegionParser :
         else
         {
             // get the item IDs set
-            ExportedItemIdSet set = ctx.Data[ImportHelper.ITEM_IDS_KEY]
-                as ExportedItemIdSet ??
-                throw new InvalidOperationException(
-                    $"{region.Tag} column without any item IDs set at region {region}");
+            ExportedItemIdSet set = ImportHelper.GetItemIdsSet(ctx);
 
             // add link to the item
             PinLinksPart part = ctx.EnsurePartForCurrentItem<PinLinksPart>();
