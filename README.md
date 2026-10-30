@@ -234,7 +234,7 @@ Columns 11-17 are booleans targeting 📚 `categories_site-feats@en` for ▶️ 
 
 > The `site` item has additional parts specified in separate Excel spreadsheets. Each of them is listed below. It is assumed that import happens sequentially: first sites, where also the item IDs are exported during import into a file (via `ItemIdEntrySetExporter`); then site's parts, leveraging the item IDs loaded from this file into an `ExportedItemIdSet` instance which is stored in the conversion pipeline context `Data` dictionary, so that it is available to all column parsers. Each of these additional parts will link to the parent site via an internal link in a `PinLinksPart` part, as illustrated above. All data required to build this link are provided in `ExportedItemIdSet`. Important: ensure that for those files you configure the MongoDB exporter in pipeline to enable merging (`IsMergeEnabled`=`true`) so that the site item is not overwritten by the import of its parts.
 
-#### 🟢 Site Resources
+#### 🟩 Site Resources
 
 All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPart:site-res`.
 
@@ -278,7 +278,7 @@ All columns in this spreadsheet refer to site resources ▶️ `SiteResourcesPar
 
 (43) **AQ** (`cadmus_mapping`): ❌
 
-#### 🟢 Site Productions
+#### 🟩 Site Productions
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-prod`. These thesauri change their name because of the different part's role:
 
@@ -323,7 +323,7 @@ All columns in this spreadsheet refer to site resources, which target ▶️ `Si
 
 (42) **AP** (`cadmus_mapping`): ❌
 
-#### 🟢 Site Markers
+#### 🟩 Site Markers
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-mark`. These thesauri change their name because of the different part's role:
 
@@ -372,7 +372,7 @@ Columns 7-12 are booleans targeting 📚 `site-resource-features_site-mark@en` f
 
 (40) **AP** (`marker_feature_id`): ▶️ `SiteResourcesPart:site-mark.resources[].eid`.
 
-#### 🟢 Site Storages
+#### 🟩 Site Storages
 
 All columns in this spreadsheet refer to site resources, which target ▶️ `SiteResourcesPart:site-store`. These thesauri change their name because of the different part's role:
 

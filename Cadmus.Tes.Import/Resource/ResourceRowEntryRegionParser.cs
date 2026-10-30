@@ -1,16 +1,19 @@
-﻿using Cadmus.Tes.Import.Inscription;
+﻿using Cadmus.Import.Proteus;
+using Cadmus.Tes.Import.Inscription;
+using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
+using Proteus.Core;
 using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Cadmus.Tes.Import.Resource;
 
 /// <summary>
-/// TES row entry region parser for sites. This resets the context and
-/// adds a new item to it.
+/// TES row entry region parser for site resources. This resets the context and
+/// adds a new item to it, with a <see cref="SiteResourcesPart"/>. This is used
+/// for all resources in the site, each time with a specific part role ID.
 /// <para>Tag: <c>entry-region-parser.tes.row-site</c>.</para>
 /// </summary>
 /// <seealso cref="EntryRegionParser" />
@@ -22,11 +25,27 @@ namespace Cadmus.Tes.Import.Resource;
 /// <param name="logger">The logger.</param>
 [Tag("entry-region-parser.tes.row-resource")]
 public sealed class ResourceRowEntryRegionParser :
-    RowEntryRegionParser, IEntryRegionParser
+    RowEntryRegionParser, IEntryRegionParser,
+    IConfigurable<ResourceRowEntryRegionParserOptions>
 {
+    private string? _partRoleId = null;
+
     public ResourceRowEntryRegionParser()
     {
         FacetId = "resource";
+    }
+
+    /// <summary>
+    /// Applies the specified parser options to the current configuration.
+    /// </summary>
+    /// <param name="options">Options that provide configuration values for
+    /// the parser.</param>
+    /// <exception cref="ArgumentNullException">Null options</exception>
+    public void Configure(ResourceRowEntryRegionParserOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(options);
+
+        _partRoleId = options.PartRoleId;
     }
 
     /// <summary>
@@ -44,7 +63,25 @@ public sealed class ResourceRowEntryRegionParser :
         int entryIndex, IReadOnlyList<EntryRegion> entryRegions,
         int entryRegionIndex)
     {
-        return Task.FromResult(ParseRow(entrySet, entryIndex, entryRegions,
-            entryRegionIndex));
+        // create the new item and set it as current
+        int row = ParseRow(entrySet, entryIndex, entryRegions,
+            entryRegionIndex);
+
+        // add the resources part with the configured role ID to the item
+        CadmusEntrySetContext ctx = (CadmusEntrySetContext)entrySet.Context;
+        ctx.EnsurePartForCurrentItem<SiteResourcesPart>(_partRoleId);
+
+        return Task.FromResult(row);
     }
+}
+
+/// <summary>
+/// Represents configuration options for parsing a resource row entry region.
+/// </summary>
+public class ResourceRowEntryRegionParserOptions : DisabledOptions
+{
+    /// <summary>
+    /// Gets or sets the optional ID of the part role.
+    /// </summary>
+    public string? PartRoleId { get; set; }
 }

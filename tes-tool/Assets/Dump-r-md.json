@@ -40,7 +40,10 @@
   ],
   "entryRegionParsers": [
     {
-      "id": "entry-region-parser.tes.row-resource"
+      "id": "entry-region-parser.tes.row-resource",
+      "options": {
+        "partRoleId": "site-res"
+      }
     },
     {
       "id": "entry-region-parser.tes.col-parent-item-id",
