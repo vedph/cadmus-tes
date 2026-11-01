@@ -135,7 +135,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
       "options": {
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump-rp\\",
         "noEntries": true,
         "jsonParts": true
       }

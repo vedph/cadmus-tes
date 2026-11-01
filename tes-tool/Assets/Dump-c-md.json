@@ -171,7 +171,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
       "options": {
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump-c\\",
         "noEntries": true,
         "jsonParts": true
       }
@@ -179,7 +179,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.item-id",
       "options": {
-        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids-c.json"
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\item-ids-c.json"
       }
     }
   ]

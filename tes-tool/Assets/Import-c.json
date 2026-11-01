@@ -174,7 +174,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.item-id",
       "options": {
-        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids-c.json"
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\item-ids-c.json"
       }
     }
   ]

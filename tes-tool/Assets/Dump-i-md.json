@@ -5,7 +5,7 @@
   "entryReader": {
     "id": "entry-reader.xlsx",
     "options": {
-      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes.xlsx",
+      "inputFile": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-inscriptions.xlsx",
       "hasHeaderRow": true,
       "columnNameFiltering": true,
       "eofCheckColumn": 1,
@@ -116,7 +116,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.md-dump",
       "options": {
-        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\",
+        "outputDirectory": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump-i\\",
         "noEntries": true,
         "jsonParts": true
       }
@@ -124,7 +124,7 @@
     {
       "id": "it.vedph.entry-set-exporter.cadmus.item-id",
       "options": {
-        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\tes-dump\\item-ids-i.json"
+        "outputPath": "{{HOMEDRIVE}}{{HOMEPATH}}\\Desktop\\tes\\item-ids-i.json"
       }
     }
   ]

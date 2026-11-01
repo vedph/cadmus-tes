@@ -195,6 +195,22 @@ Most columns are handled by generic configurable parsers (namespace `Cadmus.Tes.
 
 Facet-specific parsers are in the namespaces `Inscription` and `Site`.
 
+**Sample dump commands** assuming that:
+
+- all Excel files are named like `tes-TYPE.xlsx` where `TYPE` is one of `artifacts`, `cults`, `inscriptions`, `markers`, `productions`, `resources`, `sites`, `storages`.
+- all dump and import pipelines have been copied from `tes-tool/Assets`.
+
+```sh
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-i-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-s-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-r-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-rp-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-rm-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-rs-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-c-md.json
+./tes-tool import c:/users/dfusi/desktop/tes/Dump-a-md.json
+```
+
 ---
 
 ### 🟢 Inscription
