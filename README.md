@@ -200,15 +200,30 @@ Facet-specific parsers are in the namespaces `Inscription` and `Site`.
 - all Excel files are named like `tes-TYPE.xlsx` where `TYPE` is one of `artifacts`, `cults`, `inscriptions`, `markers`, `productions`, `resources`, `sites`, `storages`.
 - all dump and import pipelines have been copied from `tes-tool/Assets`.
 
-```sh
+```ps1
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-i-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-i.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-s-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-s.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-r-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-r.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rp-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rp.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rm-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rm.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rs-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rs.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-c-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-c.txt"
+
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-a-md.json
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-a.txt"
 ```
 
 ---
