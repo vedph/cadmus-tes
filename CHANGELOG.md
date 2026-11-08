@@ -1,5 +1,6 @@
 # History
 
+- 2026-11-08: updated packages.
 - 2026-11-01: adjusted pipeline paths.
 - 2026-10-30:
   - added base `ColEntryRegionParser` and generic configurable parsers (`row-item`, `col-metadata`, `col-flags`, `col-note`, `col-periods`, `col-link-attr`, `col-taxo-link`, `col-res-property`), replacing facet-specific duplicates.
