@@ -62,7 +62,7 @@ internal sealed class IndexDatabaseCommand :
 
             // index
             AnsiConsole.WriteLine("Ensuring that index is created...");
-            await writer.CreateIndex();
+            await writer.CreateIndexAsync(cancel);
 
             await AnsiConsole.Progress().StartAsync(async ctx =>
             {
@@ -71,16 +71,16 @@ internal sealed class IndexDatabaseCommand :
                 {
                     Logger = LogService.CreateLogger<ItemIndexer>()
                 };
-                if (settings.ClearDatabase) await indexer.Clear();
+                if (settings.ClearDatabase) await indexer.ClearAsync();
 
-                indexer.Build(repository, new ItemFilter(),
-                    CancellationToken.None,
+                await indexer.BuildAsync(repository, new ItemFilter(),
                     new Progress<ProgressReport>(
-                        r => task.Increment(r.Percent - task.Value)));
+                        r => task.Increment(r.Percent - task.Value)),
+                    CancellationToken.None);
 
                 task.Increment(100 - task.Value);
             });
-            writer.Close();
+
             return 0;
         }
         catch (Exception ex)

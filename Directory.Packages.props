@@ -60,6 +60,6 @@
     <PackageVersion Include="TaxoStore.Api.Controllers" Version="2.0.2" />
     <PackageVersion Include="TaxoStore.Core" Version="2.0.2" />
     <PackageVersion Include="TaxoStore.PgSql" Version="2.0.2" />
-    <PackageVersion Include="xunit.v3" Version="4.0.2" />
+    <PackageVersion Include="xunit.v3" Version="4.0.3" />
   </ItemGroup>
 </Project>

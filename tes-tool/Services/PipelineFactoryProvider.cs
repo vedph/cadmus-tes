@@ -44,7 +44,7 @@ internal static class PipelineFactoryProvider
                 typeof(CadmusEntrySetContext).Assembly,
                 // Cadmus.Tes.Import
                 typeof(InscriptionRowEntryRegionParser).Assembly);
-        })
+            })
             .ConfigureLogging(logging =>
             {
                 // clear all providers: this avoids the default console logger

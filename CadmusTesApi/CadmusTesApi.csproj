@@ -4,6 +4,9 @@
 		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>disable</ImplicitUsings>
+		<Version>0.0.6</Version>
+		<FileVersion>0.0.6</FileVersion>
+		<AssemblyVersion>0.0.6</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -44,12 +47,10 @@
 	<ItemGroup Condition="'$(Configuration)'=='Debug'">
 	  <ProjectReference Include="..\Cadmus.Seed.Tes.Parts\Cadmus.Seed.Tes.Parts.csproj" />
 	  <ProjectReference Include="..\Cadmus.Tes.Parts\Cadmus.Tes.Parts.csproj" />
-	  <ProjectReference Include="..\tes-tool\tes-tool.csproj" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(Configuration)'=='Release'">
 		<PackageReference Include="Cadmus.Seed.Tes.Parts" />
 		<PackageReference Include="Cadmus.Tes.Parts" />
-		<PackageReference Include="tes-tool" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Cadmus.Tes.Services\Cadmus.Tes.Services.csproj" />

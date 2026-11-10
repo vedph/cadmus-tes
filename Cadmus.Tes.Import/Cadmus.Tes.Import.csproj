@@ -21,6 +21,9 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<Deterministic>true</Deterministic>
+		<Version>0.0.6</Version>
+		<FileVersion>0.0.6</FileVersion>
+		<AssemblyVersion>0.0.6</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

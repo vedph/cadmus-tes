@@ -2,12 +2,23 @@
 
 Backend for the Cadmus TES project.
 
-🐋 Quick Docker image build:
+## Docker Image
+
+- `vedph2020/cadmus-tes-api`
+
+🐋 Before creating Docker images, ensure you have a buildx builder instance running that supports multi-arch and that you have run `buildnpub.ps1` publishing NuGet packages:
 
 ```sh
-docker buildx create --use
+docker buildx create --use --name multi-arch-builder || docker buildx use multi-arch-builder
+docker buildx inspect --bootstrap
+```
 
-docker buildx build . --platform linux/amd64,linux/arm64,windows/amd64 -t vedph2020/cadmus-tes-api:0.0.4 -t vedph2020/cadmus-tes-api:latest --push
+Also, be sure to have run `buildnpub.ps1` for both local and remote NuGet feeds, so that the .NET CLI can restore all dependencies.
+
+Command:
+
+```sh
+docker buildx build --platform linux/amd64,linux/arm64 -t vedph2020/cadmus-tes-api:0.0.6 -t vedph2020/cadmus-tes-api:latest --push .
 ```
 
 (replace with the current version).

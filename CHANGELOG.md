@@ -1,5 +1,8 @@
 # History
 
+## 0.0.6
+
+- 2026-11-10: updated packages.
 - 2026-11-08: updated packages.
 - 2026-11-01: adjusted pipeline paths.
 - 2026-10-30:
