@@ -40,6 +40,7 @@ services:
       - CONNECTIONSTRINGS__AUTH=Server=cadmus-tes-pgsql;port=5432;Database={0};User Id=postgres;Password=postgres;Include Error Detail=True
       - CONNECTIONSTRINGS__INDEX=Server=cadmus-tes-pgsql;port=5432;Database={0};User Id=postgres;Password=postgres;Include Error Detail=True
       - CONNECTIONSTRINGS__MOL=Server=cadmus-tes-pgsql;port=5432;Database=mol;User Id=postgres;Password=postgres;Include Error Detail=True
+      - CONNECTIONSTRINGS__TAXOSTORE=Server=cadmus-tes-pgsql;port=5432;Database=taxo-tes;User Id=postgres;Password=postgres;Include Error Detail=True
       - SERILOG__CONNECTIONSTRING=mongodb://cadmus-tes-mongo:27017/{0}-log
       - STOCKUSERS__0__PASSWORD=P4ss-W0rd!
       - SEED__DELAY=20
