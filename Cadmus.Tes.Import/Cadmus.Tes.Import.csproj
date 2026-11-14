@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFramework>net11.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IncludeSymbols>true</IncludeSymbols>
@@ -21,15 +21,16 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<Deterministic>true</Deterministic>
-		<Version>0.0.6</Version>
-		<FileVersion>0.0.6</FileVersion>
-		<AssemblyVersion>0.0.6</AssemblyVersion>
+		<Version>0.1.0</Version>
+		<FileVersion>0.1.0</FileVersion>
+		<AssemblyVersion>0.1.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Cadmus.Epigraphy.Parts" />
 		<PackageReference Include="Cadmus.General.Parts" />
 		<PackageReference Include="Cadmus.Geo.Parts" />
+		<PackageReference Include="Cadmus.Import.Excel" />
 		<PackageReference Include="Cadmus.Import.Proteus" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
 	</ItemGroup>

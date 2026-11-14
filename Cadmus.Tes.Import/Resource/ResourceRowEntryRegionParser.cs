@@ -1,4 +1,5 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Excel;
+using Cadmus.Import.Proteus;
 using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
 using Proteus.Core;
@@ -15,7 +16,7 @@ namespace Cadmus.Tes.Import.Resource;
 /// the configured role ID and a new resource for the row. Column parsers then
 /// fill this resource. This is used for all resources in the site, each time
 /// with a specific part role ID. The item will then get the ID of its parent
-/// site (see <see cref="ColParentItemIdEntryRegionParser"/>).
+/// site (see <see cref="ColResParentItemIdEntryRegionParser"/>).
 /// <para>Tag: <c>entry-region-parser.tes.row-resource</c>.</para>
 /// </summary>
 /// <seealso cref="RowEntryRegionParser" />

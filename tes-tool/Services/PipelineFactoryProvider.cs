@@ -1,4 +1,5 @@
-﻿using Cadmus.Import.Proteus;
+﻿using Cadmus.Import.Excel;
+using Cadmus.Import.Proteus;
 using Cadmus.Tes.Import.Inscription;
 using Fusi.Microsoft.Extensions.Configuration.InMemoryJson;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +43,8 @@ internal static class PipelineFactoryProvider
                 typeof(ExcelEntryReader).Assembly,
                 // Cadmus.Import.Proteus
                 typeof(CadmusEntrySetContext).Assembly,
+                // Cadmus.Import.Excel
+                typeof(ImportHelper).Assembly,
                 // Cadmus.Tes.Import
                 typeof(InscriptionRowEntryRegionParser).Assembly);
             })

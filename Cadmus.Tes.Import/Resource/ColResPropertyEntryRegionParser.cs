@@ -1,3 +1,4 @@
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
@@ -67,7 +68,7 @@ public sealed class ColResPropertyEntryRegionParser : ColEntryRegionParser,
             return;
         }
 
-        SiteResource? resource = ImportHelper.GetCurrentResource(context,
+        SiteResource? resource = TesImportHelper.GetCurrentResource(context,
             _options.ResourceRoleId, region, Logger);
         if (resource == null) return;
 

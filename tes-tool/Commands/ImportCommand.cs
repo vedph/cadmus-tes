@@ -1,5 +1,5 @@
-﻿using Cadmus.Import.Proteus;
-using Cadmus.Tes.Import;
+﻿using Cadmus.Import.Excel;
+using Cadmus.Import.Proteus;
 using Microsoft.Extensions.Logging;
 using Proteus.Core.Regions;
 using Proteus.Entries.Config;

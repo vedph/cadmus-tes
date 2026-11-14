@@ -186,23 +186,32 @@ As for naming, note that (this is relevant to validate JSON pipeline configurati
 
 Finally, an exporter in the Proteus pipeline exports the item either in a Markdown file for diagnostic purposes, or into a MongoDB database. Here the import covers multiple items, so each item type has its own pipeline profile. Their pipeline profiles are in `tes-tool/Assets` (`Dump*` for those exporting Markdown, `Import*` for those exporting into a database).
 
-Most columns are handled by generic configurable parsers (namespace `Cadmus.Tes.Import`), each configured with the region tag it handles (`tag`) and its target:
+Most columns are handled by generic configurable parsers shared by all Cadmus projects, in the core library `Cadmus.Import.Excel` (from the Cadmus solution), each configured with the region tag it handles (`tag`) and its target:
 
-| parser ID (`entry-region-parser.tes.`) | purpose                                                                                                                          |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `row-item`                             | create an item with the specified facet (`facetId`) for each row.                                                                |
-| `col-metadata`                         | add a metadatum (`name`) and/or set the item's title (`setTitle`); for `eid`, optionally reuse IDs (`reuseIdsFrom`).             |
-| `col-categories`                       | map labels (single or multiple) via a thesaurus to `CategoriesPart` with a role.                                                 |
-| `col-flags`                            | map boolean (`YES`) columns to thesaurus entry IDs, into `CategoriesPart` or resource features (`resourceRoleId`).               |
-| `col-note`                             | append text, optionally under a heading, to `NotePart` with a role or to the resource note (`resourceRoleId`).                   |
-| `col-coords`                           | `ycoord`, `xcoord`, `coord_certainty` into `AssertedLocationsPart` or the resource location (`resourceRoleId`).                  |
-| `col-periods`                          | `period_1`-`period_22` into `AssertedHistoricalDatesPart`, resource dates (`resourceRoleId`), or `CommentPart` (`target`).       |
-| `col-internal-link`                    | internal link to the item with the EID in the cell, looked up in an item IDs set (`itemIdsSet`).                                 |
-| `col-link-attr`                        | set the rank, note or tag of the links with the specified scope added by a previous column.                                      |
-| `col-taxo-link`                        | taxonomy links (`@TX:TREEID/NODEKEY`), resolving labels via `trees.csv` and `nodes.csv` in `taxonomyDir`.                        |
-| `col-parent-item-id`                   | merge the row into the item imported in a previous pass, whose EID is in the cell; rows with an unknown EID are skipped.          |
-| `row-resource`                         | (namespace `Resource`) create an item with a `SiteResourcesPart` with a role and a new resource for each row.                    |
-| `col-res-property`                     | (namespace `Resource`) set the EID, type, tag, or features of the resource of the row.                                           |
+| parser ID (`it.vedph.entry-region-parser.xlsx.`) | purpose                                                                                                                                         |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `row-item`                                       | create an item with the specified facet (`facetId`) for each row.                                                                               |
+| `col-metadata`                                   | add a metadatum (`name`) and/or set the item's title (`setTitle`) or group ID (`setGroupId`); for `eid`, optionally reuse IDs (`reuseIdsFrom`). |
+| `col-categories`                                 | map labels or entry IDs (single or multiple) via a thesaurus to `CategoriesPart` with a role.                                                   |
+| `col-flags`                                      | map boolean (`YES`) columns to thesaurus entry IDs into `CategoriesPart`.                                                                       |
+| `col-note`                                       | append text, optionally under a heading, to `NotePart` with a role.                                                                             |
+| `col-periods`                                    | `period_1`-`period_22` into `AssertedHistoricalDatesPart` or `CommentPart` (`target`).                                                          |
+| `col-internal-link`                              | internal link to the item with the EID in the cell, looked up in an item IDs set (`itemIdsSet`).                                                |
+| `col-link-attr`                                  | set the rank, note or tag of the links with the specified scope added by a previous column.                                                     |
+| `col-taxo-link`                                  | taxonomy links (`@TX:TREEID/NODEKEY`), resolving labels via `trees.csv` and `nodes.csv` in `taxonomyDir`.                                       |
+| `col-parent-item-id`                             | merge the row into the item imported in a previous pass, whose EID is in the cell; rows with an unknown EID are skipped.                        |
+
+The shared library also has `col-ext-link`, `col-keywords` and `col-measures`, not used here. The TES-specific parsers (namespace `Cadmus.Tes.Import`) are:
+
+| parser ID (`entry-region-parser.tes.`) | purpose                                                                                                         |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `col-coords`                           | `ycoord`, `xcoord`, `coord_certainty` into `AssertedLocationsPart` or the resource location (`resourceRoleId`). |
+| `row-resource`                         | (namespace `Resource`) create an item with a `SiteResourcesPart` with a role and a new resource for each row.   |
+| `col-res-property`                     | (namespace `Resource`) set the EID, type, tag, or features of the resource of the row.                          |
+| `col-res-flags`                        | (namespace `Resource`) map boolean (`YES`) columns to thesaurus entry IDs into the resource features.           |
+| `col-res-note`                         | (namespace `Resource`) append text, optionally under a heading, to the resource note.                           |
+| `col-res-periods`                      | (namespace `Resource`) `period_1`-`period_22` into the resource dates.                                          |
+| `col-res-parent-item-id`               | (namespace `Resource`) as `col-parent-item-id`, accumulating the resources of all the rows of the same site.    |
 
 Facet-specific parsers are in the namespaces `Inscription` and `Site`.
 
@@ -213,28 +222,28 @@ Facet-specific parsers are in the namespaces `Inscription` and `Site`.
 
 ```ps1
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-i-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-i.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-i.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-s-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-s.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-s.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-r-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-r.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-r.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rp-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rp.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rp.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rm-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rm.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rm.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-rs-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rs.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-rs.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-c-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-c.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-c.txt"
 
 ./tes-tool import c:/users/dfusi/desktop/tes/Dump-a-md.json
-Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net10.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-a.txt"
+Move-Item "D:\Projects\Cadmus\Tes\CadmusTes\tes-tool\bin\Debug\net11.0\tes-log*.txt" "C:\Users\dfusi\Desktop\tes\tes-log-a.txt"
 ```
 
 ---
@@ -630,11 +639,12 @@ Columns 16-23 are booleans targeting 📚 `categories_cult-feats@en` for ▶️ 
 
 ### Code Template
 
-Template for a column region parser. Prefer the generic configurable parsers listed above when possible; when a new parser is required, derive it from `ColEntryRegionParser`, which checks for the current item, gets the filtered cell value, and skips rows marked as skipped. Use `ImportHelper` for thesauri, ranks, coordinates, notes, and item IDs.
+Template for a column region parser. Prefer the generic configurable parsers listed above when possible; when a new parser is required, derive it from `ColEntryRegionParser` (in `Cadmus.Import.Excel`), which checks for the current item, gets the filtered cell value, and skips rows marked as skipped. Use `ImportHelper` (in `Cadmus.Import.Excel`) for thesauri, ranks, coordinates, notes, and item IDs, and `TesImportHelper` for site resources.
 
 - `__TAG__`: the region tag.
 
 ```cs
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Proteus.Core.Regions;

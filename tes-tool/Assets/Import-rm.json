@@ -48,7 +48,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-parent-item-id",
+      "id": "entry-region-parser.tes.col-res-parent-item-id",
       "options": {
         "tag": "col-site_id",
         "itemIdsSet": "item-ids-s"
@@ -78,7 +78,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-flags",
+      "id": "entry-region-parser.tes.col-res-flags",
       "options": {
         "thesaurusId": "site-resource-features_site-mark@en",
         "resourceRoleId": "site-mark",
@@ -93,13 +93,13 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-periods",
+      "id": "entry-region-parser.tes.col-res-periods",
       "options": {
         "resourceRoleId": "site-mark"
       }
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "entry-region-parser.tes.col-res-note",
       "options": {
         "tag": "col-evidence_note",
         "resourceRoleId": "site-mark",
@@ -107,7 +107,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "entry-region-parser.tes.col-res-note",
       "options": {
         "tag": "col-certainty_note",
         "resourceRoleId": "site-mark",

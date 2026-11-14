@@ -1,4 +1,5 @@
 ﻿using Cadmus.Geo.Parts;
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Microsoft.Extensions.Logging;

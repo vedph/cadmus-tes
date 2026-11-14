@@ -1,11 +1,11 @@
 # Stage 1: base (uses target platform architecture for ASP.NET runtime)
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:11.0 AS base
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 443
 
 # Stage 2: build/publish (SDK runs natively on host platform for speed)
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:11.0 AS build
 ARG TARGETARCH
 ARG TARGETOS
 

@@ -1,5 +1,14 @@
 # History
 
+## 1.0.0
+
+- 2026-11-14:
+  - ⚠️ upgraded to .NET 11 and Cadmus 18.
+  - ⚠️ moved the generic parsers (`row-item`, `col-metadata`, `col-categories`, `col-flags`, `col-note`, `col-periods`, `col-internal-link`, `col-link-attr`, `col-taxo-link`, `col-parent-item-id`) and `ImportHelper` to the shared library `Cadmus.Import.Excel`: their IDs are now prefixed with `it.vedph.entry-region-parser.xlsx.` rather than `entry-region-parser.tes.`. Pipelines in `tes-tool/Assets` were updated accordingly.
+  - ⚠️ resource targets of flags, note, periods and parent item ID moved into TES-specific parsers `col-res-flags`, `col-res-note`, `col-res-periods`, `col-res-parent-item-id`.
+  - renamed TES `ImportHelper` to `TesImportHelper` (site resources only).
+  - added unit tests for all the TES parsers.
+
 ## 0.0.6
 
 - 2026-11-10: updated packages.

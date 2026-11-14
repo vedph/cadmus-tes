@@ -1,5 +1,4 @@
 ﻿using Cadmus.Index.Config;
-using Cadmus.Index.Ef.PgSql;
 using Cadmus.Index.PgSql;
 using Fusi.Microsoft.Extensions.Configuration.InMemoryJson;
 using Microsoft.Extensions.Hosting;

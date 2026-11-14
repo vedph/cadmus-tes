@@ -1,4 +1,5 @@
 ﻿using Cadmus.Geo.Parts;
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Cadmus.Refs.Bricks;
 using Cadmus.Tes.Parts;
@@ -58,7 +59,7 @@ public sealed class ColCoordsEntryRegionParser : ColEntryRegionParser,
 
         if (_options.ResourceRoleId != null)
         {
-            SiteResource? resource = ImportHelper.GetCurrentResource(context,
+            SiteResource? resource = TesImportHelper.GetCurrentResource(context,
                 _options.ResourceRoleId, region, Logger);
             if (resource == null) return;
 

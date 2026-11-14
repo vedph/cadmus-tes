@@ -12,11 +12,16 @@ namespace Cadmus.Tes.Import.Test;
 
 /// <summary>
 /// Validates the pipeline profiles in <c>tes-tool/Assets</c> against the
-/// region parsers defined in this project.
+/// region parsers defined in this project and in the shared
+/// <c>Cadmus.Import.Excel</c> library.
 /// </summary>
 public sealed class PipelineConfigTest
 {
-    private const string PARSER_PREFIX = "entry-region-parser.tes.";
+    private static readonly string[] _prefixes =
+    [
+        "entry-region-parser.tes.",
+        "it.vedph.entry-region-parser.xlsx."
+    ];
 
     private static readonly JsonSerializerOptions _jsonOptions = new()
     {
@@ -25,11 +30,16 @@ public sealed class PipelineConfigTest
     };
 
     private static readonly Dictionary<string, Type> _parsers =
-        typeof(ImportHelper).Assembly.GetTypes()
-            .Where(t => !t.IsAbstract &&
-                typeof(IEntryRegionParser).IsAssignableFrom(t) &&
-                t.GetCustomAttribute<TagAttribute>() != null)
-            .ToDictionary(t => t.GetCustomAttribute<TagAttribute>()!.Tag);
+        new[]
+        {
+            typeof(TesImportHelper).Assembly,
+            typeof(Cadmus.Import.Excel.ImportHelper).Assembly
+        }
+        .SelectMany(a => a.GetTypes())
+        .Where(t => !t.IsAbstract &&
+            typeof(IEntryRegionParser).IsAssignableFrom(t) &&
+            t.GetCustomAttribute<TagAttribute>(false) != null)
+        .ToDictionary(t => t.GetCustomAttribute<TagAttribute>(false)!.Tag);
 
     private static string GetAssetsDir()
     {
@@ -75,8 +85,8 @@ public sealed class PipelineConfigTest
     [Fact]
     public void ParserTags_AreDistinct()
     {
-        List<string> tags = [.. typeof(ImportHelper).Assembly.GetTypes()
-            .Select(t => t.GetCustomAttribute<TagAttribute>()?.Tag)
+        List<string> tags = [.. typeof(TesImportHelper).Assembly.GetTypes()
+            .Select(t => t.GetCustomAttribute<TagAttribute>(false)?.Tag)
             .Where(t => t != null)
             .Select(t => t!)];
 
@@ -95,7 +105,7 @@ public sealed class PipelineConfigTest
             .GetProperty("entryRegionParsers").EnumerateArray())
         {
             string id = p.GetProperty("id").GetString()!;
-            Assert.StartsWith(PARSER_PREFIX, id);
+            Assert.Contains(_prefixes, prefix => id.StartsWith(prefix));
             Assert.True(_parsers.ContainsKey(id), $"{fileName}: unknown parser {id}");
 
             IEntryRegionParser parser = CreateParser(id,

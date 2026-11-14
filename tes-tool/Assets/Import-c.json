@@ -41,13 +41,13 @@
   ],
   "entryRegionParsers": [
     {
-      "id": "entry-region-parser.tes.row-item",
+      "id": "it.vedph.entry-region-parser.xlsx.row-item",
       "options": {
         "facetId": "cult"
       }
     },
     {
-      "id": "entry-region-parser.tes.col-internal-link",
+      "id": "it.vedph.entry-region-parser.xlsx.col-internal-link",
       "options": {
         "tag": "col-site_id",
         "itemIdsSet": "item-ids-s",
@@ -55,7 +55,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-categories",
+      "id": "it.vedph.entry-region-parser.xlsx.col-categories",
       "options": {
         "tag": "col-data_accuracy",
         "thesaurusId": "categories_evidence@en",
@@ -63,7 +63,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-categories",
+      "id": "it.vedph.entry-region-parser.xlsx.col-categories",
       "options": {
         "tag": "col-cult_element_type",
         "thesaurusId": "categories_cult-type@en",
@@ -71,7 +71,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-metadata",
+      "id": "it.vedph.entry-region-parser.xlsx.col-metadata",
       "options": {
         "tag": "col-cult_element_id",
         "name": "eid",
@@ -84,7 +84,7 @@
       "id": "entry-region-parser.tes.col-coords"
     },
     {
-      "id": "entry-region-parser.tes.col-internal-link",
+      "id": "it.vedph.entry-region-parser.xlsx.col-internal-link",
       "options": {
         "tag": "col-related_cult_element_id",
         "itemIdsSet": "item-ids-c",
@@ -92,7 +92,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-link-attr",
+      "id": "it.vedph.entry-region-parser.xlsx.col-link-attr",
       "options": {
         "tag": "col-relation_type",
         "scope": "cult",
@@ -100,7 +100,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-link-attr",
+      "id": "it.vedph.entry-region-parser.xlsx.col-link-attr",
       "options": {
         "tag": "col-relation_certainty",
         "scope": "cult",
@@ -108,7 +108,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-taxo-link",
+      "id": "it.vedph.entry-region-parser.xlsx.col-taxo-link",
       "options": {
         "tag": "col-divinity",
         "treeId": "gods",
@@ -116,7 +116,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-link-attr",
+      "id": "it.vedph.entry-region-parser.xlsx.col-link-attr",
       "options": {
         "tag": "col-divinity_certainty",
         "scope": "gods",
@@ -124,7 +124,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-flags",
+      "id": "it.vedph.entry-region-parser.xlsx.col-flags",
       "options": {
         "thesaurusId": "categories_cult-feats@en",
         "partRoleId": "cult-feats",
@@ -141,21 +141,21 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-periods",
+      "id": "it.vedph.entry-region-parser.xlsx.col-periods",
       "options": {
         "target": "Comment",
         "heading": "Chronology"
       }
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "it.vedph.entry-region-parser.xlsx.col-note",
       "options": {
         "tag": "col-evidence_note",
         "partRoleId": "evidence"
       }
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "it.vedph.entry-region-parser.xlsx.col-note",
       "options": {
         "tag": "col-certainty_note",
         "partRoleId": "certainty"

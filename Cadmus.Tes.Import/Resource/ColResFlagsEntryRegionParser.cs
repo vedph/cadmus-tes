@@ -1,4 +1,4 @@
-using Cadmus.General.Parts;
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Cadmus.Tes.Parts;
 using Fusi.Tools.Configuration;
@@ -8,24 +8,23 @@ using Proteus.Core.Regions;
 using System;
 using System.Collections.Generic;
 
-namespace Cadmus.Tes.Import;
+namespace Cadmus.Tes.Import.Resource;
 
 /// <summary>
-/// TES boolean flag columns entry region parser. Each handled column is
-/// mapped to a thesaurus entry ID: when its cell contains <c>YES</c>, the
-/// entry ID is added to the item's <see cref="CategoriesPart"/> with the
-/// configured role; or, when <see cref="ColFlagsEntryRegionParserOptions.
-/// ResourceRoleId"/> is set, to the features of the current resource in the
-/// <see cref="SiteResourcesPart"/> with that role.
-/// <para>Tag: <c>entry-region-parser.tes.col-flags</c>.</para>
+/// TES boolean flag columns entry region parser for resources. Each handled
+/// column is mapped to a thesaurus entry ID: when its cell contains
+/// <c>YES</c>, the entry ID is added to the features of the current resource,
+/// i.e. the last resource in the <see cref="SiteResourcesPart"/> with the
+/// configured role (see <see cref="ResourceRowEntryRegionParser"/>).
+/// <para>Tag: <c>entry-region-parser.tes.col-res-flags</c>.</para>
 /// </summary>
 /// <seealso cref="ColEntryRegionParser" />
 /// <seealso cref="IEntryRegionParser" />
-[Tag("entry-region-parser.tes.col-flags")]
-public sealed class ColFlagsEntryRegionParser : ColEntryRegionParser,
-    IEntryRegionParser, IConfigurable<ColFlagsEntryRegionParserOptions>
+[Tag("entry-region-parser.tes.col-res-flags")]
+public sealed class ColResFlagsEntryRegionParser : ColEntryRegionParser,
+    IEntryRegionParser, IConfigurable<ColResFlagsEntryRegionParserOptions>
 {
-    private ColFlagsEntryRegionParserOptions _options = new();
+    private ColResFlagsEntryRegionParserOptions _options = new();
 
     /// <summary>
     /// Gets the tags of the regions that this parser can handle.
@@ -37,7 +36,7 @@ public sealed class ColFlagsEntryRegionParser : ColEntryRegionParser,
     /// </summary>
     /// <param name="options">The options.</param>
     /// <exception cref="ArgumentNullException">Null options.</exception>
-    public void Configure(ColFlagsEntryRegionParserOptions options)
+    public void Configure(ColResFlagsEntryRegionParserOptions options)
     {
         _options = options ?? throw new ArgumentNullException(nameof(options));
         ConfigureBaseOptions(options);
@@ -70,49 +69,36 @@ public sealed class ColFlagsEntryRegionParser : ColEntryRegionParser,
                 id, Logger);
         }
 
-        if (_options.ResourceRoleId != null)
-        {
-            SiteResource? resource = ImportHelper.GetCurrentResource(context,
-                _options.ResourceRoleId, region, Logger);
-            if (resource == null) return;
-            resource.Features ??= [];
-            if (!resource.Features.Contains(id)) resource.Features.Add(id);
-            return;
-        }
+        SiteResource? resource = TesImportHelper.GetCurrentResource(context,
+            _options.ResourceRoleId, region, Logger);
+        if (resource == null) return;
 
-        CategoriesPart part = context.EnsurePartForCurrentItem<CategoriesPart>(
-            _options.PartRoleId);
-        if (!part.Categories.Contains(id)) part.Categories.Add(id);
+        resource.Features ??= [];
+        if (!resource.Features.Contains(id)) resource.Features.Add(id);
     }
 }
 
 /// <summary>
-/// Options for <see cref="ColFlagsEntryRegionParser"/>.
+/// Options for <see cref="ColResFlagsEntryRegionParser"/>.
 /// </summary>
-public class ColFlagsEntryRegionParserOptions : DisabledOptions
+public class ColResFlagsEntryRegionParserOptions : DisabledOptions
 {
     /// <summary>
     /// Gets or sets the flags, where each key is a column region tag (e.g.
-    /// <c>col-cults</c>) and each value is the corresponding thesaurus entry
-    /// ID (e.g. <c>cults</c>).
+    /// <c>col-jewelry</c>) and each value is the corresponding thesaurus entry
+    /// ID (e.g. <c>jewelry</c>).
     /// </summary>
     public Dictionary<string, string> Flags { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the optional ID of the thesaurus used to validate entry
-    /// IDs (e.g. <c>categories_site-feats@en</c>).
+    /// IDs.
     /// </summary>
     public string? ThesaurusId { get; set; }
 
     /// <summary>
-    /// Gets or sets the optional role ID of the target categories part.
-    /// </summary>
-    public string? PartRoleId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the role ID of the <see cref="SiteResourcesPart"/> whose
-    /// current resource features are the target. When set, this replaces the
-    /// categories part target.
+    /// Gets or sets the role ID of the target resources part (e.g.
+    /// <c>site-mark</c>).
     /// </summary>
     public string? ResourceRoleId { get; set; }
 }

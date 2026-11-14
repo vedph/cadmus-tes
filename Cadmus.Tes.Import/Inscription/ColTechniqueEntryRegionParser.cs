@@ -1,4 +1,5 @@
 ﻿using Cadmus.Epigraphy.Parts;
+using Cadmus.Import.Excel;
 using Cadmus.Import.Proteus;
 using Fusi.Tools.Configuration;
 using Proteus.Core.Regions;

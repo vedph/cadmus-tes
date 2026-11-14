@@ -44,7 +44,7 @@
       "id": "entry-region-parser.tes.row-site"
     },
     {
-      "id": "entry-region-parser.tes.col-metadata",
+      "id": "it.vedph.entry-region-parser.xlsx.col-metadata",
       "options": {
         "tag": "col-site_id",
         "name": "eid",
@@ -56,7 +56,7 @@
       "id": "entry-region-parser.tes.col-site-name"
     },
     {
-      "id": "entry-region-parser.tes.col-categories",
+      "id": "it.vedph.entry-region-parser.xlsx.col-categories",
       "options": {
         "tag": "col-archaeological_site_type",
         "thesaurusId": "categories_site-type@en",
@@ -64,7 +64,7 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-categories",
+      "id": "it.vedph.entry-region-parser.xlsx.col-categories",
       "options": {
         "tag": "col-data_accuracy",
         "thesaurusId": "categories_evidence@en",
@@ -81,7 +81,7 @@
       "id": "entry-region-parser.tes.col-site-geonames"
     },
     {
-      "id": "entry-region-parser.tes.col-flags",
+      "id": "it.vedph.entry-region-parser.xlsx.col-flags",
       "options": {
         "thesaurusId": "categories_site-feats@en",
         "partRoleId": "site-feats",
@@ -97,17 +97,17 @@
       }
     },
     {
-      "id": "entry-region-parser.tes.col-periods"
+      "id": "it.vedph.entry-region-parser.xlsx.col-periods"
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "it.vedph.entry-region-parser.xlsx.col-note",
       "options": {
         "tag": "col-evidence_note",
         "partRoleId": "evidence"
       }
     },
     {
-      "id": "entry-region-parser.tes.col-note",
+      "id": "it.vedph.entry-region-parser.xlsx.col-note",
       "options": {
         "tag": "col-certainty_note",
         "partRoleId": "certainty"
