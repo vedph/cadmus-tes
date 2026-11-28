@@ -37,6 +37,7 @@
     <PackageVersion Include="Fusi.Antiquity" Version="7.0.1" />
     <PackageVersion Include="Fusi.Cli.Logging" Version="2.0.0" />
     <PackageVersion Include="Fusi.Microsoft.Extensions.Configuration.InMemoryJson" Version="6.0.0" />
+    <PackageVersion Include="Iconclass.Api.Controllers" Version="0.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="11.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="11.0.0" />
@@ -47,7 +48,7 @@
     <PackageVersion Include="Polly" Version="8.9.1" />
     <PackageVersion Include="Proteus.Entries" Version="15.0.1" />
     <PackageVersion Include="Proteus.Extras" Version="15.0.1" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="3.2.0" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="3.3.0" />
     <PackageVersion Include="Serilog" Version="4.4.0" />
     <PackageVersion Include="Serilog.AspNetCore" Version="11.0.0" />
     <PackageVersion Include="Serilog.Exceptions" Version="8.4.0" />
@@ -56,7 +57,7 @@
     <PackageVersion Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageVersion Include="Serilog.Sinks.MongoDB" Version="8.0.0" />
-    <PackageVersion Include="Serilog.Sinks.Postgresql.Alternative" Version="4.3.0" />
+    <PackageVersion Include="Serilog.Sinks.Postgresql.Alternative" Version="4.4.0" />
     <PackageVersion Include="Spectre.Console" Version="0.57.2" />
     <PackageVersion Include="Spectre.Console.Cli" Version="0.57.2" />
     <PackageVersion Include="TaxoStore.Api.Controllers" Version="3.0.0" />

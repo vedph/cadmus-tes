@@ -8,6 +8,7 @@ using Cadmus.Core;
 using Cadmus.Core.Config;
 using Cadmus.Seed;
 using Cadmus.Tes.Services;
+using Iconclass.Api.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
@@ -81,6 +82,18 @@ public static class Program
 
             options.InitializationDelaySeconds =
                 config.GetValue("TaxoStore:InitializationDelaySeconds", 0);
+        });
+
+        // Iconclass
+        IConfigurationSection section = config.GetSection("Iconclass");
+        services.AddIconclassServices(options =>
+        {
+            options.ConnectionString = config.GetConnectionString("Iconclass");
+            options.DataDirectory = section["DataDirectory"];
+            options.Languages = section.GetSection("Languages").Get<string[]>();
+            options.InitializationDelaySeconds =
+                section.GetValue("InitializationDelaySeconds", 0);
+            options.WikidataUserAgent = section["WikidataUserAgent"];
         });
     }
 

@@ -25,6 +25,7 @@
 		<PackageReference Include="Cadmus.Seed.General.Parts" />
 		<PackageReference Include="Cadmus.Seed.Philology.Parts" />
 		<PackageReference Include="Fusi.Antiquity" />
+		<PackageReference Include="Iconclass.Api.Controllers" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
