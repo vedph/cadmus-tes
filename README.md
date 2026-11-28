@@ -18,7 +18,7 @@ Also, be sure to have run `buildnpub.ps1` for both local and remote NuGet feeds,
 Command:
 
 ```sh
-docker buildx build --platform linux/amd64,linux/arm64 -t vedph2020/cadmus-tes-api:1.1.0 -t vedph2020/cadmus-tes-api:latest --push .
+docker buildx build --platform linux/amd64,linux/arm64 -t vedph2020/cadmus-tes-api:1.2.0 -t vedph2020/cadmus-tes-api:latest --push .
 ```
 
 (replace with the current version).

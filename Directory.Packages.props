@@ -3,9 +3,9 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Cadmus.Seed.Tes.Parts" Version="1.1.0" />
-    <PackageVersion Include="Cadmus.Tes.Import" Version="1.1.0" />
-    <PackageVersion Include="Cadmus.Tes.Parts" Version="1.1.0" />
+    <PackageVersion Include="Cadmus.Seed.Tes.Parts" Version="1.2.0" />
+    <PackageVersion Include="Cadmus.Tes.Import" Version="1.2.0" />
+    <PackageVersion Include="Cadmus.Tes.Parts" Version="1.2.0" />
     <!-- external packages -->
     <PackageVersion Include="Cadmus.Api.Config" Version="18.1.0" />
     <PackageVersion Include="Cadmus.Api.Controllers" Version="18.1.0" />

@@ -1,6 +1,11 @@
 # History
 
+## 1.2.0
+
 - 2026-11-28: added Iconclass API.
+
+## 1.1.0
+
 - 2026-11-23: updated packages (support for history in editor).
 
 ## 1.0.0

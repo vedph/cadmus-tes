@@ -27,7 +27,7 @@ services:
 
   # Cadmus tes API
   cadmus-tes-api:
-    image: vedph2020/cadmus-tes-api:0.0.4
+    image: vedph2020/cadmus-tes-api:1.2.0
     container_name: cadmus-tes-api
     ports:
       - 5101:8080
@@ -41,6 +41,7 @@ services:
       - CONNECTIONSTRINGS__INDEX=Server=cadmus-tes-pgsql;port=5432;Database={0};User Id=postgres;Password=postgres;Include Error Detail=True
       - CONNECTIONSTRINGS__MOL=Server=cadmus-tes-pgsql;port=5432;Database=mol;User Id=postgres;Password=postgres;Include Error Detail=True
       - CONNECTIONSTRINGS__TAXOSTORE=Server=cadmus-tes-pgsql;port=5432;Database=taxo-tes;User Id=postgres;Password=postgres;Include Error Detail=True
+      - CONNECTIONSTRINGS__ICONCLASS=Server=cadmus-tes-pgsql;port=5432;Database=iconclass;User Id=postgres;Password=postgres;Include Error Detail=True
       - SERILOG__CONNECTIONSTRING=mongodb://cadmus-tes-mongo:27017/{0}-log
       - STOCKUSERS__0__PASSWORD=P4ss-W0rd!
       - SEED__DELAY=20
